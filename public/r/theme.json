@@ -1,0 +1,305 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme",
+  "title": "Ravenwood theme",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "HSL tokens, Fraunces and Figtree, lantern focus ring, page grain, and thinner Lucide strokes. Overlay this on an existing shadcn project.",
+  "registryDependencies": [
+    "font-figtree",
+    "raythurman2386/ravenwood-ui/font-fraunces"
+  ],
+  "cssVars": {
+    "theme": {
+      "font-heading": "var(--font-serif)",
+      "ease-enter": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "ease-exit": "cubic-bezier(0.4, 0, 1, 1)",
+      "ease-press": "cubic-bezier(0, 0, 0.2, 1)",
+      "ease-snap": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+      "ease-ground": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "duration-snap": "110ms",
+      "duration-ui": "180ms",
+      "duration-overlay": "200ms",
+      "duration-overlay-exit": "160ms",
+      "duration-layout": "220ms",
+      "duration-gentle": "220ms",
+      "duration-press": "90ms",
+      "duration-fade": "150ms",
+      "duration-scrim": "160ms"
+    },
+    "light": {
+      "background": "hsl(40 33% 94%)",
+      "foreground": "hsl(120 10% 12%)",
+      "card": "hsl(40 42% 97%)",
+      "card-foreground": "hsl(120 10% 12%)",
+      "popover": "hsl(40 42% 97%)",
+      "popover-foreground": "hsl(120 10% 12%)",
+      "primary": "hsl(158 48% 24%)",
+      "primary-foreground": "hsl(40 45% 97%)",
+      "secondary": "hsl(40 22% 89%)",
+      "secondary-foreground": "hsl(120 10% 14%)",
+      "muted": "hsl(80 14% 90%)",
+      "muted-foreground": "hsl(120 8% 32%)",
+      "accent": "hsl(40 36% 88%)",
+      "accent-foreground": "hsl(32 32% 20%)",
+      "destructive": "hsl(8 52% 36%)",
+      "border": "hsl(40 14% 78%)",
+      "input": "hsl(40 16% 84%)",
+      "ring": "hsl(36 46% 36%)",
+      "moss": "hsl(140 24% 91%)",
+      "moss-foreground": "hsl(152 28% 18%)",
+      "lantern": "hsl(40 48% 90%)",
+      "lantern-foreground": "hsl(32 36% 20%)",
+      "rust": "hsl(18 46% 76%)",
+      "rust-foreground": "hsl(16 52% 20%)",
+      "chart-1": "hsl(158 42% 28%)",
+      "chart-2": "hsl(38 46% 40%)",
+      "chart-3": "hsl(100 18% 32%)",
+      "chart-4": "hsl(8 46% 40%)",
+      "chart-5": "hsl(40 20% 46%)",
+      "radius": "0.45rem",
+      "sidebar": "hsl(40 28% 91%)",
+      "sidebar-foreground": "hsl(120 10% 14%)",
+      "sidebar-primary": "hsl(158 48% 24%)",
+      "sidebar-primary-foreground": "hsl(40 45% 97%)",
+      "sidebar-accent": "hsl(140 18% 86%)",
+      "sidebar-accent-foreground": "hsl(150 22% 16%)",
+      "sidebar-border": "hsl(40 14% 78%)",
+      "sidebar-ring": "hsl(36 46% 36%)"
+    },
+    "dark": {
+      "background": "hsl(110 9% 4.7%)",
+      "foreground": "hsl(40 38% 92%)",
+      "card": "hsl(120 8% 9%)",
+      "card-foreground": "hsl(40 38% 92%)",
+      "popover": "hsl(120 9% 8%)",
+      "popover-foreground": "hsl(40 38% 92%)",
+      "primary": "hsl(158 40% 32%)",
+      "primary-foreground": "hsl(42 45% 96%)",
+      "secondary": "hsl(120 8% 14%)",
+      "secondary-foreground": "hsl(40 32% 90%)",
+      "muted": "hsl(125 8% 14%)",
+      "muted-foreground": "hsl(100 10% 68%)",
+      "accent": "hsl(38 22% 16%)",
+      "accent-foreground": "hsl(40 46% 80%)",
+      "destructive": "hsl(8 42% 62%)",
+      "border": "hsl(130 12% 18%)",
+      "input": "hsl(130 10% 14%)",
+      "ring": "hsl(40 46% 58%)",
+      "moss": "hsl(140 16% 12%)",
+      "moss-foreground": "hsl(90 18% 78%)",
+      "lantern": "hsl(38 28% 15%)",
+      "lantern-foreground": "hsl(40 48% 82%)",
+      "rust": "hsl(24 28% 28%)",
+      "rust-foreground": "hsl(26 42% 84%)",
+      "chart-1": "hsl(156 40% 46%)",
+      "chart-2": "hsl(40 48% 60%)",
+      "chart-3": "hsl(100 16% 48%)",
+      "chart-4": "hsl(8 42% 58%)",
+      "chart-5": "hsl(40 28% 76%)",
+      "sidebar": "hsl(110 10% 6.2%)",
+      "sidebar-foreground": "hsl(40 32% 90%)",
+      "sidebar-primary": "hsl(158 40% 33%)",
+      "sidebar-primary-foreground": "hsl(42 45% 96%)",
+      "sidebar-accent": "hsl(140 14% 14%)",
+      "sidebar-accent-foreground": "hsl(40 40% 88%)",
+      "sidebar-border": "hsl(130 12% 16%)",
+      "sidebar-ring": "hsl(40 46% 58%)"
+    }
+  },
+  "css": {
+    ":root": {
+      "color-scheme": "light"
+    },
+    ".dark": {
+      "color-scheme": "dark"
+    },
+    "@layer base": {
+      "body": {
+        "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        "background-size": "180px 180px"
+      },
+      "h1, h2, h3, .font-display": {
+        "font-family": "var(--font-serif), ui-serif, Georgia, serif",
+        "font-optical-sizing": "auto",
+        "letter-spacing": "-0.02em"
+      },
+      "::selection": {
+        "background": "color-mix(in srgb, var(--primary) 45%, transparent)",
+        "color": "var(--foreground)"
+      },
+      ".lucide": {
+        "stroke-width": "1.75"
+      }
+    },
+    "@keyframes raven-shimmer": {
+      "from": {
+        "background-position": "100% 0"
+      },
+      "to": {
+        "background-position": "-100% 0"
+      }
+    },
+    "@keyframes raven-rise": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(6px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    "@keyframes raven-item-in": {
+      "from": {
+        "opacity": "0",
+        "transform": "translateY(4px)"
+      },
+      "to": {
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    "@keyframes raven-accordion-in": {
+      "from": {
+        "grid-template-rows": "0fr"
+      },
+      "to": {
+        "grid-template-rows": "1fr"
+      }
+    },
+    "@keyframes raven-accordion-out": {
+      "from": {
+        "grid-template-rows": "1fr"
+      },
+      "to": {
+        "grid-template-rows": "0fr"
+      }
+    },
+    "@layer utilities": {
+      ".animate-raven-shimmer": {
+        "background-image": "linear-gradient(105deg, var(--muted) 36%, color-mix(in srgb, var(--foreground) 14%, var(--muted)) 50%, var(--muted) 64%)",
+        "background-size": "220% 100%",
+        "animation": "raven-shimmer 1.8s var(--ease-enter) infinite"
+      }
+    },
+    "[data-slot=\"dialog-content\"][data-open] > [data-slot=\"dialog-header\"]": {
+      "animation": "raven-rise var(--duration-ui) var(--ease-enter) both"
+    },
+    "[data-slot=\"dialog-content\"][data-open] > :not([data-slot=\"dialog-header\"]):not([data-slot=\"dialog-close\"]):not([data-slot=\"dialog-footer\"])": {
+      "animation": "raven-rise var(--duration-ui) var(--ease-enter) 40ms both"
+    },
+    "[data-slot=\"dialog-content\"][data-open] > [data-slot=\"dialog-footer\"]": {
+      "animation": "raven-rise var(--duration-ui) var(--ease-enter) 80ms both"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]": {
+      "animation": "raven-item-in var(--duration-ui) var(--ease-enter) both"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]:nth-child(1 of [data-slot=\"command-item\"])": {
+      "animation-delay": "0ms"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]:nth-child(2 of [data-slot=\"command-item\"])": {
+      "animation-delay": "40ms"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]:nth-child(3 of [data-slot=\"command-item\"])": {
+      "animation-delay": "80ms"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]:nth-child(4 of [data-slot=\"command-item\"])": {
+      "animation-delay": "120ms"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]:nth-child(5 of [data-slot=\"command-item\"])": {
+      "animation-delay": "160ms"
+    },
+    "[data-command-just-opened] [data-slot=\"command-item\"]:nth-child(6 of [data-slot=\"command-item\"]), [data-command-just-opened] [data-slot=\"command-item\"]:nth-child(n + 7 of [data-slot=\"command-item\"])": {
+      "animation-delay": "200ms"
+    },
+    ".motion-reduce": {
+      "--duration-snap": "1ms",
+      "--duration-ui": "80ms",
+      "--duration-overlay": "80ms",
+      "--duration-overlay-exit": "60ms",
+      "--duration-layout": "1ms",
+      "--duration-gentle": "80ms",
+      "--duration-press": "1ms",
+      "--duration-fade": "80ms",
+      "--duration-scrim": "80ms"
+    },
+    ".motion-reduce, .motion-reduce *, .motion-reduce *::before, .motion-reduce *::after": {
+      "--tw-enter-translate-x": "0 !important",
+      "--tw-enter-translate-y": "0 !important",
+      "--tw-exit-translate-x": "0 !important",
+      "--tw-exit-translate-y": "0 !important",
+      "--tw-enter-scale": "1 !important",
+      "--tw-exit-scale": "1 !important",
+      "--tw-enter-rotate": "0 !important",
+      "--tw-exit-rotate": "0 !important"
+    },
+    ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"]": {
+      "animation": "none !important"
+    },
+    ".motion-reduce [data-slot=\"skeleton\"]": {
+      "background-image": "none"
+    },
+    ".motion-reduce [data-slot=\"button\"]": {
+      "transform": "none !important",
+      "transition": "none !important"
+    },
+    ".motion-reduce [data-slot=\"switch-thumb\"], .motion-reduce [data-slot=\"accordion-trigger-icon\"], .motion-reduce [data-slot=\"navigation-menu-trigger-icon\"]": {
+      "transition": "none !important"
+    },
+    ".motion-reduce [data-slot=\"sidebar-gap\"], .motion-reduce [data-slot=\"sidebar-container\"]": {
+      "transition": "none !important"
+    },
+    ".motion-reduce [data-sonner-toast], .motion-reduce [data-sonner-toast] > *": {
+      "transition": "opacity 80ms ease !important"
+    },
+    "[data-sonner-toast]": {
+      "--scale": "1"
+    },
+    "@media (prefers-reduced-motion: reduce)": {
+      ":root": {
+        "--duration-snap": "1ms",
+        "--duration-ui": "80ms",
+        "--duration-overlay": "80ms",
+        "--duration-overlay-exit": "60ms",
+        "--duration-layout": "1ms",
+        "--duration-gentle": "80ms",
+        "--duration-press": "1ms",
+        "--duration-fade": "80ms",
+        "--duration-scrim": "80ms"
+      },
+      "*, *::before, *::after": {
+        "--tw-enter-translate-x": "0 !important",
+        "--tw-enter-translate-y": "0 !important",
+        "--tw-exit-translate-x": "0 !important",
+        "--tw-exit-translate-y": "0 !important",
+        "--tw-enter-scale": "1 !important",
+        "--tw-exit-scale": "1 !important",
+        "--tw-enter-rotate": "0 !important",
+        "--tw-exit-rotate": "0 !important"
+      },
+      "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"]": {
+        "animation": "none !important"
+      },
+      "[data-slot=\"skeleton\"]": {
+        "background-image": "none"
+      },
+      "[data-slot=\"button\"]": {
+        "transform": "none !important",
+        "transition": "none !important"
+      },
+      "[data-slot=\"switch-thumb\"], [data-slot=\"accordion-trigger-icon\"], [data-slot=\"navigation-menu-trigger-icon\"]": {
+        "transition": "none !important"
+      },
+      "[data-slot=\"sidebar-gap\"], [data-slot=\"sidebar-container\"]": {
+        "transition": "none !important"
+      },
+      "[data-sonner-toast], [data-sonner-toast] > *": {
+        "transition": "opacity 80ms ease !important"
+      }
+    }
+  },
+  "categories": [
+    "theme"
+  ],
+  "type": "registry:style"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "font-fraunces",
+  "title": "Fraunces",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Display serif for headings, card titles, and the Raven mark wordmark.",
+  "categories": [
+    "font"
+  ],
+  "type": "registry:font",
+  "font": {
+    "family": "'Fraunces Variable', serif",
+    "provider": "google",
+    "import": "Fraunces",
+    "variable": "--font-serif",
+    "weight": [
+      "400",
+      "500",
+      "600",
+      "700"
+    ],
+    "subsets": [
+      "latin"
+    ],
+    "selector": "h1, h2, h3, .font-display",
+    "dependency": "@fontsource-variable/fraunces"
+  }
+}

@@ -1,0 +1,72 @@
+# Ravenwood UI
+
+Personal shadcn/ui registry and preview. Radix primitives, style name radix-nova. Dark forest cabin: bark, moss, canopy emerald, lantern brass. Not a new primitive set.
+
+Repo: https://github.com/raythurman2386/ravenwood-ui
+Registry catalog: registry.json at the repo root.
+Namespace: @ravenwood -> https://raw.githubusercontent.com/raythurman2386/ravenwood-ui/main/public/r/{name}.json
+
+## Install
+
+npx shadcn@latest init --template next --base radix --name my-app --yes raythurman2386/ravenwood-ui/index
+npx shadcn@latest add @ravenwood/button
+
+GitHub address form is owner/repo/item. index is the registry:base item (tokens, Fraunces, Figtree, radix-nova, @ravenwood namespace). theme is registry:style and overlays tokens on an existing shadcn app. A single component with no namespace: npx shadcn@latest add raythurman2386/ravenwood-ui/button
+
+Same-repo registryDependencies use raythurman2386/ravenwood-ui/<item>. A bare name installs official shadcn.
+
+## Tokens
+
+Source: app/globals.css. Mirrored on registry items theme and index.
+Dark is default (html.dark, next-themes defaultTheme dark, enableSystem false). Light tokens on :root.
+
+--background dark hsl(110 9% 4.7%) bark
+--card dark hsl(120 8% 9%) wood panel
+--foreground dark hsl(40 38% 92%) parchment
+--primary dark hsl(158 40% 32%) canopy
+--ring dark hsl(40 46% 58%) lantern brass focus ring
+--destructive dark hsl(8 42% 62%) dried blood
+--moss --lantern --rust plus foregrounds
+--radius 0.45rem
+--font-serif Fraunces, headings and .font-display
+--font-sans Figtree
+--ease-enter cubic-bezier(0.16, 1, 0.3, 1)
+--ease-exit cubic-bezier(0.4, 0, 1, 1)
+--ease-press cubic-bezier(0, 0, 0.2, 1)
+--ease-snap cubic-bezier(0.2, 0.8, 0.2, 1)
+--ease-ground aliases enter
+Named intents (lib/motion.ts): snap 110ms, ui 180ms, overlay 200ms (exit 160ms), layout 220ms, gentle 220ms (rare). Cap 220ms.
+Press squash scale(0.98). Hover is color/border/shadow.
+Ask: what does this motion communicate? If not press, origin, hierarchy, or continuity, delete it.
+Ban: transition-all; linear UI easing; ease-in-out default; hover scale > 1.02; bounce/wiggle/ping/pulse chrome; idle loops; staggered first-paint paragraphs; 400ms+ functional; Lottie/Rive chrome loops; drifting glow orbs; layout reflow while reading.
+prefers-reduced-motion and .motion-reduce zero travel (translate/scale/rotate), not only duration.
+Grain on body only. .lucide stroke-width 1.75.
+
+## Files
+
+components/ui/* primitives, one copy, registry paths point here
+registry/ravenwood/* signature sources; install target components/ravenwood/<name>.tsx
+hooks/use-mobile.ts
+lib/utils.ts re-exports cn
+lib/catalog.ts docs index and consumer usage snippets
+components/docs/showcase.tsx live examples
+lib/motion.ts named intents (snap, ui, overlay, layout, gentle)
+app/(site) home, docs, /motion
+app/kitchen lodge desk
+app/r/[name] serves public/r JSON
+
+Signature pieces: raven-mark, forest-card, grove-alert (moss|lantern|rust), hollow-input, raven-empty-state, page-shell (Next.js, uses sidebar).
+
+Imports in registry files: cn from "cn", primitives from "radix-ui". Preview may import @/registry/ravenwood. Consumer snippets import @/components/ravenwood.
+
+## Add a component
+
+Match button, card, input, dialog, sidebar. Register it in registry.json. GitHub addresses for Ravenwood deps. Catalog entry plus showcase case. pnpm registry:validate && pnpm registry:build && pnpm typecheck.
+
+## Commands
+
+pnpm dev
+pnpm typecheck
+pnpm registry:validate
+pnpm registry:build
+pnpm build

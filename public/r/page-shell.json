@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "page-shell",
+  "title": "Page Shell",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "App frame: collapsible sidebar, raven mark, and an inset header. Next.js App Router.",
+  "dependencies": [
+    "next",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "raythurman2386/ravenwood-ui/sidebar",
+    "raythurman2386/ravenwood-ui/separator",
+    "raythurman2386/ravenwood-ui/tooltip",
+    "raythurman2386/ravenwood-ui/raven-mark"
+  ],
+  "files": [
+    {
+      "path": "registry/ravenwood/page-shell.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport Link from \"next/link\"\nimport type { LucideIcon } from \"lucide-react\"\n\nimport {\n  Sidebar,\n  SidebarContent,\n  SidebarFooter,\n  SidebarGroup,\n  SidebarGroupContent,\n  SidebarHeader,\n  SidebarInset,\n  SidebarMenu,\n  SidebarMenuButton,\n  SidebarMenuItem,\n  SidebarProvider,\n  SidebarRail,\n  SidebarTrigger,\n} from \"@/components/ui/sidebar\"\nimport { Separator } from \"@/components/ui/separator\"\nimport { TooltipProvider } from \"@/components/ui/tooltip\"\nimport { RavenMark } from \"./raven-mark\"\n\ntype PageShellItem = {\n  title: string\n  href: string\n  icon: LucideIcon\n  active?: boolean\n}\n\nfunction PageShell({\n  title = \"Ravenwood\",\n  items,\n  children,\n  footer,\n}: {\n  title?: string\n  items: PageShellItem[]\n  children: React.ReactNode\n  footer?: React.ReactNode\n}) {\n  return (\n    <TooltipProvider>\n      <SidebarProvider>\n        <Sidebar collapsible=\"icon\">\n          <SidebarHeader className=\"px-3 py-4\">\n            <RavenMark\n              title={title}\n              className=\"px-1 text-base group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:[&>span:last-child]:hidden\"\n            />\n          </SidebarHeader>\n          <SidebarContent>\n            <SidebarGroup>\n              <SidebarGroupContent>\n                <SidebarMenu>\n                  {items.map((item) => (\n                    <SidebarMenuItem key={item.href}>\n                      <SidebarMenuButton\n                        asChild\n                        isActive={item.active}\n                        tooltip={item.title}\n                      >\n                        <Link href={item.href}>\n                          <item.icon />\n                          <span>{item.title}</span>\n                        </Link>\n                      </SidebarMenuButton>\n                    </SidebarMenuItem>\n                  ))}\n                </SidebarMenu>\n              </SidebarGroupContent>\n            </SidebarGroup>\n          </SidebarContent>\n          {footer ? <SidebarFooter>{footer}</SidebarFooter> : null}\n          <SidebarRail />\n        </Sidebar>\n        <SidebarInset className=\"min-w-0 bg-transparent\">\n          <header className=\"flex min-h-12 items-center gap-2 border-b border-border px-3 pt-[env(safe-area-inset-top)]\">\n            <SidebarTrigger className=\"size-11 md:size-9\" />\n            <Separator orientation=\"vertical\" className=\"h-4\" />\n            <p className=\"min-w-0 truncate font-serif text-sm tracking-tight text-muted-foreground\">\n              {title}\n            </p>\n          </header>\n          <div className=\"flex min-w-0 flex-1 flex-col\">{children}</div>\n        </SidebarInset>\n      </SidebarProvider>\n    </TooltipProvider>\n  )\n}\n\nexport { PageShell, type PageShellItem }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/page-shell.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

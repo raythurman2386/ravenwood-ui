@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs",
+  "title": "Tabs",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Line tabs. The active mark is lantern brass, sliding with layoutId.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn",
+    "radix-ui",
+    "motion"
+  ],
+  "registryDependencies": [
+    "raythurman2386/ravenwood-ui/motion"
+  ],
+  "files": [
+    {
+      "path": "components/ui/tabs.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { LayoutGroup, motion, useReducedMotion } from \"motion/react\"\nimport { Tabs as TabsPrimitive } from \"radix-ui\"\n\nimport { springs } from \"@/lib/motion\"\n\nconst TabsIndicatorContext = React.createContext<{\n  layoutId: string\n  variant: \"default\" | \"line\"\n} | null>(null)\n\nfunction Tabs({\n  className,\n  orientation = \"horizontal\",\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Root>) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      data-orientation={orientation}\n      className={cn(\n        \"group/tabs flex gap-2 data-horizontal:flex-col\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nconst tabsListVariants = cva(\n  \"group/tabs-list relative inline-flex w-fit max-w-full items-center justify-center text-muted-foreground group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col\",\n  {\n    variants: {\n      variant: {\n        default: \"h-9 overflow-x-auto overflow-y-hidden rounded-lg bg-muted p-[3px]\",\n        line: \"h-auto gap-1 overflow-visible rounded-none bg-transparent pb-1\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction TabsList({\n  className,\n  variant = \"default\",\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.List> &\n  VariantProps<typeof tabsListVariants>) {\n  const layoutId = React.useId()\n\n  return (\n    <TabsIndicatorContext.Provider value={{ layoutId, variant: variant ?? \"default\" }}>\n      <LayoutGroup id={layoutId}>\n        <TabsPrimitive.List\n          data-slot=\"tabs-list\"\n          data-variant={variant}\n          className={cn(tabsListVariants({ variant }), className)}\n          {...props}\n        />\n      </LayoutGroup>\n    </TabsIndicatorContext.Provider>\n  )\n}\n\nfunction TabsTrigger({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {\n  const ctx = React.useContext(TabsIndicatorContext)\n  const reduce = useReducedMotion()\n  const ref = React.useRef<HTMLButtonElement>(null)\n  const [active, setActive] = React.useState(false)\n\n  React.useLayoutEffect(() => {\n    const el = ref.current\n    if (!el) return\n    const sync = () =>\n      setActive(\n        el.hasAttribute(\"data-active\") || el.getAttribute(\"data-state\") === \"active\"\n      )\n    sync()\n    const observer = new MutationObserver(sync)\n    observer.observe(el, {\n      attributes: true,\n      attributeFilter: [\"data-active\", \"data-state\"],\n    })\n    return () => observer.disconnect()\n  }, [])\n\n  const pillClass =\n    ctx?.variant === \"line\"\n      ? \"absolute inset-x-0 bottom-0 h-0.5 bg-ring\"\n      : \"absolute inset-0 rounded-md bg-background shadow-sm dark:bg-input/30\"\n\n  return (\n    <TabsPrimitive.Trigger\n      ref={ref}\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"relative inline-flex flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-1.5 py-0.5 text-sm font-medium whitespace-nowrap text-foreground/60 transition-[color] duration-fade ease-enter group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start hover:text-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 has-data-[icon=inline-end]:pr-1 has-data-[icon=inline-start]:pl-1 dark:text-muted-foreground dark:hover:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4\",\n        ctx?.variant === \"line\" ? \"h-8\" : \"h-[calc(100%-1px)]\",\n        \"bg-transparent data-active:bg-transparent data-active:text-foreground dark:data-active:bg-transparent\",\n        className\n      )}\n      {...props}\n    >\n      {active && ctx ? (\n        reduce ? (\n          <span className={cn(\"z-0\", pillClass)} />\n        ) : (\n          <motion.span\n            layoutId={`${ctx.layoutId}-indicator`}\n            className={cn(\"z-0\", pillClass)}\n            transition={springs.ui}\n          />\n        )\n      ) : null}\n      <span className=\"relative z-10 inline-flex items-center gap-1.5\">\n        {children}\n      </span>\n    </TabsPrimitive.Trigger>\n  )\n}\n\nfunction TabsContent({\n  className,\n  ...props\n}: React.ComponentProps<typeof TabsPrimitive.Content>) {\n  return (\n    <TabsPrimitive.Content\n      data-slot=\"tabs-content\"\n      className={cn(\n        \"flex-1 text-sm outline-none duration-[140ms] ease-enter data-active:animate-in data-active:fade-in-0 motion-reduce:animate-none\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "type": "registry:ui"
+}

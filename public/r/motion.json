@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "motion",
+  "title": "Motion",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Named Ravenwood motion intents: snap, ui, overlay, layout, gentle.",
+  "files": [
+    {
+      "path": "lib/motion.ts",
+      "content": "/**\n * Ravenwood motion language.\n *\n * Named intents, not per-component guesswork. If you cannot say what\n * information an animation carries (press, origin, hierarchy, continuity),\n * do not add it.\n */\n\nexport const duration = {\n  snap: 110,\n  ui: 180,\n  overlay: 200,\n  overlayExit: 160,\n  layout: 220,\n  gentle: 220,\n  press: 90,\n  fade: 150,\n  scrim: 160,\n  content: 140,\n  stagger: 40,\n} as const\n\nexport const easing = {\n  enter: \"cubic-bezier(0.16, 1, 0.3, 1)\",\n  exit: \"cubic-bezier(0.4, 0, 1, 1)\",\n  press: \"cubic-bezier(0, 0, 0.2, 1)\",\n  snap: \"cubic-bezier(0.2, 0.8, 0.2, 1)\",\n} as const\n\nexport const springs = {\n  snap: { type: \"tween\" as const, duration: 0.11, ease: [0.2, 0.8, 0.2, 1] as const },\n  ui: { type: \"tween\" as const, duration: 0.18, ease: [0.16, 1, 0.3, 1] as const },\n  overlay: { type: \"tween\" as const, duration: 0.2, ease: [0.16, 1, 0.3, 1] as const },\n}\n\nexport const stagger = {\n  step: 40,\n  cap: 8,\n} as const\n\nexport const intents = [\n  {\n    name: \"snap\",\n    ms: `${duration.snap}ms`,\n    use: \"Buttons, switches, checkboxes, icon buttons. Immediate press.\",\n  },\n  {\n    name: \"ui\",\n    ms: `${duration.ui}ms`,\n    use: \"Menus, tooltips, selects, the tabs indicator.\",\n  },\n  {\n    name: \"overlay\",\n    ms: `${duration.overlay}ms`,\n    use: \"Dialog, sheet, drawer, popover. Close on overlay-exit.\",\n  },\n  {\n    name: \"layout\",\n    ms: `${duration.layout}ms`,\n    use: \"Sidebar collapse, expanding rows, shared-layout tabs.\",\n  },\n  {\n    name: \"gentle\",\n    ms: `${duration.gentle}ms`,\n    use: \"Large surfaces only. Page frame. Rare.\",\n  },\n] as const\n\n/** Menus, selects, popovers: fade + 6px from the trigger origin. */\nexport const overlayMenuClass =\n  \"duration-ui ease-enter data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-closed:duration-overlay-exit data-closed:ease-exit motion-reduce:animate-none\"\n\n/** Dialog panel: fade + 6px rise. Not a zoom from center. */\nexport const overlayPanelClass =\n  \"duration-overlay ease-enter data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-bottom-[6px] data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-bottom-[4px] data-closed:duration-overlay-exit data-closed:ease-exit motion-reduce:animate-none motion-reduce:slide-in-from-bottom-0\"\n\n/** Dim scrim behind overlays. */\nexport const overlayScrimClass =\n  \"duration-scrim ease-enter data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-closed:duration-overlay-exit data-closed:ease-exit motion-reduce:animate-none\"\n\nexport const motionBan = [\n  \"transition-all\",\n  \"linear easing on UI (progress bars only)\",\n  \"ease-in-out as the default\",\n  \"hover scale > 1.02 on cards or buttons\",\n  \"bounce / wiggle / rubber / ping / infinite pulse on chrome\",\n  \"staggered fade-in of every paragraph on first paint\",\n  \"400ms+ functional transitions\",\n  \"autoplaying Lottie/Rive loops in product chrome\",\n  \"gradient mesh / glow orbs that drift forever\",\n  \"layout animations that reflow text while the user is reading\",\n] as const\n",
+      "type": "registry:lib"
+    }
+  ],
+  "categories": [
+    "lib"
+  ],
+  "type": "registry:lib"
+}

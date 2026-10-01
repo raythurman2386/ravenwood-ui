@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "forest-card",
+  "title": "Forest Card",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Card with a lantern-gold hairline and moss description text.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "raythurman2386/ravenwood-ui/card"
+  ],
+  "files": [
+    {
+      "path": "registry/ravenwood/forest-card.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nimport { Card } from \"@/components/ui/card\"\n\nfunction ForestCard({\n  className,\n  ...props\n}: React.ComponentProps<typeof Card>) {\n  return (\n    <Card\n      data-slot=\"forest-card\"\n      className={cn(\n        \"rounded-2xl border-ring/30 bg-card transition-[border-color] duration-fade ease-enter before:pointer-events-none before:absolute before:inset-x-8 before:top-0 before:z-10 before:h-0.5 before:bg-linear-to-r before:from-transparent before:via-ring before:to-transparent\",\n        \"[&_[data-slot=card-description]]:text-moss-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { ForestCard }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/forest-card.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

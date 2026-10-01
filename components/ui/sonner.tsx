@@ -1,0 +1,61 @@
+"use client"
+
+import { useTheme } from "next-themes"
+import { Toaster as Sonner, type ToasterProps } from "sonner"
+import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon } from "lucide-react"
+
+const Toaster = ({ ...props }: ToasterProps) => {
+  const { theme = "system" } = useTheme()
+
+  return (
+    <Sonner
+      theme={theme as ToasterProps["theme"]}
+      className="toaster group"
+      icons={{
+        success: (
+          <CircleCheckIcon className="size-4" />
+        ),
+        info: (
+          <InfoIcon className="size-4" />
+        ),
+        warning: (
+          <TriangleAlertIcon className="size-4" />
+        ),
+        error: (
+          <OctagonXIcon className="size-4" />
+        ),
+        loading: (
+          <Loader2Icon className="size-4 animate-spin" />
+        ),
+      }}
+      style={
+        {
+          "--normal-bg": "var(--popover)",
+          "--normal-text": "var(--popover-foreground)",
+          "--normal-border": "var(--border)",
+          "--border-radius": "var(--radius)",
+          "--success-bg": "var(--moss)",
+          "--success-text": "var(--moss-foreground)",
+          "--success-border": "color-mix(in srgb, var(--moss-foreground) 30%, transparent)",
+          "--warning-bg": "var(--lantern)",
+          "--warning-text": "var(--lantern-foreground)",
+          "--warning-border": "color-mix(in srgb, var(--ring) 45%, transparent)",
+          "--error-bg": "var(--rust)",
+          "--error-text": "var(--rust-foreground)",
+          "--error-border": "color-mix(in srgb, var(--destructive) 40%, transparent)",
+        } as React.CSSProperties
+      }
+      position="bottom-right"
+      offset={20}
+      mobileOffset={{ bottom: "max(16px, env(safe-area-inset-bottom))" }}
+      toastOptions={{
+        classNames: {
+          toast: "cn-toast",
+        },
+      }}
+      {...props}
+    />
+  )
+}
+
+export { Toaster }

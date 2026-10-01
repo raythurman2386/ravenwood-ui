@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-mobile",
+  "title": "useIsMobile",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Viewport hook used by the sidebar.",
+  "files": [
+    {
+      "path": "hooks/use-mobile.ts",
+      "content": "import * as React from \"react\"\n\nconst MOBILE_BREAKPOINT = 768\n\nfunction subscribe(callback: () => void) {\n  const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)\n  mql.addEventListener(\"change\", callback)\n  return () => mql.removeEventListener(\"change\", callback)\n}\n\nfunction getSnapshot() {\n  return window.innerWidth < MOBILE_BREAKPOINT\n}\n\nfunction getServerSnapshot() {\n  return false\n}\n\nexport function useIsMobile() {\n  return React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "categories": [
+    "hook"
+  ],
+  "type": "registry:hook"
+}

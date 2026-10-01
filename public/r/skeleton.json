@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Muted loading block.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/skeleton.tsx",
+      "content": "import { cn } from \"cn\"\n\nfunction Skeleton({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"skeleton\"\n      className={cn(\n        \"animate-raven-shimmer rounded-md bg-muted motion-reduce:animate-none\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Skeleton }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "categories": [
+    "ui"
+  ],
+  "type": "registry:ui"
+}
