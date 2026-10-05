@@ -3,7 +3,7 @@
   "name": "table",
   "title": "Table",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Quiet data table on the wood panel.",
+  "description": "Data table.",
   "dependencies": [
     "cn"
   ],

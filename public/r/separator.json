@@ -3,7 +3,7 @@
   "name": "separator",
   "title": "Separator",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Bark hairline.",
+  "description": "Hairline divider.",
   "dependencies": [
     "cn",
     "radix-ui"

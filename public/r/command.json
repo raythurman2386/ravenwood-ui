@@ -3,7 +3,7 @@
   "name": "command",
   "title": "Command",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Command palette on Dialog and Input Group.",
+  "description": "Command palette built on Dialog and Input Group.",
   "dependencies": [
     "cmdk",
     "cn",

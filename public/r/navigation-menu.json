@@ -3,7 +3,7 @@
   "name": "navigation-menu",
   "title": "Navigation Menu",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Top navigation with a bark panel.",
+  "description": "Top navigation.",
   "dependencies": [
     "class-variance-authority",
     "cn",

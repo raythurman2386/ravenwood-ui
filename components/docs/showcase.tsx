@@ -3,18 +3,17 @@
 import * as React from "react"
 import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  Bird,
-  Flame,
-  Leaf,
-  Moon,
-  Trees,
-} from "lucide-react"
+import { Leaf, PlayIcon, TriangleAlertIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { RavenMark } from "@/registry/ravenwood/raven-mark"
+import { Banner } from "@/registry/ravenwood/banner"
+import { Callout } from "@/registry/ravenwood/callout"
+import { CopyButton } from "@/registry/ravenwood/copy-button"
+import { DataList, DataListItem } from "@/registry/ravenwood/data-list"
+import { EmptyPanel } from "@/registry/ravenwood/empty-panel"
+import { Field } from "@/registry/ravenwood/field"
 import { ForestCard } from "@/registry/ravenwood/forest-card"
 import {
   GroveAlert,
@@ -23,7 +22,21 @@ import {
   GroveAlertTitle,
 } from "@/registry/ravenwood/grove-alert"
 import { HollowInput } from "@/registry/ravenwood/hollow-input"
+import { Item } from "@/registry/ravenwood/item"
+import { Kbd } from "@/registry/ravenwood/kbd"
+import { LogLine } from "@/registry/ravenwood/log-line"
+import { Metric } from "@/registry/ravenwood/metric"
+import { Progress } from "@/registry/ravenwood/progress"
 import { RavenEmptyState } from "@/registry/ravenwood/raven-empty-state"
+import { RavenMark } from "@/registry/ravenwood/raven-mark"
+import { SectionHeader } from "@/registry/ravenwood/section-header"
+import { ShortcutHint } from "@/registry/ravenwood/shortcut-hint"
+import { Slider } from "@/registry/ravenwood/slider"
+import { Spinner } from "@/registry/ravenwood/spinner"
+import { StatusDot } from "@/registry/ravenwood/status-dot"
+import { Timeline, TimelineItem } from "@/registry/ravenwood/timeline"
+import { Toggle } from "@/registry/ravenwood/toggle"
+import { ToggleGroup, ToggleGroupItem } from "@/registry/ravenwood/toggle-group"
 import {
   Accordion,
   AccordionContent,
@@ -106,7 +119,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import {
   Select,
@@ -136,10 +153,14 @@ import {
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const noteSchema = z.object({
-  name: z.string().min(2, "A name, even a trail name."),
+  name: z.string().min(2, "Enter at least 2 characters."),
 })
 
 function FormPreview() {
@@ -153,7 +174,7 @@ function FormPreview() {
       <form
         className="grid max-w-sm gap-3"
         onSubmit={form.handleSubmit((values) => {
-          toast.success(`${values.name} is written in the book.`)
+          toast.success(`${values.name} saved.`)
         })}
       >
         <FormField
@@ -161,17 +182,17 @@ function FormPreview() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Guest</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Mara Ell" {...field} />
+                <Input placeholder="sync" {...field} />
               </FormControl>
-              <FormDescription>Submit empty to see the rust message.</FormDescription>
+              <FormDescription>Submit empty to see the error.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button type="submit" className="w-fit">
-          Write it down
+          Save
         </Button>
       </form>
     </Form>
@@ -183,72 +204,74 @@ function Showcase({ slug }: { slug: string }) {
     case "button":
       return (
         <div className="flex flex-wrap items-center gap-2">
-          <Button>Enter the grove</Button>
-          <Button variant="lantern">Light a lantern</Button>
-          <Button variant="secondary">Bank the fire</Button>
+          <Button>Save</Button>
+          <Button variant="lantern">Run</Button>
+          <Button variant="secondary">Secondary</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="ghost">Ghost</Button>
-          <Button variant="destructive">Close the path</Button>
-          <Button variant="link">A quiet link</Button>
+          <Button variant="destructive">Delete</Button>
+          <Button variant="link">Details</Button>
         </div>
       )
     case "input":
       return (
         <div className="grid max-w-sm gap-2">
-          <Label htmlFor="cabin-name">Cabin</Label>
-          <Input id="cabin-name" placeholder="Hemlock" />
+          <Label htmlFor="run-name">Name</Label>
+          <Input id="run-name" placeholder="sync" />
         </div>
       )
     case "textarea":
       return (
-        <Textarea className="max-w-md" placeholder="Fog until the second bell." />
+        <Textarea
+          className="max-w-md"
+          placeholder="What changed in this run."
+        />
       )
     case "hollow-input":
       return (
         <div className="grid max-w-sm gap-2">
-          <Label htmlFor="hollow">Carved sill</Label>
-          <HollowInput id="hollow" placeholder="A name cut into the wood" />
+          <Label htmlFor="hollow">Filter</Label>
+          <HollowInput id="hollow" placeholder="Filter logs" />
         </div>
       )
     case "label":
-      return <Label>Night watch</Label>
+      return <Label>Name</Label>
     case "checkbox":
       return (
         <div className="flex items-center gap-2">
-          <Checkbox id="docs-lantern" defaultChecked />
-          <Label htmlFor="docs-lantern">Leave a lantern by the door</Label>
+          <Checkbox id="docs-notify" defaultChecked />
+          <Label htmlFor="docs-notify">Notify on failure</Label>
         </div>
       )
     case "switch":
       return (
         <div className="flex items-center gap-2">
-          <Switch id="docs-path" defaultChecked />
-          <Label htmlFor="docs-path">East path is open</Label>
+          <Switch id="docs-retry" defaultChecked />
+          <Label htmlFor="docs-retry">Auto-retry</Label>
         </div>
       )
     case "radio-group":
       return (
-        <RadioGroup defaultValue="hearth" className="grid gap-2">
+        <RadioGroup defaultValue="preview" className="grid gap-2">
           <div className="flex items-center gap-2">
-            <RadioGroupItem value="hearth" id="docs-hearth" />
-            <Label htmlFor="docs-hearth">Hearth supper</Label>
+            <RadioGroupItem value="preview" id="docs-preview" />
+            <Label htmlFor="docs-preview">Preview</Label>
           </div>
           <div className="flex items-center gap-2">
-            <RadioGroupItem value="pack" id="docs-pack" />
-            <Label htmlFor="docs-pack">Pack meal</Label>
+            <RadioGroupItem value="production" id="docs-production" />
+            <Label htmlFor="docs-production">Production</Label>
           </div>
         </RadioGroup>
       )
     case "select":
       return (
-        <Select defaultValue="hemlock">
+        <Select defaultValue="preview">
           <SelectTrigger className="w-full max-w-xs">
-            <SelectValue placeholder="Cabin" />
+            <SelectValue placeholder="Environment" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="hemlock">Hemlock</SelectItem>
-            <SelectItem value="cedar">Cedar</SelectItem>
-            <SelectItem value="yew">Yew</SelectItem>
+            <SelectItem value="preview">Preview</SelectItem>
+            <SelectItem value="production">Production</SelectItem>
           </SelectContent>
         </Select>
       )
@@ -258,12 +281,12 @@ function Showcase({ slug }: { slug: string }) {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline">Watch</Button>
+            <Button variant="outline">Actions</Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem>East ridge</DropdownMenuItem>
-            <DropdownMenuItem>Mudroom</DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">Close the path</DropdownMenuItem>
+            <DropdownMenuItem>Retry</DropdownMenuItem>
+            <DropdownMenuItem>Cancel</DropdownMenuItem>
+            <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -271,32 +294,30 @@ function Showcase({ slug }: { slug: string }) {
       return (
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="outline">Fog</Button>
+            <Button variant="outline">Details</Button>
           </PopoverTrigger>
-          <PopoverContent>Low cloud until the second bell. The trail is marked.</PopoverContent>
+          <PopoverContent>Last sync 2m ago.</PopoverContent>
         </Popover>
       )
     case "tooltip":
       return (
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="outline">Trail</Button>
+            <Button variant="outline">Run</Button>
           </TooltipTrigger>
-          <TooltipContent>Open, soft underfoot.</TooltipContent>
+          <TooltipContent>Start a new run</TooltipContent>
         </Tooltip>
       )
     case "dialog":
       return (
         <Dialog>
           <DialogTrigger asChild>
-            <Button>Open the ledger</Button>
+            <Button>Run</Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Night ledger</DialogTitle>
-              <DialogDescription>
-                Three cabins still dark on the east path. Wick stock is in the mudroom.
-              </DialogDescription>
+              <DialogTitle>New run</DialogTitle>
+              <DialogDescription>This starts a deploy.</DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>
@@ -305,12 +326,12 @@ function Showcase({ slug }: { slug: string }) {
       return (
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline">Ledger</Button>
+            <Button variant="outline">Logs</Button>
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              <SheetTitle>Stores</SheetTitle>
-              <SheetDescription>Oil, wicks, and dry cedar.</SheetDescription>
+              <SheetTitle>Logs</SheetTitle>
+              <SheetDescription>Last sync 2m ago.</SheetDescription>
             </SheetHeader>
           </SheetContent>
         </Sheet>
@@ -319,12 +340,12 @@ function Showcase({ slug }: { slug: string }) {
       return (
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant="outline">Trail notes</Button>
+            <Button variant="outline">Details</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>From the ridge</DrawerTitle>
-              <DrawerDescription>The boardwalk is slick after dusk.</DrawerDescription>
+              <DrawerTitle>Run details</DrawerTitle>
+              <DrawerDescription>Deploy is still running.</DrawerDescription>
             </DrawerHeader>
           </DrawerContent>
         </Drawer>
@@ -332,12 +353,12 @@ function Showcase({ slug }: { slug: string }) {
     case "command":
       return (
         <Command className="max-w-md rounded-xl border border-border">
-          <CommandInput placeholder="Search the grove" />
+          <CommandInput placeholder="Filter logs" />
           <CommandList>
-            <CommandEmpty>No path by that name.</CommandEmpty>
-            <CommandGroup heading="Places">
-              <CommandItem>Hemlock cabin</CommandItem>
-              <CommandItem>Mudroom</CommandItem>
+            <CommandEmpty>No matching logs.</CommandEmpty>
+            <CommandGroup heading="Runs">
+              <CommandItem>deploy</CommandItem>
+              <CommandItem>sync</CommandItem>
             </CommandGroup>
           </CommandList>
         </Command>
@@ -350,23 +371,23 @@ function Showcase({ slug }: { slug: string }) {
             <TabsTrigger value="week">This week</TabsTrigger>
           </TabsList>
           <TabsContent value="today" className="pt-3 text-muted-foreground">
-            Evening watch. Three lanterns still dark.
+            4 runs succeeded.
           </TabsContent>
           <TabsContent value="week" className="pt-3 text-muted-foreground">
-            Four arrivals, one departure at first light.
+            18 runs.
           </TabsContent>
         </Tabs>
       )
     case "accordion":
       return (
         <Accordion type="single" collapsible className="max-w-md">
-          <AccordionItem value="trail">
-            <AccordionTrigger>Trail</AccordionTrigger>
-            <AccordionContent>Soft, marked with brass tags.</AccordionContent>
+          <AccordionItem value="deploy">
+            <AccordionTrigger>Deploy</AccordionTrigger>
+            <AccordionContent>Running. Last sync 2m ago.</AccordionContent>
           </AccordionItem>
-          <AccordionItem value="hearth">
-            <AccordionTrigger>Hearth</AccordionTrigger>
-            <AccordionContent>Banked. Enough coal for the night.</AccordionContent>
+          <AccordionItem value="sync">
+            <AccordionTrigger>Sync</AccordionTrigger>
+            <AccordionContent>Finished 2 minutes ago.</AccordionContent>
           </AccordionItem>
         </Accordion>
       )
@@ -379,7 +400,7 @@ function Showcase({ slug }: { slug: string }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Grove</BreadcrumbPage>
+              <BreadcrumbPage>Runs</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -410,13 +431,19 @@ function Showcase({ slug }: { slug: string }) {
         <NavigationMenu viewport={false}>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
                 <Link href="/docs">Docs</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/kitchen">Lodge desk</Link>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href="/kitchen">Runs</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -428,27 +455,22 @@ function Showcase({ slug }: { slug: string }) {
         <div className="overflow-hidden rounded-xl border border-border">
           <div className="flex min-h-56 min-w-0 flex-col sm:flex-row">
             <aside className="flex w-full shrink-0 flex-col gap-1 border-b border-sidebar-border bg-sidebar p-3 text-sidebar-foreground sm:w-44 sm:border-r sm:border-b-0">
-              <RavenMark title="North Cabin" className="px-1 py-2" />
+              <RavenMark title="Runs" className="px-1 py-2" />
               <div className="mt-2 flex items-center gap-2 rounded-md bg-sidebar-accent px-2 py-1.5 text-sm text-sidebar-accent-foreground shadow-[inset_2px_0_0_0_var(--ring)]">
-                <Trees className="size-4" />
-                Grove
+                <PlayIcon className="size-4" />
+                Runs
               </div>
               <div className="flex items-center gap-2 px-2 py-1.5 text-sm text-muted-foreground">
-                <Flame className="size-4" />
-                Hearth
-              </div>
-              <div className="flex items-center gap-2 px-2 py-1.5 text-sm text-muted-foreground">
-                <Moon className="size-4" />
-                Ledger
+                Logs
               </div>
             </aside>
             <div className="flex-1 p-4">
-              <p className="font-serif text-xl">Evening watch</p>
+              <p className="font-serif text-xl">Runs</p>
               <p className="mt-1 text-sm text-muted-foreground">
-                PageShell wraps this frame. The live desk is on the lodge page.
+                PageShell is this frame. The live desk is the runs page.
               </p>
               <Button asChild className="mt-4" variant="lantern">
-                <Link href="/kitchen">Open the lodge desk</Link>
+                <Link href="/kitchen">Open runs</Link>
               </Button>
             </div>
           </div>
@@ -458,51 +480,51 @@ function Showcase({ slug }: { slug: string }) {
       return (
         <Card className="max-w-sm">
           <CardHeader>
-            <CardTitle>Hemlock</CardTitle>
-            <CardDescription>East ridge, sleeps two.</CardDescription>
+            <CardTitle>Deploy</CardTitle>
+            <CardDescription>Production</CardDescription>
           </CardHeader>
-          <CardContent>Woodstove lit. Window faces the ravine.</CardContent>
-          <CardFooter>Occupied through Sunday</CardFooter>
+          <CardContent>Last sync 2m ago.</CardContent>
+          <CardFooter>Running</CardFooter>
         </Card>
       )
     case "forest-card":
       return (
         <ForestCard className="max-w-sm">
           <CardHeader>
-            <CardTitle>Canopy</CardTitle>
-            <CardDescription>Nine of twelve cabins occupied.</CardDescription>
+            <CardTitle>Runs</CardTitle>
+            <CardDescription>4 succeeded today.</CardDescription>
           </CardHeader>
-          <CardContent>The brass line is the lantern, not a drop shadow.</CardContent>
+          <CardContent>One hairline along the top edge.</CardContent>
         </ForestCard>
       )
     case "badge":
       return (
         <div className="flex flex-wrap gap-2">
-          <Badge>Occupied</Badge>
-          <Badge variant="secondary">Banked</Badge>
-          <Badge variant="moss">Trail open</Badge>
-          <Badge variant="lantern">Low wick</Badge>
-          <Badge variant="destructive">Closed</Badge>
-          <Badge variant="outline">Guest</Badge>
+          <Badge>Running</Badge>
+          <Badge variant="secondary">Queued</Badge>
+          <Badge variant="moss">Ok</Badge>
+          <Badge variant="lantern">Warn</Badge>
+          <Badge variant="destructive">Error</Badge>
+          <Badge variant="outline">Idle</Badge>
         </div>
       )
     case "avatar":
       return (
         <div className="flex items-center gap-3">
           <Avatar>
-            <AvatarFallback>ME</AvatarFallback>
+            <AvatarFallback>NC</AvatarFallback>
           </Avatar>
           <Avatar>
-            <AvatarFallback>NC</AvatarFallback>
+            <AvatarFallback>AL</AvatarFallback>
           </Avatar>
         </div>
       )
     case "separator":
       return (
         <div className="max-w-sm">
-          <p className="text-sm">Mudroom</p>
+          <p className="text-sm">deploy</p>
           <Separator className="my-3" />
-          <p className="text-sm text-muted-foreground">Oil, wicks, dry cedar.</p>
+          <p className="text-sm text-muted-foreground">Last sync 2m ago.</p>
         </div>
       )
     case "skeleton":
@@ -518,24 +540,24 @@ function Showcase({ slug }: { slug: string }) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Guest</TableHead>
-              <TableHead>Cabin</TableHead>
+              <TableHead>Run</TableHead>
+              <TableHead>When</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell>Mara Ell</TableCell>
-              <TableCell>Hemlock</TableCell>
+              <TableCell>deploy</TableCell>
+              <TableCell>now</TableCell>
               <TableCell>
-                <Badge variant="moss">In</Badge>
+                <Badge variant="moss">Running</Badge>
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Ivo Hart</TableCell>
-              <TableCell>Yew</TableCell>
+              <TableCell>sync</TableCell>
+              <TableCell>2m ago</TableCell>
               <TableCell>
-                <Badge variant="lantern">Due</Badge>
+                <Badge variant="lantern">Warn</Badge>
               </TableCell>
             </TableRow>
           </TableBody>
@@ -544,20 +566,18 @@ function Showcase({ slug }: { slug: string }) {
     case "sonner":
       return (
         <div className="flex flex-wrap gap-2">
-          <Button onClick={() => toast.success("The east path is open.")}>
-            Moss
-          </Button>
+          <Button onClick={() => toast.success("Saved")}>Save</Button>
           <Button
             variant="lantern"
-            onClick={() => toast.warning("Lanterns 4 through 6 are out.")}
+            onClick={() => toast.warning("Deploy delayed")}
           >
-            Lantern
+            Warn
           </Button>
           <Button
             variant="destructive"
-            onClick={() => toast.error("The boardwalk is closed.")}
+            onClick={() => toast.error("Index failed")}
           >
-            Rust
+            Error
           </Button>
         </div>
       )
@@ -568,31 +588,30 @@ function Showcase({ slug }: { slug: string }) {
             <GroveAlertIcon>
               <Leaf />
             </GroveAlertIcon>
-            <GroveAlertTitle>Trail open</GroveAlertTitle>
-            <GroveAlertDescription>Soft underfoot. Brass tags are visible.</GroveAlertDescription>
+            <GroveAlertTitle>Sync finished</GroveAlertTitle>
+            <GroveAlertDescription>Last sync 2m ago.</GroveAlertDescription>
           </GroveAlert>
           <GroveAlert variant="lantern">
             <GroveAlertIcon>
-              <Flame />
+              <TriangleAlertIcon />
             </GroveAlertIcon>
-            <GroveAlertTitle>Low wick</GroveAlertTitle>
-            <GroveAlertDescription>East path lanterns 4 through 6 are out.</GroveAlertDescription>
+            <GroveAlertTitle>Deploy delayed</GroveAlertTitle>
+            <GroveAlertDescription>Retry is queued.</GroveAlertDescription>
           </GroveAlert>
           <GroveAlert variant="rust">
-            <GroveAlertIcon>
-              <Bird />
-            </GroveAlertIcon>
-            <GroveAlertTitle>Boardwalk closed</GroveAlertTitle>
-            <GroveAlertDescription>Ice on the north span. Use the ridge path.</GroveAlertDescription>
+            <GroveAlertTitle>Index failed</GroveAlertTitle>
+            <GroveAlertDescription>
+              The last run exited with an error.
+            </GroveAlertDescription>
           </GroveAlert>
         </div>
       )
     case "raven-empty-state":
       return (
         <RavenEmptyState
-          title="No ravens yet"
-          description="The ridge is quiet. Leave a note when the fog lifts."
-          action={<Button variant="lantern">Leave a note</Button>}
+          title="No runs yet"
+          description="Start a run to see it here."
+          action={<Button>Run</Button>}
         />
       )
     case "raven-mark":
@@ -600,6 +619,167 @@ function Showcase({ slug }: { slug: string }) {
         <div className="flex flex-col gap-4">
           <RavenMark className="text-3xl" />
           <RavenMark wordmark={false} className="text-5xl text-primary" />
+        </div>
+      )
+    case "kbd":
+      return (
+        <div className="flex items-center gap-1">
+          <Kbd>⌘</Kbd>
+          <Kbd>K</Kbd>
+        </div>
+      )
+    case "status-dot":
+      return (
+        <div className="flex flex-wrap gap-4">
+          <StatusDot status="idle" label="Idle" />
+          <StatusDot status="running" label="Running" />
+          <StatusDot status="ok" label="Ok" />
+          <StatusDot status="warn" label="Warn" />
+          <StatusDot status="error" label="Error" />
+        </div>
+      )
+    case "metric":
+      return (
+        <div className="grid max-w-lg gap-6 sm:grid-cols-3">
+          <Metric
+            label="Runs today"
+            value="18"
+            delta="+3"
+            hint="Since midnight"
+          />
+          <Metric label="Queue" value="1" />
+          <Metric label="Failed" value="2" hint="Last sync 2m ago" />
+        </div>
+      )
+    case "data-list":
+      return (
+        <DataList className="max-w-sm">
+          <DataListItem term="Status">Running</DataListItem>
+          <DataListItem term="Environment">Production</DataListItem>
+          <DataListItem term="Run" mono>
+            run_18f
+          </DataListItem>
+        </DataList>
+      )
+    case "section-header":
+      return (
+        <SectionHeader
+          title="Runs"
+          description="Last sync 2m ago."
+          action={<Button>Run</Button>}
+        />
+      )
+    case "callout":
+      return (
+        <div className="grid max-w-lg gap-3">
+          <Callout variant="note">Sync finished.</Callout>
+          <Callout variant="warning" icon={<TriangleAlertIcon />}>
+            Deploy is still running.
+          </Callout>
+          <Callout variant="danger">Index failed.</Callout>
+        </div>
+      )
+    case "copy-button":
+      return <CopyButton text="run_18f" label="Copy run id" />
+    case "spinner":
+      return <Spinner />
+    case "progress":
+      return (
+        <div className="grid max-w-sm gap-3">
+          <Progress value={64} aria-label="Deploy progress" />
+          <Progress
+            value={32}
+            variant="lantern"
+            aria-label="Warning progress"
+          />
+        </div>
+      )
+    case "slider":
+      return (
+        <Slider defaultValue={[40]} aria-label="Limit" className="max-w-sm" />
+      )
+    case "toggle":
+      return <Toggle defaultPressed>Idle</Toggle>
+    case "toggle-group":
+      return (
+        <ToggleGroup type="single" defaultValue="idle">
+          <ToggleGroupItem value="idle">Idle</ToggleGroupItem>
+          <ToggleGroupItem value="running">Running</ToggleGroupItem>
+          <ToggleGroupItem value="ok">Ok</ToggleGroupItem>
+        </ToggleGroup>
+      )
+    case "timeline":
+      return (
+        <Timeline className="max-w-md">
+          <TimelineItem status="running" title="Deploy" meta="14:02">
+            Still running.
+          </TimelineItem>
+          <TimelineItem status="ok" title="Sync" meta="14:00">
+            Finished.
+          </TimelineItem>
+          <TimelineItem status="error" title="Index" meta="12:04">
+            Exited with an error.
+          </TimelineItem>
+        </Timeline>
+      )
+    case "log-line":
+      return (
+        <div className="grid max-w-lg gap-1">
+          <LogLine time="14:02:11" level="info" message="Last sync 2m ago" />
+          <LogLine time="14:02:08" level="warn" message="Retrying deploy" />
+          <LogLine time="14:01:40" level="error" message="Index failed" />
+          <LogLine time="13:58:02" level="debug" message="Worker idle" />
+        </div>
+      )
+    case "item":
+      return (
+        <div className="max-w-md rounded-lg border border-border">
+          <Item
+            icon={<PlayIcon />}
+            title="deploy"
+            description="Production"
+            meta="2m"
+            action={
+              <Button size="sm" variant="outline">
+                Run
+              </Button>
+            }
+          />
+        </div>
+      )
+    case "banner":
+      return (
+        <div className="grid gap-3">
+          <Banner tone="moss">Sync finished.</Banner>
+          <Banner tone="lantern">Deploy is running. Last sync 2m ago.</Banner>
+          <Banner tone="rust">Index failed.</Banner>
+        </div>
+      )
+    case "empty-panel":
+      return (
+        <div className="max-w-md rounded-lg border border-border">
+          <EmptyPanel
+            title="No runs yet"
+            description="Start a run to see it here."
+            action={<Button size="sm">Run</Button>}
+          />
+        </div>
+      )
+    case "field":
+      return (
+        <div className="grid max-w-sm gap-4">
+          <Field label="Name" htmlFor="field-name" hint="Shown in the list.">
+            <Input id="field-name" placeholder="sync" />
+          </Field>
+          <Field label="Name" htmlFor="field-error" error="Enter a name.">
+            <Input id="field-error" aria-invalid placeholder="sync" />
+          </Field>
+        </div>
+      )
+    case "shortcut-hint":
+      return (
+        <div className="max-w-xs text-sm">
+          <ShortcutHint label="Filter logs" keys={["⌘", "K"]} />
         </div>
       )
     default:

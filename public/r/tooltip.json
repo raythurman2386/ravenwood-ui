@@ -3,7 +3,7 @@
   "name": "tooltip",
   "title": "Tooltip",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Quiet tooltip on the popover surface.",
+  "description": "Short overlay label.",
   "dependencies": [
     "cn",
     "radix-ui"

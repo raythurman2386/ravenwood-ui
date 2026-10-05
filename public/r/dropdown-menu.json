@@ -3,7 +3,7 @@
   "name": "dropdown-menu",
   "title": "Dropdown Menu",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Bark menu surface with a brass edge.",
+  "description": "Menu. Hover uses accent.",
   "dependencies": [
     "cn",
     "radix-ui",

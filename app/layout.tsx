@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s · Ravenwood UI",
   },
   description:
-    "A dark-first forest component library. shadcn/ui, restyled for weathered timber, moss, and lantern light.",
+    "A dark-first shadcn registry. Radix primitives, with this palette, type, and a few extra components.",
 }
 
 export const viewport: Viewport = {

@@ -31,54 +31,74 @@ function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 pt-[env(safe-area-inset-top)] backdrop-blur-md">
-      <div className="mx-auto flex min-h-14 max-w-6xl items-center gap-3 px-4">
+      <div className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4 sm:gap-3">
         <Link
           href="/"
           aria-label="Ravenwood home"
-          className="inline-flex h-9 min-w-0 shrink items-center leading-none"
+          className="inline-flex h-11 shrink-0 items-center md:h-9"
         >
-          <RavenMark className="relative top-px text-base max-[22rem]:[&>span:last-child]:hidden" />
+          <RavenMark className="text-sm [&_svg]:size-4 [&>span:last-child]:text-sm [&>span:last-child]:leading-none max-[22rem]:[&>span:last-child]:hidden" />
         </Link>
         <NavigationMenu viewport={false} className="hidden md:flex">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
                 <Link href="/docs">Docs</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="[&_svg]:top-0">
+                Components
+              </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="grid w-[min(28rem,calc(100vw-2rem))] grid-cols-2 gap-3 p-3">
-                  {catalogGroups.map((group) => (
-                    <div key={group}>
-                      <p className="px-2 pb-1 text-xs tracking-wide text-muted-foreground uppercase">
-                        {group}
-                      </p>
-                      <ul>
-                        {catalog
-                          .filter((item) => item.group === group)
-                          .slice(0, 4)
-                          .map((item) => (
-                            <li key={item.slug}>
-                              <NavigationMenuLink asChild>
-                                <Link href={`/docs/${item.slug}`}>{item.title}</Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div className="max-h-[min(24rem,70dvh)] w-[min(28rem,calc(100vw-2rem))] overflow-y-auto p-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    {catalogGroups.map((group) => (
+                      <div key={group}>
+                        <p className="px-2 pb-1 text-xs text-muted-foreground">
+                          {group}
+                        </p>
+                        <ul>
+                          {catalog
+                            .filter((item) => item.group === group)
+                            .slice(0, 3)
+                            .map((item) => (
+                              <li key={item.slug}>
+                                <NavigationMenuLink asChild>
+                                  <Link href={`/docs/${item.slug}`}>
+                                    {item.title}
+                                  </Link>
+                                </NavigationMenuLink>
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <NavigationMenuLink asChild>
+                    <Link href="/docs" className="mt-2">
+                      All components
+                    </Link>
+                  </NavigationMenuLink>
                 </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href="/kitchen">Lodge desk</Link>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href="/kitchen">Runs</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
                 <Link href="/motion">Motion</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
@@ -108,7 +128,7 @@ function SiteHeader() {
                 {[
                   ["/", "Home"],
                   ["/docs", "Docs"],
-                  ["/kitchen", "Lodge desk"],
+                  ["/kitchen", "Runs"],
                   ["/motion", "Motion"],
                 ].map(([href, label]) => (
                   <SheetClose asChild key={href}>
@@ -120,29 +140,6 @@ function SiteHeader() {
                     </Link>
                   </SheetClose>
                 ))}
-                <p className="mt-4 px-3 pb-1 text-[0.68rem] font-medium tracking-[0.16em] text-moss-foreground uppercase">
-                  Components
-                </p>
-                {catalog
-                  .filter((item) => item.group === "Signature")
-                  .map((item) => (
-                    <SheetClose asChild key={item.slug}>
-                      <Link
-                        href={`/docs/${item.slug}`}
-                        className="flex min-h-11 items-center rounded-md px-3 text-sm hover:bg-accent hover:text-accent-foreground"
-                      >
-                        {item.title}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                <SheetClose asChild>
-                  <Link
-                    href="/docs"
-                    className="flex min-h-11 items-center rounded-md px-3 text-sm text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                  >
-                    All components
-                  </Link>
-                </SheetClose>
               </nav>
             </SheetContent>
           </Sheet>

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "16px loading arc. Static when motion is reduced.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/spinner.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Spinner({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      className={cn(\n        \"inline-block size-4 animate-spin rounded-full border-2 border-current border-r-transparent motion-reduce:animate-none\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Spinner }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/spinner.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

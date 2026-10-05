@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "metric",
+  "title": "Metric",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Label, serif value, optional delta and hint.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/metric.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction Metric({\n  className,\n  label,\n  value,\n  delta,\n  hint,\n}: {\n  className?: string\n  label: string\n  value: React.ReactNode\n  delta?: React.ReactNode\n  hint?: string\n}) {\n  return (\n    <div data-slot=\"metric\" className={cn(\"grid gap-1\", className)}>\n      <p className=\"text-sm text-muted-foreground\">{label}</p>\n      <p className=\"font-serif text-3xl leading-none\">{value}</p>\n      {delta ? <p className=\"text-sm\">{delta}</p> : null}\n      {hint ? <p className=\"text-xs text-muted-foreground\">{hint}</p> : null}\n    </div>\n  )\n}\n\nexport { Metric }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/metric.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

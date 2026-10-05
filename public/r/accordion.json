@@ -3,7 +3,7 @@
   "name": "accordion",
   "title": "Accordion",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Serif triggers, no underline.",
+  "description": "Serif triggers. Content uses the UI font.",
   "dependencies": [
     "cn",
     "radix-ui",

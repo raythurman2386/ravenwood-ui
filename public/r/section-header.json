@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "section-header",
+  "title": "Section header",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Section title, optional description, and an optional action.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/section-header.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction SectionHeader({\n  className,\n  title,\n  description,\n  action,\n}: {\n  className?: string\n  title: string\n  description?: string\n  action?: React.ReactNode\n}) {\n  return (\n    <div\n      data-slot=\"section-header\"\n      className={cn(\n        \"flex flex-wrap items-end justify-between gap-3\",\n        className\n      )}\n    >\n      <div className=\"min-w-0\">\n        <h2 className=\"text-2xl\">{title}</h2>\n        {description ? (\n          <p className=\"mt-1 text-sm text-muted-foreground\">{description}</p>\n        ) : null}\n      </div>\n      {action ? <div className=\"shrink-0\">{action}</div> : null}\n    </div>\n  )\n}\n\nexport { SectionHeader }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/section-header.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

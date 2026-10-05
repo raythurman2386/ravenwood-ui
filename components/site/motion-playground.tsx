@@ -57,7 +57,9 @@ function Demo({
         <h3 className="font-heading text-lg">{label}</h3>
         <p className="text-sm text-muted-foreground">{communicates}</p>
       </div>
-      <div className="rounded-xl border border-ring/35 bg-card p-4">{children}</div>
+      <div className="rounded-xl border border-ring/35 bg-card p-4">
+        {children}
+      </div>
     </section>
   )
 }
@@ -93,9 +95,9 @@ function MotionPlayground() {
             communicates="Press confirmation. Size change on the way down, never on hover."
           >
             <div className="flex flex-wrap gap-2">
-              <Button>Enter the grove</Button>
+              <Button>Save</Button>
               <Button variant="outline">Outline</Button>
-              <Button variant="ghost" size="icon" aria-label="Light">
+              <Button variant="ghost" size="icon" aria-label="Run">
                 <Flame />
               </Button>
             </div>
@@ -107,34 +109,30 @@ function MotionPlayground() {
           >
             <div className="flex items-center gap-2">
               <Switch id="path-open" defaultChecked />
-              <Label htmlFor="path-open">East path is open</Label>
+              <Label htmlFor="path-open">Auto-retry</Label>
             </div>
           </Demo>
 
           <Demo
             label="Input"
-            communicates="Focus is the brass ring. The caret stays still."
+            communicates="Focus is the ring. The caret stays still."
           >
-            <Input placeholder="Hemlock cabin" aria-label="Cabin name" />
+            <Input placeholder="sync" aria-label="Run name" />
           </Demo>
 
           <Demo
             label="Tabs"
             communicates="The pill moves. Content crossfades. Hierarchy stays put."
           >
-            <Tabs defaultValue="guests">
+            <Tabs defaultValue="runs">
               <TabsList>
-                <TabsTrigger value="guests">Guests</TabsTrigger>
-                <TabsTrigger value="ledger">Ledger</TabsTrigger>
+                <TabsTrigger value="runs">Runs</TabsTrigger>
+                <TabsTrigger value="logs">Logs</TabsTrigger>
                 <TabsTrigger value="notes">Notes</TabsTrigger>
               </TabsList>
-              <TabsContent value="guests">
-                Three arrivals on the east trail.
-              </TabsContent>
-              <TabsContent value="ledger">
-                Firewood is paid through frost.
-              </TabsContent>
-              <TabsContent value="notes">Leave a lantern on the sill.</TabsContent>
+              <TabsContent value="runs">4 runs succeeded.</TabsContent>
+              <TabsContent value="logs">Last sync 2m ago.</TabsContent>
+              <TabsContent value="notes">Worker idle.</TabsContent>
             </Tabs>
           </Demo>
 
@@ -147,9 +145,9 @@ function MotionPlayground() {
                 <Button variant="outline">Open menu</Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>East cabin</DropdownMenuItem>
-                <DropdownMenuItem>North loft</DropdownMenuItem>
-                <DropdownMenuItem>Ridge trail</DropdownMenuItem>
+                <DropdownMenuItem>Retry</DropdownMenuItem>
+                <DropdownMenuItem>Cancel</DropdownMenuItem>
+                <DropdownMenuItem>Docs</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Demo>
@@ -160,18 +158,16 @@ function MotionPlayground() {
           >
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline">Check a guest in</Button>
+                <Button variant="outline">New run</Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>Check in</DialogTitle>
-                  <DialogDescription>
-                    Name on the night book, then a key on the hook.
-                  </DialogDescription>
+                  <DialogTitle>New run</DialogTitle>
+                  <DialogDescription>This starts a deploy.</DialogDescription>
                 </DialogHeader>
-                <Input placeholder="Guest name" aria-label="Guest name" />
+                <Input placeholder="sync" aria-label="Run name" />
                 <DialogFooter>
-                  <Button>Seat them</Button>
+                  <Button>Run</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
@@ -183,24 +179,17 @@ function MotionPlayground() {
           >
             <Accordion type="single" collapsible defaultValue="a">
               <AccordionItem value="a">
-                <AccordionTrigger>East trail</AccordionTrigger>
-                <AccordionContent>
-                  Packed snow until the switchback. Lanterns stay lit past dusk.
-                </AccordionContent>
+                <AccordionTrigger>Deploy</AccordionTrigger>
+                <AccordionContent>Running. Last sync 2m ago.</AccordionContent>
               </AccordionItem>
               <AccordionItem value="b">
-                <AccordionTrigger>Ridge path</AccordionTrigger>
-                <AccordionContent>
-                  Closed after freeze. Use the hollow instead.
-                </AccordionContent>
+                <AccordionTrigger>Index</AccordionTrigger>
+                <AccordionContent>Exited with an error.</AccordionContent>
               </AccordionItem>
             </Accordion>
           </Demo>
 
-          <Demo
-            label="Skeleton"
-            communicates="Something is still arriving. A slow sheen across the bone."
-          >
+          <Demo label="Skeleton" communicates="Something is still loading.">
             <div className="grid gap-2">
               <Skeleton className="h-4 w-2/3" />
               <Skeleton className="h-4 w-full" />
@@ -215,12 +204,12 @@ function MotionPlayground() {
             <Button
               variant="outline"
               onClick={() =>
-                toast("Lantern lit", {
-                  description: "East porch, until last call.",
+                toast("Saved", {
+                  description: "Last sync 2m ago.",
                 })
               }
             >
-              Light a lantern
+              Save
             </Button>
           </Demo>
 
@@ -229,23 +218,23 @@ function MotionPlayground() {
             communicates="Palette snaps open. First eight items stagger 40ms, then together."
           >
             <Button variant="outline" onClick={() => setCommandOpen(true)}>
-              Search the grove
+              Filter logs
             </Button>
             <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
               <Command>
-                <CommandInput placeholder="Search the grove" />
+                <CommandInput placeholder="Filter logs" />
                 <CommandList>
-                  <CommandEmpty>No path by that name.</CommandEmpty>
+                  <CommandEmpty>No matching logs.</CommandEmpty>
                   <CommandGroup heading="Jump">
-                    <CommandItem>Guests</CommandItem>
-                    <CommandItem>Ledger</CommandItem>
-                    <CommandItem>East cabin</CommandItem>
-                    <CommandItem>North loft</CommandItem>
-                    <CommandItem>Ridge trail</CommandItem>
-                    <CommandItem>Hollow</CommandItem>
-                    <CommandItem>Firewood</CommandItem>
-                    <CommandItem>Night book</CommandItem>
-                    <CommandItem>Trail notes</CommandItem>
+                    <CommandItem>Runs</CommandItem>
+                    <CommandItem>Logs</CommandItem>
+                    <CommandItem>deploy</CommandItem>
+                    <CommandItem>sync</CommandItem>
+                    <CommandItem>backup</CommandItem>
+                    <CommandItem>index</CommandItem>
+                    <CommandItem>lint</CommandItem>
+                    <CommandItem>Docs</CommandItem>
+                    <CommandItem>Motion</CommandItem>
                   </CommandGroup>
                 </CommandList>
               </Command>

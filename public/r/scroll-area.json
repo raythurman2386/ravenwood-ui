@@ -3,7 +3,7 @@
   "name": "scroll-area",
   "title": "Scroll Area",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Bark scrollbar.",
+  "description": "Scrollable region.",
   "dependencies": [
     "cn",
     "radix-ui"

@@ -3,7 +3,7 @@
   "name": "label",
   "title": "Label",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Form label in the interface sans.",
+  "description": "Form label.",
   "dependencies": [
     "cn",
     "radix-ui"

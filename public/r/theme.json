@@ -3,7 +3,7 @@
   "name": "theme",
   "title": "Ravenwood theme",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "HSL tokens, Fraunces and Figtree, lantern focus ring, page grain, and thinner Lucide strokes. Overlay this on an existing shadcn project.",
+  "description": "HSL tokens, Fraunces, Figtree, the focus ring, page grain, and Lucide stroke 1.75. Overlay this on an existing shadcn project.",
   "registryDependencies": [
     "font-figtree",
     "raythurman2386/ravenwood-ui/font-fraunces"
@@ -115,7 +115,7 @@
     },
     "@layer base": {
       "body": {
-        "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         "background-size": "180px 180px"
       },
       "h1, h2, h3, .font-display": {
@@ -233,7 +233,7 @@
       "--tw-enter-rotate": "0 !important",
       "--tw-exit-rotate": "0 !important"
     },
-    ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"]": {
+    ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"], .motion-reduce [data-slot=\"spinner\"]": {
       "animation": "none !important"
     },
     ".motion-reduce [data-slot=\"skeleton\"]": {
@@ -277,7 +277,7 @@
         "--tw-enter-rotate": "0 !important",
         "--tw-exit-rotate": "0 !important"
       },
-      "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"]": {
+      "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"], [data-slot=\"spinner\"]": {
         "animation": "none !important"
       },
       "[data-slot=\"skeleton\"]": {

@@ -14,8 +14,8 @@ const usage = {
 export function Example() {
   return (
     <div className="flex gap-2">
-      <Button>Enter the grove</Button>
-      <Button variant="lantern">Light a lantern</Button>
+      <Button>Save</Button>
+      <Button variant="lantern">Run</Button>
     </div>
   )
 }`,
@@ -25,25 +25,25 @@ import { Label } from "@/components/ui/label"
 export function Example() {
   return (
     <div className="grid gap-2">
-      <Label htmlFor="cabin">Cabin</Label>
-      <Input id="cabin" placeholder="Hemlock" />
+      <Label htmlFor="name">Name</Label>
+      <Input id="name" placeholder="sync" />
     </div>
   )
 }`,
   textarea: `import { Textarea } from "@/components/ui/textarea"
 
 export function Example() {
-  return <Textarea placeholder="Notes from the ridge trail." />
+  return <Textarea placeholder="What changed in this run." />
 }`,
   "hollow-input": `import { HollowInput } from "@/components/ravenwood/hollow-input"
 
 export function Example() {
-  return <HollowInput placeholder="Carved into the sill" />
+  return <HollowInput placeholder="Filter logs" />
 }`,
   label: `import { Label } from "@/components/ui/label"
 
 export function Example() {
-  return <Label htmlFor="name">Guest</Label>
+  return <Label htmlFor="name">Name</Label>
 }`,
   checkbox: `import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
@@ -51,8 +51,8 @@ import { Label } from "@/components/ui/label"
 export function Example() {
   return (
     <div className="flex items-center gap-2">
-      <Checkbox id="lantern" defaultChecked />
-      <Label htmlFor="lantern">Leave a lantern</Label>
+      <Checkbox id="notify" defaultChecked />
+      <Label htmlFor="notify">Notify on failure</Label>
     </div>
   )
 }`,
@@ -62,8 +62,8 @@ import { Label } from "@/components/ui/label"
 export function Example() {
   return (
     <div className="flex items-center gap-2">
-      <Switch id="path" defaultChecked />
-      <Label htmlFor="path">East path is open</Label>
+      <Switch id="auto" defaultChecked />
+      <Label htmlFor="auto">Auto-retry</Label>
     </div>
   )
 }`,
@@ -72,10 +72,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 export function Example() {
   return (
-    <RadioGroup defaultValue="hearth">
+    <RadioGroup defaultValue="preview">
       <div className="flex items-center gap-2">
-        <RadioGroupItem value="hearth" id="hearth" />
-        <Label htmlFor="hearth">Hearth supper</Label>
+        <RadioGroupItem value="preview" id="preview" />
+        <Label htmlFor="preview">Preview</Label>
       </div>
     </RadioGroup>
   )
@@ -92,11 +92,11 @@ export function Example() {
   return (
     <Select>
       <SelectTrigger>
-        <SelectValue placeholder="Cabin" />
+        <SelectValue placeholder="Environment" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="hemlock">Hemlock</SelectItem>
-        <SelectItem value="cedar">Cedar</SelectItem>
+        <SelectItem value="preview">Preview</SelectItem>
+        <SelectItem value="production">Production</SelectItem>
       </SelectContent>
     </Select>
   )
@@ -117,7 +117,7 @@ import {
 import { Input } from "@/components/ui/input"
 
 const schema = z.object({
-  name: z.string().min(2, "A name, even a trail name."),
+  name: z.string().min(2, "Enter at least 2 characters."),
 })
 
 export function Example() {
@@ -134,7 +134,7 @@ export function Example() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Guest</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -142,7 +142,7 @@ export function Example() {
             </FormItem>
           )}
         />
-        <Button type="submit">Check in</Button>
+        <Button type="submit">Save</Button>
       </form>
     </Form>
   )
@@ -159,11 +159,11 @@ export function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">Watch</Button>
+        <Button variant="outline">Actions</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>East ridge</DropdownMenuItem>
-        <DropdownMenuItem>Mudroom</DropdownMenuItem>
+        <DropdownMenuItem>Retry</DropdownMenuItem>
+        <DropdownMenuItem>Cancel</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -175,9 +175,9 @@ export function Example() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Fog</Button>
+        <Button variant="outline">Details</Button>
       </PopoverTrigger>
-      <PopoverContent>Low cloud until the second bell.</PopoverContent>
+      <PopoverContent>Last sync 2m ago.</PopoverContent>
     </Popover>
   )
 }`,
@@ -188,9 +188,9 @@ export function Example() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline">Trail</Button>
+        <Button variant="outline">Run</Button>
       </TooltipTrigger>
-      <TooltipContent>Open, soft underfoot.</TooltipContent>
+      <TooltipContent>Start a new run</TooltipContent>
     </Tooltip>
   )
 }`,
@@ -208,12 +208,12 @@ export function Example() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Open the ledger</Button>
+        <Button>Run</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Night ledger</DialogTitle>
-          <DialogDescription>Three cabins still dark.</DialogDescription>
+          <DialogTitle>New run</DialogTitle>
+          <DialogDescription>This starts a deploy.</DialogDescription>
         </DialogHeader>
       </DialogContent>
     </Dialog>
@@ -232,11 +232,11 @@ export function Example() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Ledger</Button>
+        <Button variant="outline">Logs</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Stores</SheetTitle>
+          <SheetTitle>Logs</SheetTitle>
         </SheetHeader>
       </SheetContent>
     </Sheet>
@@ -255,11 +255,11 @@ export function Example() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Trail notes</Button>
+        <Button variant="outline">Details</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>From the ridge</DrawerTitle>
+          <DrawerTitle>Run details</DrawerTitle>
         </DrawerHeader>
       </DrawerContent>
     </Drawer>
@@ -277,12 +277,12 @@ export function Example() {
 export function Example() {
   return (
     <Command className="rounded-xl border border-border">
-      <CommandInput placeholder="Search the grove" />
+      <CommandInput placeholder="Filter logs" />
       <CommandList>
-        <CommandEmpty>No path by that name.</CommandEmpty>
-        <CommandGroup heading="Places">
-          <CommandItem>Hemlock cabin</CommandItem>
-          <CommandItem>Mudroom</CommandItem>
+        <CommandEmpty>No matching logs.</CommandEmpty>
+        <CommandGroup heading="Runs">
+          <CommandItem>deploy</CommandItem>
+          <CommandItem>sync</CommandItem>
         </CommandGroup>
       </CommandList>
     </Command>
@@ -297,8 +297,8 @@ export function Example() {
         <TabsTrigger value="today">Today</TabsTrigger>
         <TabsTrigger value="week">This week</TabsTrigger>
       </TabsList>
-      <TabsContent value="today">Evening watch.</TabsContent>
-      <TabsContent value="week">Four arrivals.</TabsContent>
+      <TabsContent value="today">4 runs succeeded.</TabsContent>
+      <TabsContent value="week">18 runs.</TabsContent>
     </Tabs>
   )
 }`,
@@ -312,9 +312,9 @@ export function Example() {
 export function Example() {
   return (
     <Accordion>
-      <AccordionItem value="trail">
-        <AccordionTrigger>Trail</AccordionTrigger>
-        <AccordionContent>Soft, marked with brass.</AccordionContent>
+      <AccordionItem value="deploy">
+        <AccordionTrigger>Deploy</AccordionTrigger>
+        <AccordionContent>Running. Last sync 2m ago.</AccordionContent>
       </AccordionItem>
     </Accordion>
   )
@@ -337,7 +337,7 @@ export function Example() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>Grove</BreadcrumbPage>
+          <BreadcrumbPage>Runs</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -393,26 +393,26 @@ export function Example() {
   )
 }`,
   sidebar: `import { PageShell } from "@/components/ravenwood/page-shell"
-import { Trees } from "lucide-react"
+import { PlayIcon } from "lucide-react"
 
 export function Example() {
   return (
     <PageShell
-      title="North Cabin"
-      items={[{ title: "Grove", href: "/kitchen", icon: Trees, active: true }]}
+      title="Runs"
+      items={[{ title: "Runs", href: "/kitchen", icon: PlayIcon, active: true }]}
     >
-      <p className="p-6">The evening watch.</p>
+      <p className="p-6">Last sync 2m ago.</p>
     </PageShell>
   )
 }`,
   "page-shell": `import { PageShell } from "@/components/ravenwood/page-shell"
-import { Trees } from "lucide-react"
+import { PlayIcon } from "lucide-react"
 
 export function Frame() {
   return (
     <PageShell
-      title="North Cabin"
-      items={[{ title: "Grove", href: "/kitchen", icon: Trees, active: true }]}
+      title="Runs"
+      items={[{ title: "Runs", href: "/kitchen", icon: PlayIcon, active: true }]}
     >
       <main className="p-6">Product surface goes here.</main>
     </PageShell>
@@ -430,10 +430,10 @@ export function Example() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Hemlock</CardTitle>
-        <CardDescription>East ridge, sleeps two.</CardDescription>
+        <CardTitle>Deploy</CardTitle>
+        <CardDescription>Production</CardDescription>
       </CardHeader>
-      <CardContent>Woodstove lit.</CardContent>
+      <CardContent>Last sync 2m ago.</CardContent>
     </Card>
   )
 }`,
@@ -449,10 +449,10 @@ export function Example() {
   return (
     <ForestCard>
       <CardHeader>
-        <CardTitle>Canopy</CardTitle>
-        <CardDescription>Nine of twelve cabins occupied.</CardDescription>
+        <CardTitle>Runs</CardTitle>
+        <CardDescription>4 succeeded today.</CardDescription>
       </CardHeader>
-      <CardContent>Lantern brass along the top edge.</CardContent>
+      <CardContent>One hairline along the top edge.</CardContent>
     </ForestCard>
   )
 }`,
@@ -461,9 +461,9 @@ export function Example() {
 export function Example() {
   return (
     <div className="flex gap-2">
-      <Badge>Occupied</Badge>
-      <Badge variant="moss">Open</Badge>
-      <Badge variant="lantern">Low wick</Badge>
+      <Badge>Running</Badge>
+      <Badge variant="moss">Ok</Badge>
+      <Badge variant="lantern">Warn</Badge>
     </div>
   )
 }`,
@@ -500,14 +500,14 @@ export function Example() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Guest</TableHead>
-          <TableHead>Cabin</TableHead>
+          <TableHead>Run</TableHead>
+          <TableHead>Status</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell>Mara Ell</TableCell>
-          <TableCell>Hemlock</TableCell>
+          <TableCell>deploy</TableCell>
+          <TableCell>Running</TableCell>
         </TableRow>
       </TableBody>
     </Table>
@@ -517,11 +517,7 @@ export function Example() {
 import { Button } from "@/components/ui/button"
 
 export function Example() {
-  return (
-    <Button onClick={() => toast.success("Lantern lit.")}>
-      Light it
-    </Button>
-  )
+  return <Button onClick={() => toast.success("Saved")}>Save</Button>
 }`,
   "grove-alert": `import { Leaf } from "lucide-react"
 import {
@@ -537,8 +533,8 @@ export function Example() {
       <GroveAlertIcon>
         <Leaf />
       </GroveAlertIcon>
-      <GroveAlertTitle>East path</GroveAlertTitle>
-      <GroveAlertDescription>Lanterns 4 through 6 are out.</GroveAlertDescription>
+      <GroveAlertTitle>Deploy delayed</GroveAlertTitle>
+      <GroveAlertDescription>Last sync 2m ago.</GroveAlertDescription>
     </GroveAlert>
   )
 }`,
@@ -548,9 +544,9 @@ import { RavenEmptyState } from "@/components/ravenwood/raven-empty-state"
 export function Example() {
   return (
     <RavenEmptyState
-      title="No ravens yet"
-      description="The ridge is quiet. Leave a note when the fog lifts."
-      action={<Button variant="lantern">Leave a note</Button>}
+      title="No runs yet"
+      description="Start a run to see it here."
+      action={<Button>Run</Button>}
     />
   )
 }`,
@@ -565,9 +561,9 @@ import { useIsMobile } from "@/hooks/use-mobile"
 
 export function Example() {
   const isMobile = useIsMobile()
-  return <p>{isMobile ? "Trail width" : "Lodge width"}</p>
+  return <p>{isMobile ? "Narrow layout" : "Wide layout"}</p>
 }`,
-  motion: `import { duration, easing, intents } from "@/lib/motion"
+  motion: `import { intents } from "@/lib/motion"
 
 export function Example() {
   return (
@@ -589,8 +585,8 @@ export function Example() {
 export function Example() {
   return (
     <InputGroup>
-      <InputGroupAddon>Cabin</InputGroupAddon>
-      <InputGroupInput placeholder="Hemlock" />
+      <InputGroupAddon>Run</InputGroupAddon>
+      <InputGroupInput placeholder="sync" />
     </InputGroup>
   )
 }`,
@@ -600,10 +596,146 @@ export function Example() {
   return (
     <ScrollArea className="h-40 rounded-lg border border-border p-3">
       {Array.from({ length: 12 }, (_, i) => (
-        <p key={i}>Ledger line {i + 1}</p>
+        <p key={i}>Log line {i + 1}</p>
       ))}
     </ScrollArea>
   )
+}`,
+  kbd: `import { Kbd } from "@/components/ravenwood/kbd"
+
+export function Example() {
+  return <Kbd>K</Kbd>
+}`,
+  "status-dot": `import { StatusDot } from "@/components/ravenwood/status-dot"
+
+export function Example() {
+  return <StatusDot status="running" label="Running" />
+}`,
+  metric: `import { Metric } from "@/components/ravenwood/metric"
+
+export function Example() {
+  return <Metric label="Runs today" value="18" delta="+3" hint="Last sync 2m ago" />
+}`,
+  "data-list": `import { DataList, DataListItem } from "@/components/ravenwood/data-list"
+
+export function Example() {
+  return (
+    <DataList>
+      <DataListItem term="Status">Running</DataListItem>
+      <DataListItem term="Run" mono>
+        run_18f
+      </DataListItem>
+    </DataList>
+  )
+}`,
+  "section-header": `import { Button } from "@/components/ui/button"
+import { SectionHeader } from "@/components/ravenwood/section-header"
+
+export function Example() {
+  return (
+    <SectionHeader
+      title="Runs"
+      description="Last sync 2m ago."
+      action={<Button>Run</Button>}
+    />
+  )
+}`,
+  callout: `import { Callout } from "@/components/ravenwood/callout"
+
+export function Example() {
+  return <Callout variant="warning">Deploy is still running.</Callout>
+}`,
+  "copy-button": `import { CopyButton } from "@/components/ravenwood/copy-button"
+
+export function Example() {
+  return <CopyButton text="run_18f" label="Copy run id" />
+}`,
+  spinner: `import { Spinner } from "@/components/ravenwood/spinner"
+
+export function Example() {
+  return <Spinner />
+}`,
+  progress: `import { Progress } from "@/components/ravenwood/progress"
+
+export function Example() {
+  return <Progress value={64} />
+}`,
+  slider: `import { Slider } from "@/components/ravenwood/slider"
+
+export function Example() {
+  return <Slider defaultValue={[40]} aria-label="Limit" />
+}`,
+  toggle: `import { Toggle } from "@/components/ravenwood/toggle"
+
+export function Example() {
+  return <Toggle>Idle</Toggle>
+}`,
+  "toggle-group": `import { ToggleGroup, ToggleGroupItem } from "@/components/ravenwood/toggle-group"
+
+export function Example() {
+  return (
+    <ToggleGroup type="single" defaultValue="idle">
+      <ToggleGroupItem value="idle">Idle</ToggleGroupItem>
+      <ToggleGroupItem value="running">Running</ToggleGroupItem>
+    </ToggleGroup>
+  )
+}`,
+  timeline: `import { Timeline, TimelineItem } from "@/components/ravenwood/timeline"
+
+export function Example() {
+  return (
+    <Timeline>
+      <TimelineItem status="running" title="Deploy" meta="14:02">
+        Still running.
+      </TimelineItem>
+      <TimelineItem status="ok" title="Sync" meta="14:00">
+        Finished.
+      </TimelineItem>
+    </Timeline>
+  )
+}`,
+  "log-line": `import { LogLine } from "@/components/ravenwood/log-line"
+
+export function Example() {
+  return <LogLine time="14:02:11" level="info" message="Last sync 2m ago" />
+}`,
+  item: `import { PlayIcon } from "lucide-react"
+import { Item } from "@/components/ravenwood/item"
+
+export function Example() {
+  return (
+    <Item
+      icon={<PlayIcon />}
+      title="deploy"
+      description="Production"
+      meta="2m"
+    />
+  )
+}`,
+  banner: `import { Banner } from "@/components/ravenwood/banner"
+
+export function Example() {
+  return <Banner tone="lantern">Deploy is running. Last sync 2m ago.</Banner>
+}`,
+  "empty-panel": `import { EmptyPanel } from "@/components/ravenwood/empty-panel"
+
+export function Example() {
+  return <EmptyPanel title="No runs yet" description="Start a run to see it here." />
+}`,
+  field: `import { Input } from "@/components/ui/input"
+import { Field } from "@/components/ravenwood/field"
+
+export function Example() {
+  return (
+    <Field label="Name" htmlFor="run-name" hint="Shown in the list.">
+      <Input id="run-name" placeholder="sync" />
+    </Field>
+  )
+}`,
+  "shortcut-hint": `import { ShortcutHint } from "@/components/ravenwood/shortcut-hint"
+
+export function Example() {
+  return <ShortcutHint label="Filter logs" keys={["⌘", "K"]} />
 }`,
 } as const
 
@@ -619,235 +751,353 @@ const entries: Array<{
     slug: "raven-mark",
     title: "RavenMark",
     group: "Signature",
-    description: "The raven lockup for headers, empty states, and brand moments.",
+    description: "The mark, with an optional wordmark.",
   },
   {
     slug: "forest-card",
     title: "ForestCard",
     group: "Signature",
-    description: "A carved card with a lantern-brass hairline and moss description.",
+    description: "Card with one hairline in the focus ring color.",
   },
   {
     slug: "grove-alert",
     title: "GroveAlert",
     group: "Signature",
-    description: "Status for the grove: moss, lantern, or rust.",
+    description: "Filled alert. Variants are moss, lantern, and rust.",
   },
   {
     slug: "hollow-input",
     title: "HollowInput",
     group: "Signature",
-    description: "An input cut into the panel, deeper than the standard field.",
+    description: "Taller field on the muted fill.",
   },
   {
     slug: "raven-empty-state",
     title: "RavenEmptyState",
     group: "Signature",
-    description: "A quiet empty state. Mark, serif title, one action.",
+    description: "Empty state with the mark, a title, and one action.",
   },
   {
     slug: "page-shell",
     title: "PageShell",
     group: "Signature",
-    description: "App frame: sidebar, raven mark, and an inset surface.",
+    description: "App frame with a collapsible sidebar.",
   },
   {
     slug: "button",
     title: "Button",
     group: "Actions",
-    description: "Emerald, lantern, outline, and rust. A 1px lift, no bounce.",
+    description:
+      "Primary, lantern, outline, secondary, ghost, and destructive. Press scales to 0.98.",
   },
   {
     slug: "badge",
     title: "Badge",
     group: "Display",
-    description: "Small status chips, including moss and lantern.",
+    description: "Small status label. Includes moss and lantern.",
   },
   {
     slug: "input",
     title: "Input",
     group: "Forms",
-    description: "A field with a shallow carved well and a brass focus ring.",
+    description: "Single-line field. Focus ring uses the ring token.",
   },
   {
     slug: "textarea",
     title: "Textarea",
     group: "Forms",
-    description: "The same well, for longer notes.",
+    description: "Multiline field with the same focus ring as Input.",
   },
   {
     slug: "label",
     title: "Label",
     group: "Forms",
-    description: "Pairs with every field. Error state turns rust.",
+    description: "Label for a field.",
   },
   {
     slug: "checkbox",
     title: "Checkbox",
     group: "Forms",
-    description: "Emerald when checked. Brass ring when focused.",
+    description: "Checked state uses primary.",
   },
   {
     slug: "switch",
     title: "Switch",
     group: "Forms",
-    description: "A short slide. Checked state uses the canopy green.",
+    description: "Checked state uses primary.",
   },
   {
     slug: "radio-group",
     title: "Radio group",
     group: "Forms",
-    description: "One choice, same focus treatment as the other fields.",
+    description: "One choice in a group.",
   },
   {
     slug: "select",
     title: "Select",
     group: "Forms",
-    description: "Trigger matches the carved input. Menu sits on a wood panel.",
+    description: "Select trigger and menu.",
   },
   {
     slug: "form",
     title: "Form",
     group: "Forms",
-    description: "react-hook-form and zod, wired to labels and messages.",
+    description: "react-hook-form and zod, with labels and messages.",
   },
   {
     slug: "dialog",
     title: "Dialog",
     group: "Overlays",
-    description: "A dark scrim, a serif title, and a brass edge.",
+    description: "Modal dialog with a scrim.",
   },
   {
     slug: "sheet",
     title: "Sheet",
     group: "Overlays",
-    description: "A side panel for ledgers and secondary work.",
+    description: "Side panel.",
   },
   {
     slug: "drawer",
     title: "Drawer",
     group: "Overlays",
-    description: "A grounded drawer for notes that should not cover the desk.",
+    description: "Drawer from the bottom edge.",
   },
   {
     slug: "popover",
     title: "Popover",
     group: "Overlays",
-    description: "A small wood panel for a fact that does not need a dialog.",
+    description: "Small panel anchored to a trigger.",
   },
   {
     slug: "tooltip",
     title: "Tooltip",
     group: "Overlays",
-    description: "A bark tag with a lantern edge. Short, then gone.",
+    description: "Short label on hover or focus.",
   },
   {
     slug: "dropdown-menu",
     title: "Dropdown menu",
     group: "Overlays",
-    description: "Menus use the accent wash, not a generic gray hover.",
+    description: "Menu. Hover uses accent.",
   },
   {
     slug: "command",
     title: "Command",
     group: "Overlays",
-    description: "Search the product. Same panel language as dialogs.",
+    description: "Searchable command list.",
   },
   {
     slug: "tabs",
     title: "Tabs",
     group: "Navigation",
-    description: "The line variant underlines the active tab in brass.",
+    description:
+      "Tabs. The line variant marks the active tab with the ring token.",
   },
   {
     slug: "accordion",
     title: "Accordion",
     group: "Navigation",
-    description: "Serif triggers. Content stays in the body sans.",
+    description: "Disclosure list. Triggers use the display face.",
   },
   {
     slug: "breadcrumb",
     title: "Breadcrumb",
     group: "Navigation",
-    description: "Where you are in the lodge.",
+    description: "Where you are in the app.",
   },
   {
     slug: "pagination",
     title: "Pagination",
     group: "Navigation",
-    description: "Built on the Ravenwood button.",
+    description: "Page links built on Button.",
   },
   {
     slug: "navigation-menu",
     title: "Navigation menu",
     group: "Navigation",
-    description: "The site header uses this for the component index.",
+    description: "Top navigation. The site header uses this.",
   },
   {
     slug: "sidebar",
     title: "Sidebar",
     group: "Navigation",
-    description: "The shadcn sidebar, with a brass rail on the active item.",
+    description:
+      "Collapsible sidebar. The active item uses a ring-colored rail.",
   },
   {
     slug: "card",
     title: "Card",
     group: "Display",
-    description: "A raised wood panel. Titles set in Fraunces.",
+    description: "Bordered surface. Titles use the display face.",
   },
   {
     slug: "avatar",
     title: "Avatar",
     group: "Display",
-    description: "Initials on a muted moss ground.",
+    description: "Round image or initials.",
   },
   {
     slug: "separator",
     title: "Separator",
     group: "Display",
-    description: "A bark line.",
+    description: "Hairline divider.",
   },
   {
     slug: "skeleton",
     title: "Skeleton",
     group: "Display",
-    description: "A slow sheen while the ridge report is late.",
+    description: "Placeholder while content loads.",
   },
   {
     slug: "table",
     title: "Table",
     group: "Display",
-    description: "Guests, cabins, and the night book.",
+    description: "Rows and columns.",
   },
   {
     slug: "sonner",
     title: "Sonner",
     group: "Feedback",
-    description: "Toasts in moss, lantern, and rust.",
+    description:
+      "Toasts. Success, warning, and error use moss, lantern, and rust.",
   },
   {
     slug: "use-mobile",
     title: "useIsMobile",
     group: "Utilities",
-    description: "Viewport hook used by the sidebar. True below 768px.",
+    description: "True below 768px. Used by the sidebar.",
   },
   {
     slug: "motion",
     title: "Motion",
     group: "Utilities",
-    description: "Named Ravenwood motion intents: snap, ui, overlay, layout, gentle.",
+    description: "Named durations: snap, ui, overlay, layout, gentle.",
   },
   {
     slug: "input-group",
     title: "Input group",
     group: "Forms",
-    description: "Input with an addon slot. Used by Command.",
+    description: "Input with an addon. Used by Command.",
   },
   {
     slug: "scroll-area",
     title: "Scroll area",
     group: "Display",
-    description: "Bark scrollbar for tall panels and ledgers.",
+    description: "Scrollable region with a styled scrollbar.",
+  },
+  {
+    slug: "kbd",
+    title: "Kbd",
+    group: "Signature",
+    description: "Inline shortcut key.",
+  },
+  {
+    slug: "status-dot",
+    title: "StatusDot",
+    group: "Signature",
+    description: "Status dot for idle, running, ok, warn, and error.",
+  },
+  {
+    slug: "metric",
+    title: "Metric",
+    group: "Signature",
+    description: "Label, serif value, optional delta and hint.",
+  },
+  {
+    slug: "data-list",
+    title: "DataList",
+    group: "Signature",
+    description: "Term and value rows with hairline dividers.",
+  },
+  {
+    slug: "section-header",
+    title: "SectionHeader",
+    group: "Signature",
+    description: "Section title, optional description, optional action.",
+  },
+  {
+    slug: "callout",
+    title: "Callout",
+    group: "Signature",
+    description: "Note, warning, or danger with a left border.",
+  },
+  {
+    slug: "copy-button",
+    title: "CopyButton",
+    group: "Signature",
+    description: "Icon button that copies text and shows a check.",
+  },
+  {
+    slug: "spinner",
+    title: "Spinner",
+    group: "Signature",
+    description: "16px loading arc. Static when motion is reduced.",
+  },
+  {
+    slug: "progress",
+    title: "Progress",
+    group: "Signature",
+    description: "Determinate bar. Primary fill, or lantern for a warning.",
+  },
+  {
+    slug: "slider",
+    title: "Slider",
+    group: "Signature",
+    description: "Range slider. Muted track, primary fill, focus-ring thumb.",
+  },
+  {
+    slug: "toggle",
+    title: "Toggle",
+    group: "Signature",
+    description: "Pressed state uses accent.",
+  },
+  {
+    slug: "toggle-group",
+    title: "ToggleGroup",
+    group: "Signature",
+    description: "A group of toggles. Pressed state uses accent.",
+  },
+  {
+    slug: "timeline",
+    title: "Timeline",
+    group: "Signature",
+    description: "Vertical list of events with a status dot.",
+  },
+  {
+    slug: "log-line",
+    title: "LogLine",
+    group: "Signature",
+    description: "One mono log row: time, level, message.",
+  },
+  {
+    slug: "item",
+    title: "Item",
+    group: "Signature",
+    description: "Row with icon, title, description, meta, and an action.",
+  },
+  {
+    slug: "banner",
+    title: "Banner",
+    group: "Signature",
+    description: "Full-width dismissible note.",
+  },
+  {
+    slug: "empty-panel",
+    title: "EmptyPanel",
+    group: "Signature",
+    description: "Short empty state for a table or filter. No mark.",
+  },
+  {
+    slug: "field",
+    title: "Field",
+    group: "Signature",
+    description: "Label, control, hint, and error.",
+  },
+  {
+    slug: "shortcut-hint",
+    title: "ShortcutHint",
+    group: "Signature",
+    description: "A label with a shortcut cluster.",
   },
 ]
 

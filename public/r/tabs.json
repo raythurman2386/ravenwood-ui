@@ -3,7 +3,7 @@
   "name": "tabs",
   "title": "Tabs",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Line tabs. The active mark is lantern brass, sliding with layoutId.",
+  "description": "Line tabs. The active mark uses --ring and slides with layoutId.",
   "dependencies": [
     "class-variance-authority",
     "cn",

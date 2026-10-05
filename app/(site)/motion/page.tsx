@@ -13,24 +13,20 @@ export default function MotionPage() {
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-8 sm:py-12">
       <div className="max-w-2xl">
-        <p className="text-sm tracking-[0.18em] text-muted-foreground uppercase">
-          Design system
-        </p>
-        <h1 className="mt-2 text-4xl sm:text-5xl">Motion</h1>
+        <h1 className="text-4xl sm:text-5xl">Motion</h1>
         <p className="mt-3 text-lg text-muted-foreground">
-          Motion communicates. It does not decorate. If you cannot say what
-          information an animation carries — press confirmation, spatial origin,
-          hierarchy, continuity — delete it.
+          Motion has a job: press confirmation, where something came from, what
+          is active, or continuity. If it does none of those, remove it.
         </p>
       </div>
 
       <section className="grid gap-3">
         <h2 className="text-2xl">Named intents</h2>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          Enter on{" "}
-          <code className="font-mono text-xs">{easing.enter}</code>. Exit on{" "}
-          <code className="font-mono text-xs">{easing.exit}</code>, and slightly
-          faster than enter. Springs live in <code className="font-mono text-xs">lib/motion.ts</code>.
+          Enter on <code className="font-mono text-xs">{easing.enter}</code>.
+          Exit on <code className="font-mono text-xs">{easing.exit}</code>, and
+          slightly faster than enter. Springs live in{" "}
+          <code className="font-mono text-xs">lib/motion.ts</code>.
         </p>
         <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full min-w-[32rem] text-left text-sm">

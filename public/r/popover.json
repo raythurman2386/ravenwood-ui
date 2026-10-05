@@ -3,7 +3,7 @@
   "name": "popover",
   "title": "Popover",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Raised wood-panel popover.",
+  "description": "Small overlay panel.",
   "dependencies": [
     "cn",
     "radix-ui"

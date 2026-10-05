@@ -3,7 +3,7 @@
   "name": "sonner",
   "title": "Sonner",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Toasts. Success, warning, and error map to moss, lantern, and rust.",
+  "description": "Toasts. Success, warning, and error use moss, lantern, and rust.",
   "dependencies": [
     "sonner",
     "next-themes",

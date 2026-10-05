@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shortcut-hint",
+  "title": "Shortcut hint",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "A label with a cluster of shortcut keys.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "raythurman2386/ravenwood-ui/kbd"
+  ],
+  "files": [
+    {
+      "path": "registry/ravenwood/shortcut-hint.tsx",
+      "content": "import { cn } from \"cn\"\n\nimport { Kbd } from \"./kbd\"\n\nfunction ShortcutHint({\n  className,\n  label,\n  keys,\n}: {\n  className?: string\n  label: string\n  keys: string[]\n}) {\n  return (\n    <span\n      data-slot=\"shortcut-hint\"\n      className={cn(\n        \"inline-flex min-w-0 items-center justify-between gap-3\",\n        className\n      )}\n    >\n      <span className=\"truncate\">{label}</span>\n      <span className=\"inline-flex shrink-0 items-center gap-1\">\n        {keys.map((key, index) => (\n          <Kbd key={`${key}-${index}`}>{key}</Kbd>\n        ))}\n      </span>\n    </span>\n  )\n}\n\nexport { ShortcutHint }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/shortcut-hint.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

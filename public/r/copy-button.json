@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "title": "Copy button",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Icon button that copies text and shows a check.",
+  "dependencies": [
+    "cn",
+    "lucide-react",
+    "sonner"
+  ],
+  "registryDependencies": [
+    "raythurman2386/ravenwood-ui/button"
+  ],
+  "files": [
+    {
+      "path": "registry/ravenwood/copy-button.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cn } from \"cn\"\nimport { CheckIcon, CopyIcon } from \"lucide-react\"\nimport { toast } from \"sonner\"\n\nimport { Button } from \"@/components/ui/button\"\n\nfunction CopyButton({\n  text,\n  label = \"Copy\",\n  className,\n}: {\n  text: string\n  label?: string\n  className?: string\n}) {\n  const [copied, setCopied] = React.useState(false)\n  const timer = React.useRef<number | null>(null)\n\n  React.useEffect(() => {\n    return () => {\n      if (timer.current) window.clearTimeout(timer.current)\n    }\n  }, [])\n\n  return (\n    <Button\n      type=\"button\"\n      variant=\"ghost\"\n      size=\"icon\"\n      data-slot=\"copy-button\"\n      className={cn(className)}\n      aria-label={copied ? \"Copied\" : label}\n      onClick={() => {\n        void navigator.clipboard.writeText(text).then(() => {\n          setCopied(true)\n          toast.success(\"Copied\")\n          if (timer.current) window.clearTimeout(timer.current)\n          timer.current = window.setTimeout(() => setCopied(false), 1200)\n        })\n      }}\n    >\n      {copied ? <CheckIcon /> : <CopyIcon />}\n    </Button>\n  )\n}\n\nexport { CopyButton }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/copy-button.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

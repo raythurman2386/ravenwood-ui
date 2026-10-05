@@ -3,7 +3,7 @@
   "name": "avatar",
   "title": "Avatar",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Round portrait with a bark fallback.",
+  "description": "Round avatar with a fallback.",
   "dependencies": [
     "cn",
     "radix-ui"

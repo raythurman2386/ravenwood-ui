@@ -3,7 +3,7 @@
   "name": "badge",
   "title": "Badge",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Status chip with moss and lantern variants.",
+  "description": "Status chip, including moss and lantern variants.",
   "dependencies": [
     "class-variance-authority",
     "cn",

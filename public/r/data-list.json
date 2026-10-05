@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-list",
+  "title": "Data list",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Term and value rows with hairline dividers.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/data-list.tsx",
+      "content": "import * as React from \"react\"\nimport { cn } from \"cn\"\n\nfunction DataList({ className, ...props }: React.ComponentProps<\"dl\">) {\n  return (\n    <dl data-slot=\"data-list\" className={cn(\"grid\", className)} {...props} />\n  )\n}\n\nfunction DataListItem({\n  className,\n  term,\n  mono = false,\n  children,\n}: {\n  className?: string\n  term: string\n  mono?: boolean\n  children: React.ReactNode\n}) {\n  return (\n    <div\n      data-slot=\"data-list-item\"\n      className={cn(\n        \"flex items-baseline justify-between gap-4 border-b border-border py-2 last:border-b-0\",\n        className\n      )}\n    >\n      <dt className=\"text-sm text-muted-foreground\">{term}</dt>\n      <dd className={cn(\"text-right text-sm\", mono && \"font-mono text-xs\")}>\n        {children}\n      </dd>\n    </div>\n  )\n}\n\nexport { DataList, DataListItem }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/data-list.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

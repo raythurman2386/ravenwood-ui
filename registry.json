@@ -34,7 +34,7 @@
       "name": "theme",
       "type": "registry:style",
       "title": "Ravenwood theme",
-      "description": "HSL tokens, Fraunces and Figtree, lantern focus ring, page grain, and thinner Lucide strokes. Overlay this on an existing shadcn project.",
+      "description": "HSL tokens, Fraunces, Figtree, the focus ring, page grain, and Lucide stroke 1.75. Overlay this on an existing shadcn project.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "registryDependencies": [
         "font-figtree",
@@ -147,7 +147,7 @@
         },
         "@layer base": {
           "body": {
-            "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
             "background-size": "180px 180px"
           },
           "h1, h2, h3, .font-display": {
@@ -265,7 +265,7 @@
           "--tw-enter-rotate": "0 !important",
           "--tw-exit-rotate": "0 !important"
         },
-        ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"]": {
+        ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"], .motion-reduce [data-slot=\"spinner\"]": {
           "animation": "none !important"
         },
         ".motion-reduce [data-slot=\"skeleton\"]": {
@@ -309,7 +309,7 @@
             "--tw-enter-rotate": "0 !important",
             "--tw-exit-rotate": "0 !important"
           },
-          "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"]": {
+          "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"], [data-slot=\"spinner\"]": {
             "animation": "none !important"
           },
           "[data-slot=\"skeleton\"]": {
@@ -338,7 +338,7 @@
       "name": "index",
       "type": "registry:base",
       "title": "Ravenwood",
-      "description": "Design-system base. Pins Radix (style radix-nova), writes the @ravenwood namespace, and installs the cabin tokens and fonts.",
+      "description": "Registry base. Pins radix-nova, writes the @ravenwood namespace, and installs the tokens and fonts.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -474,7 +474,7 @@
         },
         "@layer base": {
           "body": {
-            "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+            "background-image": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
             "background-size": "180px 180px"
           },
           "h1, h2, h3, .font-display": {
@@ -592,7 +592,7 @@
           "--tw-enter-rotate": "0 !important",
           "--tw-exit-rotate": "0 !important"
         },
-        ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"]": {
+        ".motion-reduce [data-slot=\"dialog-content\"][data-open] > *, .motion-reduce [data-command-just-opened] [data-slot=\"command-item\"], .motion-reduce [data-slot=\"accordion-content\"], .motion-reduce [data-slot=\"skeleton\"], .motion-reduce [data-slot=\"spinner\"]": {
           "animation": "none !important"
         },
         ".motion-reduce [data-slot=\"skeleton\"]": {
@@ -636,7 +636,7 @@
             "--tw-enter-rotate": "0 !important",
             "--tw-exit-rotate": "0 !important"
           },
-          "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"]": {
+          "[data-slot=\"dialog-content\"][data-open] > *, [data-command-just-opened] [data-slot=\"command-item\"], [data-slot=\"accordion-content\"], [data-slot=\"skeleton\"], [data-slot=\"spinner\"]": {
             "animation": "none !important"
           },
           "[data-slot=\"skeleton\"]": {
@@ -697,7 +697,7 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "Carved control. Press squash, 1px lift on primary only. Includes a lantern variant. Filled destructive uses rust.",
+      "description": "Flat button. Press scale is 0.98. Includes a lantern variant. Filled destructive uses rust.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "class-variance-authority",
@@ -719,7 +719,7 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "Inset field. Focus ring is lantern brass.",
+      "description": "Text field. Focus ring uses --ring.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -739,7 +739,7 @@
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
-      "description": "Inset multiline field with the same brass focus ring as Input.",
+      "description": "Multiline field with the same focus ring as Input.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -759,7 +759,7 @@
       "name": "label",
       "type": "registry:ui",
       "title": "Label",
-      "description": "Form label in the interface sans.",
+      "description": "Form label.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -780,7 +780,7 @@
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "Primary-checked box with a brass focus ring.",
+      "description": "Checked state uses primary. Focus ring uses --ring.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -802,7 +802,7 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "Primary-checked switch with a brass focus ring.",
+      "description": "Checked state uses primary. Focus ring uses --ring.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -823,7 +823,7 @@
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
-      "description": "Primary-checked radios with a brass focus ring.",
+      "description": "Checked state uses primary. Focus ring uses --ring.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -844,7 +844,7 @@
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
-      "description": "Inset select trigger and a bark menu.",
+      "description": "Select trigger and menu. Focus ring uses --ring.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -866,7 +866,7 @@
       "name": "dropdown-menu",
       "type": "registry:ui",
       "title": "Dropdown Menu",
-      "description": "Bark menu surface with a brass edge.",
+      "description": "Menu. Hover uses accent.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -888,7 +888,7 @@
       "name": "popover",
       "type": "registry:ui",
       "title": "Popover",
-      "description": "Raised wood-panel popover.",
+      "description": "Small overlay panel.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -909,7 +909,7 @@
       "name": "tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
-      "description": "Quiet tooltip on the popover surface.",
+      "description": "Short overlay label.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -930,7 +930,7 @@
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "Scrim and a bark dialog with a serif title. Fade only.",
+      "description": "Modal with a scrim and a serif title.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -954,7 +954,7 @@
       "name": "sheet",
       "type": "registry:ui",
       "title": "Sheet",
-      "description": "Side panel with the same scrim and bark edge as Dialog.",
+      "description": "Side panel with the same scrim as Dialog.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -978,7 +978,7 @@
       "name": "drawer",
       "type": "registry:ui",
       "title": "Drawer",
-      "description": "Vaul drawer with the cabin scrim and a serif title.",
+      "description": "Drawer with a serif title.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -999,7 +999,7 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
-      "description": "Line tabs. The active mark is lantern brass, sliding with layoutId.",
+      "description": "Line tabs. The active mark uses --ring and slides with layoutId.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "class-variance-authority",
@@ -1024,7 +1024,7 @@
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "Serif triggers, no underline.",
+      "description": "Serif triggers. Content uses the UI font.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -1046,7 +1046,7 @@
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "Raised wood panel. Titles use the display serif.",
+      "description": "Bordered surface. Titles use the display serif.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -1066,7 +1066,7 @@
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "Status chip with moss and lantern variants.",
+      "description": "Status chip, including moss and lantern variants.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "class-variance-authority",
@@ -1088,7 +1088,7 @@
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "Round portrait with a bark fallback.",
+      "description": "Round avatar with a fallback.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -1109,7 +1109,7 @@
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",
-      "description": "Bark hairline.",
+      "description": "Hairline divider.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -1130,7 +1130,7 @@
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
-      "description": "Muted loading block.",
+      "description": "Loading placeholder.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -1150,7 +1150,7 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "Quiet data table on the wood panel.",
+      "description": "Data table.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -1170,7 +1170,7 @@
       "name": "pagination",
       "type": "registry:ui",
       "title": "Pagination",
-      "description": "Pager built on the Ravenwood button.",
+      "description": "Pager built on Button.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -1193,7 +1193,7 @@
       "name": "breadcrumb",
       "type": "registry:ui",
       "title": "Breadcrumb",
-      "description": "Trail of links.",
+      "description": "Path of links.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -1215,7 +1215,7 @@
       "name": "command",
       "type": "registry:ui",
       "title": "Command",
-      "description": "Command palette on Dialog and Input Group.",
+      "description": "Command palette built on Dialog and Input Group.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cmdk",
@@ -1240,7 +1240,7 @@
       "name": "sonner",
       "type": "registry:ui",
       "title": "Sonner",
-      "description": "Toasts. Success, warning, and error map to moss, lantern, and rust.",
+      "description": "Toasts. Success, warning, and error use moss, lantern, and rust.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "sonner",
@@ -1288,7 +1288,7 @@
       "name": "sidebar",
       "type": "registry:ui",
       "title": "Sidebar",
-      "description": "Collapsible cabin sidebar. The active item carries a brass rail.",
+      "description": "Collapsible sidebar. The active item uses a rail in the focus ring color.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "class-variance-authority",
@@ -1319,7 +1319,7 @@
       "name": "navigation-menu",
       "type": "registry:ui",
       "title": "Navigation Menu",
-      "description": "Top navigation with a bark panel.",
+      "description": "Top navigation.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "class-variance-authority",
@@ -1367,7 +1367,7 @@
       "name": "scroll-area",
       "type": "registry:ui",
       "title": "Scroll Area",
-      "description": "Bark scrollbar.",
+      "description": "Scrollable region.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn",
@@ -1409,7 +1409,7 @@
       "name": "forest-card",
       "type": "registry:component",
       "title": "Forest Card",
-      "description": "Card with a lantern-gold hairline and moss description text.",
+      "description": "Card with one hairline in the focus ring color.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -1454,7 +1454,7 @@
       "name": "hollow-input",
       "type": "registry:component",
       "title": "Hollow Input",
-      "description": "Input with a deeper carved inset.",
+      "description": "Taller field on the muted fill.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -1477,7 +1477,7 @@
       "name": "raven-empty-state",
       "type": "registry:component",
       "title": "Raven Empty State",
-      "description": "Empty state locked up with the raven mark.",
+      "description": "Empty state with the raven mark, a title, and one action.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "cn"
@@ -1500,7 +1500,7 @@
       "name": "page-shell",
       "type": "registry:component",
       "title": "Page Shell",
-      "description": "App frame: collapsible sidebar, raven mark, and an inset header. Next.js App Router.",
+      "description": "App frame with a collapsible sidebar and the raven mark. Next.js App Router.",
       "author": "raythurman2386 <https://github.com/raythurman2386>",
       "dependencies": [
         "next",
@@ -1517,6 +1517,426 @@
           "path": "registry/ravenwood/page-shell.tsx",
           "type": "registry:file",
           "target": "components/ravenwood/page-shell.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:component",
+      "title": "Kbd",
+      "description": "Inline shortcut key. Mono, bordered, no shadow.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/kbd.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/kbd.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "status-dot",
+      "type": "registry:component",
+      "title": "Status dot",
+      "description": "Status dot for idle, running, ok, warn, and error.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/status-dot.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/status-dot.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "metric",
+      "type": "registry:component",
+      "title": "Metric",
+      "description": "Label, serif value, optional delta and hint.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/metric.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/metric.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "data-list",
+      "type": "registry:component",
+      "title": "Data list",
+      "description": "Term and value rows with hairline dividers.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/data-list.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/data-list.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "section-header",
+      "type": "registry:component",
+      "title": "Section header",
+      "description": "Section title, optional description, and an optional action.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/section-header.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/section-header.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "callout",
+      "type": "registry:component",
+      "title": "Callout",
+      "description": "Note, warning, or danger with a left border.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/callout.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/callout.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:component",
+      "title": "Copy button",
+      "description": "Icon button that copies text and shows a check.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn",
+        "lucide-react",
+        "sonner"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/ravenwood/copy-button.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/copy-button.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:component",
+      "title": "Spinner",
+      "description": "16px loading arc. Static when motion is reduced.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/spinner.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/spinner.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:component",
+      "title": "Progress",
+      "description": "Determinate bar. Primary fill, or lantern for a warning.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/progress.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/progress.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:component",
+      "title": "Slider",
+      "description": "Range slider. Muted track, primary fill, focus-ring thumb.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/slider.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/slider.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:component",
+      "title": "Toggle",
+      "description": "Two-state button. Pressed state uses accent.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/toggle.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/toggle.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:component",
+      "title": "Toggle group",
+      "description": "A group of toggles. Pressed state uses accent.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "radix-ui"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/ravenwood/toggle-group.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/toggle-group.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:component",
+      "title": "Timeline",
+      "description": "Vertical list of events with a status dot.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/status-dot"
+      ],
+      "files": [
+        {
+          "path": "registry/ravenwood/timeline.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/timeline.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "log-line",
+      "type": "registry:component",
+      "title": "Log line",
+      "description": "One mono log row: time, level, and message.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/log-line.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/log-line.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:component",
+      "title": "Item",
+      "description": "Row with an icon, title, description, meta, and an action.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/item.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/item.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:component",
+      "title": "Banner",
+      "description": "Full-width dismissible note.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "class-variance-authority",
+        "cn",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/banner.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/banner.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "empty-panel",
+      "type": "registry:component",
+      "title": "Empty panel",
+      "description": "Short empty state for a table or a filter. No mark.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/ravenwood/empty-panel.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/empty-panel.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:component",
+      "title": "Field",
+      "description": "Label, control, hint, and error.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/label"
+      ],
+      "files": [
+        {
+          "path": "registry/ravenwood/field.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/field.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
+      "name": "shortcut-hint",
+      "type": "registry:component",
+      "title": "Shortcut hint",
+      "description": "A label with a cluster of shortcut keys.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/kbd"
+      ],
+      "files": [
+        {
+          "path": "registry/ravenwood/shortcut-hint.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/shortcut-hint.tsx"
         }
       ],
       "categories": [

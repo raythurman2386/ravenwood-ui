@@ -2,23 +2,12 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  BookOpen,
-  Flame,
-  Leaf,
-  Moon,
-  SearchIcon,
-  Trees,
-  Users,
-} from "lucide-react"
-import { useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
+import { PlayIcon, ScrollTextIcon, SearchIcon } from "lucide-react"
 import { toast } from "sonner"
-import { z } from "zod"
 
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -28,8 +17,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   Command,
   CommandDialog,
@@ -48,14 +35,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -63,41 +42,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Label } from "@/components/ui/label"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
-import { Switch } from "@/components/ui/switch"
+import { Input } from "@/components/ui/input"
 import {
   Table,
   TableBody,
@@ -107,100 +52,121 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { ForestCard } from "@/registry/ravenwood/forest-card"
-import {
-  GroveAlert,
-  GroveAlertDescription,
-  GroveAlertIcon,
-  GroveAlertTitle,
-} from "@/registry/ravenwood/grove-alert"
+import { Banner } from "@/registry/ravenwood/banner"
+import { Callout } from "@/registry/ravenwood/callout"
+import { CopyButton } from "@/registry/ravenwood/copy-button"
+import { DataList, DataListItem } from "@/registry/ravenwood/data-list"
+import { EmptyPanel } from "@/registry/ravenwood/empty-panel"
+import { Field } from "@/registry/ravenwood/field"
 import { HollowInput } from "@/registry/ravenwood/hollow-input"
+import { LogLine, type LogLevel } from "@/registry/ravenwood/log-line"
+import { Metric } from "@/registry/ravenwood/metric"
 import { PageShell } from "@/registry/ravenwood/page-shell"
-import { RavenEmptyState } from "@/registry/ravenwood/raven-empty-state"
+import { Progress } from "@/registry/ravenwood/progress"
+import { SectionHeader } from "@/registry/ravenwood/section-header"
+import { Spinner } from "@/registry/ravenwood/spinner"
+import {
+  StatusDot,
+  type StatusDotStatus,
+} from "@/registry/ravenwood/status-dot"
+import { Timeline, TimelineItem } from "@/registry/ravenwood/timeline"
 
-const guests = [
-  { name: "Mara Ell", cabin: "Hemlock", meal: "Hearth", status: "In" },
-  { name: "Ivo Hart", cabin: "Yew", meal: "Pack", status: "Due" },
-  { name: "Nessa Cole", cabin: "Cedar", meal: "Hearth", status: "In" },
-  { name: "Tomlin Ward", cabin: "Alder", meal: "None", status: "Out" },
-  { name: "Sera Quinn", cabin: "Birch", meal: "Hearth", status: "In" },
-  { name: "Hal Voss", cabin: "Pine", meal: "Pack", status: "Due" },
-  { name: "Edie Marsh", cabin: "Rowan", meal: "Hearth", status: "In" },
-  { name: "Jon Pell", cabin: "Ash", meal: "None", status: "Out" },
+const runs: Array<{
+  id: string
+  name: string
+  status: StatusDotStatus
+  when: string
+}> = [
+  { id: "run_18f", name: "deploy", status: "running", when: "now" },
+  { id: "run_18e", name: "sync", status: "ok", when: "2m ago" },
+  { id: "run_18d", name: "backup", status: "warn", when: "1h ago" },
+  { id: "run_18c", name: "index", status: "error", when: "3h ago" },
+  { id: "run_18b", name: "lint", status: "idle", when: "5h ago" },
 ]
 
-const checkInSchema = z.object({
-  name: z.string().min(2, "A name, even a trail name."),
-  cabin: z.string().min(1, "Choose a cabin."),
-  meal: z.enum(["hearth", "pack", "none"]),
-  lantern: z.boolean(),
-})
+const logs: Array<{ time: string; level: LogLevel; message: string }> = [
+  { time: "14:02:11", level: "info", message: "Last sync 2m ago" },
+  { time: "14:02:08", level: "warn", message: "Retrying deploy" },
+  { time: "14:01:40", level: "error", message: "Index failed" },
+  { time: "13:58:02", level: "debug", message: "Worker idle" },
+]
 
-type CheckIn = z.infer<typeof checkInSchema>
-
-const pageSize = 4
-
-function statusBadge(status: string) {
-  if (status === "In") return <Badge variant="moss">In</Badge>
-  if (status === "Due") return <Badge variant="lantern">Due</Badge>
-  return <Badge variant="outline">Out</Badge>
+const statusLabel: Record<StatusDotStatus, string> = {
+  idle: "Idle",
+  running: "Running",
+  ok: "Ok",
+  warn: "Warn",
+  error: "Error",
 }
 
 function LodgeConsole() {
-  const [page, setPage] = React.useState(1)
-  const [openCheckIn, setOpenCheckIn] = React.useState(false)
+  const router = useRouter()
+  const [hash, setHash] = React.useState("runs")
   const [commandOpen, setCommandOpen] = React.useState(false)
-  const [hash, setHash] = React.useState("grove")
-  const pages = Math.ceil(guests.length / pageSize)
-  const rows = guests.slice((page - 1) * pageSize, page * pageSize)
-
-  const form = useForm<CheckIn>({
-    resolver: zodResolver(checkInSchema),
-    defaultValues: { name: "", cabin: "", meal: "hearth", lantern: true },
-  })
+  const [runOpen, setRunOpen] = React.useState(false)
+  const [name, setName] = React.useState("")
+  const [nameError, setNameError] = React.useState<string>()
+  const [query, setQuery] = React.useState("")
 
   React.useEffect(() => {
-    const read = () => setHash(window.location.hash.replace("#", "") || "grove")
+    const read = () => setHash(window.location.hash.replace("#", "") || "runs")
     read()
     window.addEventListener("hashchange", read)
     return () => window.removeEventListener("hashchange", read)
   }, [])
 
   const items = [
-    { title: "Grove", href: "/kitchen#grove", icon: Trees, active: hash === "grove" },
-    { title: "Hearth", href: "/kitchen#hearth", icon: Flame, active: hash === "hearth" },
-    { title: "Guests", href: "/kitchen#guests", icon: Users, active: hash === "guests" },
-    { title: "Ledger", href: "/kitchen#ledger", icon: BookOpen, active: hash === "ledger" },
-    { title: "Notes", href: "/kitchen#notes", icon: Moon, active: hash === "notes" },
+    {
+      title: "Runs",
+      href: "/kitchen#runs",
+      icon: PlayIcon,
+      active: hash === "runs",
+    },
+    {
+      title: "Logs",
+      href: "/kitchen#logs",
+      icon: ScrollTextIcon,
+      active: hash === "logs",
+    },
   ]
 
+  const filteredLogs = logs.filter((line) => {
+    const needle = query.trim().toLowerCase()
+    if (!needle) return true
+    return (
+      line.message.toLowerCase().includes(needle) ||
+      line.level.includes(needle) ||
+      line.time.includes(needle)
+    )
+  })
+
+  function submitRun(kind: "save" | "run") {
+    const next = name.trim()
+    if (next.length < 2) {
+      setNameError("Enter a name.")
+      return
+    }
+    toast.success(kind === "save" ? `Saved ${next}.` : `Started ${next}.`)
+    setRunOpen(false)
+    setName("")
+    setNameError(undefined)
+  }
+
   return (
-    <PageShell
-      title="North Cabin"
-      items={items}
-      footer={
-        <p className="px-2 pb-2 text-xs text-muted-foreground">Fog, 46°. East wind.</p>
-      }
-    >
+    <PageShell title="Runs" items={items}>
+      <Banner tone="lantern">Deploy is running. Last sync 2m ago.</Banner>
       <div className="flex min-w-0 flex-col gap-6 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:p-6">
         <div className="flex flex-wrap items-center gap-3">
           <Breadcrumb className="mr-auto min-w-0">
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/">Ravenwood</Link>
+                  <Link href="/">North Cabin</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>North Cabin</BreadcrumbPage>
+                <BreadcrumbPage>Runs</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -208,11 +174,11 @@ function LodgeConsole() {
             <Button
               variant="outline"
               className="max-sm:size-11 max-sm:px-0"
-              aria-label="Search"
+              aria-label="Filter logs"
               onClick={() => setCommandOpen(true)}
             >
               <SearchIcon data-icon="inline-start" />
-              <span className="hidden sm:inline">Search</span>
+              <span className="hidden sm:inline">Filter logs</span>
             </Button>
             <ThemeToggle className="size-11 md:size-9" />
             <DropdownMenu>
@@ -220,7 +186,7 @@ function LodgeConsole() {
                 <button
                   type="button"
                   className="inline-flex size-11 items-center justify-center rounded-full focus-visible:ring-3 focus-visible:ring-ring/55 focus-visible:outline-none md:size-auto"
-                  aria-label="Night clerk"
+                  aria-label="Account"
                 >
                   <Avatar>
                     <AvatarFallback>NC</AvatarFallback>
@@ -228,368 +194,228 @@ function LodgeConsole() {
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Night clerk</DropdownMenuLabel>
+                <DropdownMenuLabel>Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/docs">Component docs</Link>
+                  <Link href="/docs">Docs</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/">Leave the desk</Link>
+                  <Link href="/">Home</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         </div>
 
-        <div id="grove" className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <h1 className="text-3xl sm:text-4xl">Evening watch</h1>
-            <p className="mt-1 max-w-xl text-muted-foreground">
-              Thursday. Three lanterns still dark on the east path. The hearth is
-              banked and the book is open.
-            </p>
+        <section id="runs" className="grid gap-4">
+          <SectionHeader
+            title="Runs"
+            description="Last sync 2m ago."
+            action={<Button onClick={() => setRunOpen(true)}>Run</Button>}
+          />
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Metric
+              label="Runs today"
+              value="18"
+              delta="+3"
+              hint="Since midnight"
+            />
+            <Metric label="Queue" value="1" hint="deploy" />
+            <Metric label="Failed" value="2" />
           </div>
-          <div className="flex w-full flex-wrap gap-2 sm:w-auto">
-            <Button className="flex-1 sm:flex-none" onClick={() => setOpenCheckIn(true)}>
-              Check in
-            </Button>
-            <Drawer>
-              <DrawerTrigger asChild>
-                <Button variant="outline" className="flex-1 sm:flex-none">
-                  Trail notes
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader>
-                  <DrawerTitle>From the ridge</DrawerTitle>
-                  <DrawerDescription>
-                    Boardwalk is slick after dusk. Brass tags are still visible.
-                  </DrawerDescription>
-                </DrawerHeader>
-              </DrawerContent>
-            </Drawer>
-          </div>
-        </div>
-
-        <GroveAlert variant="lantern">
-          <GroveAlertIcon>
-            <Flame />
-          </GroveAlertIcon>
-          <GroveAlertTitle>East path lanterns</GroveAlertTitle>
-          <GroveAlertDescription>
-            Numbers 4 through 6 are out. Wick stock is in the mudroom, left shelf.
-          </GroveAlertDescription>
-        </GroveAlert>
-
-        <div id="hearth" className="grid gap-3 md:grid-cols-3">
-          <ForestCard>
-            <CardHeader>
-              <CardTitle>Cabins</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="font-serif text-3xl">9 / 12</p>
-              <p className="text-sm text-moss-foreground">Occupied under the canopy.</p>
-            </CardContent>
-          </ForestCard>
-          <ForestCard>
-            <CardHeader>
-              <CardTitle>Hearth</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="font-serif text-3xl">Banked</p>
-              <p className="text-sm text-moss-foreground">Coal enough for the night.</p>
-            </CardContent>
-          </ForestCard>
-          <ForestCard>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Trail</CardTitle>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <button type="button" className="text-muted-foreground" aria-label="Trail condition">
-                    <Leaf className="size-4" />
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent>Soft, marked, open.</TooltipContent>
-              </Tooltip>
-            </CardHeader>
-            <CardContent className="flex items-center justify-between gap-3">
-              <div>
-                <p className="font-serif text-3xl">Open</p>
-                <p className="text-sm text-moss-foreground">Ridge path, not the span.</p>
-              </div>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="sm">
-                    Why
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent>Ice on the north boardwalk. Send guests over the ridge.</PopoverContent>
-              </Popover>
-            </CardContent>
-          </ForestCard>
-        </div>
-
-        <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_0.8fr]">
-          <div id="guests" className="min-w-0 rounded-2xl border border-border bg-card">
-            <div className="flex flex-col gap-3 px-4 pt-4 sm:flex-row sm:items-center sm:justify-between">
-              <h2 className="text-2xl">Arrivals</h2>
-              <Tabs defaultValue="today">
-                <TabsList variant="line">
-                  <TabsTrigger value="today">Today</TabsTrigger>
-                  <TabsTrigger value="week">Week</TabsTrigger>
-                </TabsList>
-                <TabsContent value="today" />
-                <TabsContent value="week" />
-              </Tabs>
+          <div className="grid max-w-md gap-2">
+            <div className="flex items-center gap-2 text-sm">
+              <Spinner />
+              <span>Deploy</span>
             </div>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Guest</TableHead>
-                  <TableHead>Cabin</TableHead>
-                  <TableHead className="hidden sm:table-cell">Meal</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rows.map((guest) => (
-                  <TableRow key={guest.name}>
-                    <TableCell>{guest.name}</TableCell>
-                    <TableCell>{guest.cabin}</TableCell>
-                    <TableCell className="hidden sm:table-cell">{guest.meal}</TableCell>
-                    <TableCell>{statusBadge(guest.status)}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <Pagination className="justify-center px-3 py-3 sm:justify-end">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    href="#guests"
-                    onClick={(event) => {
-                      event.preventDefault()
-                      setPage((current) => Math.max(1, current - 1))
-                    }}
-                  />
-                </PaginationItem>
-                {Array.from({ length: pages }, (_, index) => (
-                  <PaginationItem key={index}>
-                    <PaginationLink
-                      href="#guests"
-                      isActive={page === index + 1}
-                      onClick={(event) => {
-                        event.preventDefault()
-                        setPage(index + 1)
-                      }}
+            <Progress value={64} aria-label="Deploy progress" />
+          </div>
+          <Callout variant="warning">Index failed on the last attempt.</Callout>
+          <Tabs defaultValue="all">
+            <TabsList variant="line">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="pinned">Pinned</TabsTrigger>
+            </TabsList>
+            <TabsContent value="all" className="pt-3">
+              <div className="min-w-0 overflow-x-auto rounded-xl border border-border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Run</TableHead>
+                      <TableHead>When</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead className="w-12">
+                        <span className="sr-only">Copy</span>
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {runs.map((run) => (
+                      <TableRow key={run.id}>
+                        <TableCell>{run.name}</TableCell>
+                        <TableCell>{run.when}</TableCell>
+                        <TableCell>
+                          <StatusDot
+                            status={run.status}
+                            label={statusLabel[run.status]}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <CopyButton text={run.id} label={`Copy ${run.id}`} />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </TabsContent>
+            <TabsContent value="pinned" className="pt-3">
+              <div className="rounded-xl border border-border">
+                <EmptyPanel
+                  title="No runs yet"
+                  description="Pin a run to keep it here."
+                  action={
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setRunOpen(true)}
                     >
-                      {index + 1}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                <PaginationItem>
-                  <PaginationNext
-                    href="#guests"
-                    onClick={(event) => {
-                      event.preventDefault()
-                      setPage((current) => Math.min(pages, current + 1))
-                    }}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
-
-          <div className="flex min-w-0 flex-col gap-4">
-            <div id="ledger" className="rounded-2xl border border-border bg-card p-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl">Watch</h2>
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button variant="outline" size="sm">
-                      Stores
+                      Run
                     </Button>
-                  </SheetTrigger>
-                  <SheetContent>
-                    <SheetHeader>
-                      <SheetTitle>Mudroom stores</SheetTitle>
-                      <SheetDescription>Counted at dusk.</SheetDescription>
-                    </SheetHeader>
-                    <ul className="grid gap-2 px-4 text-sm">
-                      <li className="flex justify-between">
-                        <span>Lamp oil</span>
-                        <span className="text-muted-foreground">6 tins</span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span>Wicks</span>
-                        <span className="text-muted-foreground">14</span>
-                      </li>
-                      <li className="flex justify-between">
-                        <span>Dry cedar</span>
-                        <span className="text-muted-foreground">half a rack</span>
-                      </li>
-                    </ul>
-                  </SheetContent>
-                </Sheet>
+                  }
+                />
               </div>
-              <div className="mt-4 flex items-center justify-between gap-3">
-                <Label htmlFor="timer">Lanterns on a timer</Label>
-                <Switch id="timer" defaultChecked />
+            </TabsContent>
+          </Tabs>
+        </section>
+
+        <div className="grid items-start gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <section className="grid gap-3">
+            <h2 className="text-2xl">Latest</h2>
+            <Timeline>
+              <TimelineItem status="running" title="Deploy" meta="14:02">
+                Still running.
+              </TimelineItem>
+              <TimelineItem status="ok" title="Sync" meta="14:00">
+                Finished.
+              </TimelineItem>
+              <TimelineItem status="warn" title="Backup" meta="13:12">
+                Took longer than usual.
+              </TimelineItem>
+              <TimelineItem status="error" title="Index" meta="12:04">
+                Exited with an error.
+              </TimelineItem>
+            </Timeline>
+            <DataList>
+              <DataListItem term="Environment">Production</DataListItem>
+              <DataListItem term="Run" mono>
+                run_18f
+              </DataListItem>
+              <DataListItem term="Status">Running</DataListItem>
+            </DataList>
+          </section>
+
+          <section id="logs" className="grid gap-3">
+            <h2 className="text-2xl">Logs</h2>
+            <Input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Filter logs"
+              aria-label="Filter logs"
+            />
+            {filteredLogs.length === 0 ? (
+              <div className="rounded-xl border border-border">
+                <EmptyPanel
+                  title="No matching logs"
+                  description="Try another filter."
+                />
               </div>
-              <Accordion type="single" collapsible className="mt-4">
-                <AccordionItem value="ridge">
-                  <AccordionTrigger>Ridge report</AccordionTrigger>
-                  <AccordionContent>
-                    Fog sitting in the ravine. The brass tags catch a lamp from
-                    twenty paces.
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="hearth-note">
-                  <AccordionTrigger>Hearth note</AccordionTrigger>
-                  <AccordionContent>Do not feed it after the second bell.</AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-            <div id="notes" className="rounded-2xl border border-border bg-card">
-              <RavenEmptyState
-                className="py-8"
-                title="No new ravens"
-                description="The ridge is quiet. Notes land here when someone writes one."
-              />
-            </div>
-          </div>
+            ) : (
+              <div className="grid gap-1 rounded-xl border border-border p-3">
+                {filteredLogs.map((line) => (
+                  <LogLine key={`${line.time}-${line.level}`} {...line} />
+                ))}
+              </div>
+            )}
+          </section>
         </div>
       </div>
 
-      <Dialog open={openCheckIn} onOpenChange={setOpenCheckIn}>
+      <Dialog
+        open={runOpen}
+        onOpenChange={(open) => {
+          setRunOpen(open)
+          if (!open) setNameError(undefined)
+        }}
+      >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Check in</DialogTitle>
-            <DialogDescription>Write them into the night book.</DialogDescription>
+            <DialogTitle>New run</DialogTitle>
+            <DialogDescription>
+              Starts immediately, or saves the name.
+            </DialogDescription>
           </DialogHeader>
-          <Form {...form}>
-            <form
-              className="grid gap-4"
-              onSubmit={form.handleSubmit((values) => {
-                toast.success(`${values.name} has Hemlock's key.`)
-                setOpenCheckIn(false)
-                form.reset()
-              })}
+          <Field
+            label="Name"
+            htmlFor="run-name"
+            hint={nameError ? undefined : "Shown in the list."}
+            error={nameError}
+          >
+            <HollowInput
+              id="run-name"
+              value={name}
+              placeholder="sync"
+              aria-invalid={nameError ? true : undefined}
+              onChange={(event) => {
+                setName(event.target.value)
+                if (nameError) setNameError(undefined)
+              }}
+            />
+          </Field>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => submitRun("save")}
             >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <HollowInput placeholder="Trail name is fine" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="cabin"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Cabin</FormLabel>
-                    <Select value={field.value} onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Choose" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="hemlock">Hemlock</SelectItem>
-                        <SelectItem value="cedar">Cedar</SelectItem>
-                        <SelectItem value="yew">Yew</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="meal"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Meal</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        value={field.value}
-                        onValueChange={field.onChange}
-                        className="grid gap-2"
-                      >
-                        {[
-                          ["hearth", "Hearth"],
-                          ["pack", "Pack"],
-                          ["none", "None"],
-                        ].map(([value, label]) => (
-                          <div key={value} className="flex items-center gap-2">
-                            <RadioGroupItem value={value} id={`meal-${value}`} />
-                            <Label htmlFor={`meal-${value}`}>{label}</Label>
-                          </div>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lantern"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center gap-2">
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={(checked) => field.onChange(checked === true)}
-                      />
-                    </FormControl>
-                    <FormLabel>Leave a lantern by the door</FormLabel>
-                  </FormItem>
-                )}
-              />
-              <DialogFooter>
-                <Button type="submit">Write the book</Button>
-              </DialogFooter>
-            </form>
-          </Form>
+              Save
+            </Button>
+            <Button type="button" onClick={() => submitRun("run")}>
+              Run
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
 
       <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
         <Command>
-          <CommandInput placeholder="Search the grove" />
+          <CommandInput placeholder="Filter logs" />
           <CommandList>
-            <CommandEmpty>No path by that name.</CommandEmpty>
+            <CommandEmpty>No matching logs.</CommandEmpty>
             <CommandGroup heading="Jump">
               <CommandItem
                 onSelect={() => {
-                  window.location.hash = "guests"
+                  window.location.hash = "runs"
                   setCommandOpen(false)
                 }}
               >
-                Guests
+                Runs
               </CommandItem>
               <CommandItem
                 onSelect={() => {
-                  window.location.hash = "ledger"
+                  window.location.hash = "logs"
                   setCommandOpen(false)
                 }}
               >
-                Ledger
+                Logs
               </CommandItem>
               <CommandItem
                 onSelect={() => {
-                  window.location.assign("/docs")
+                  router.push("/docs")
+                  setCommandOpen(false)
                 }}
               >
-                Component docs
+                Docs
               </CommandItem>
             </CommandGroup>
           </CommandList>

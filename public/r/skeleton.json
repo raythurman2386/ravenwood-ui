@@ -3,7 +3,7 @@
   "name": "skeleton",
   "title": "Skeleton",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Muted loading block.",
+  "description": "Loading placeholder.",
   "dependencies": [
     "cn"
   ],

@@ -3,7 +3,7 @@
   "name": "sheet",
   "title": "Sheet",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Side panel with the same scrim and bark edge as Dialog.",
+  "description": "Side panel with the same scrim as Dialog.",
   "dependencies": [
     "cn",
     "radix-ui",
