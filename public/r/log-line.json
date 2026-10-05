@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "log-line",
+  "title": "Log line",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "One mono log row: time, level, and message.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/log-line.tsx",
+      "content": "import { cn } from \"cn\"\n\nconst levelClass = {\n  debug: \"text-muted-foreground\",\n  info: \"text-moss-foreground\",\n  warn: \"text-lantern-foreground\",\n  error: \"text-rust-foreground\",\n} as const\n\ntype LogLevel = keyof typeof levelClass\n\nfunction LogLine({\n  className,\n  time,\n  level,\n  message,\n}: {\n  className?: string\n  time: string\n  level: LogLevel\n  message: string\n}) {\n  return (\n    <p\n      data-slot=\"log-line\"\n      data-level={level}\n      className={cn(\n        \"grid grid-cols-[auto_3.5rem_1fr] gap-3 font-mono text-xs leading-5\",\n        className\n      )}\n    >\n      <span className=\"text-muted-foreground\">{time}</span>\n      <span className={levelClass[level]}>{level}</span>\n      <span className=\"min-w-0\">{message}</span>\n    </p>\n  )\n}\n\nexport { LogLine, type LogLevel }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/log-line.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

@@ -3,7 +3,7 @@
   "name": "pagination",
   "title": "Pagination",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Pager built on the Ravenwood button.",
+  "description": "Pager built on Button.",
   "dependencies": [
     "cn",
     "lucide-react"

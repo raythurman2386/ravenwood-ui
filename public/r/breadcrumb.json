@@ -3,7 +3,7 @@
   "name": "breadcrumb",
   "title": "Breadcrumb",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Trail of links.",
+  "description": "Path of links.",
   "dependencies": [
     "cn",
     "radix-ui",

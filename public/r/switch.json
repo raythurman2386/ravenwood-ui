@@ -3,7 +3,7 @@
   "name": "switch",
   "title": "Switch",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Primary-checked switch with a brass focus ring.",
+  "description": "Checked state uses primary. Focus ring uses --ring.",
   "dependencies": [
     "cn",
     "radix-ui"

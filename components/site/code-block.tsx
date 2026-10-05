@@ -5,15 +5,19 @@ import { CheckIcon, CopyIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
-function CodeBlock({ code, label = "Usage" }: { code: string; label?: string }) {
+function CodeBlock({
+  code,
+  label = "Usage",
+}: {
+  code: string
+  label?: string
+}) {
   const [copied, setCopied] = React.useState(false)
 
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card">
       <div className="flex items-center justify-between border-b border-border px-3 py-2">
-        <p className="text-xs tracking-wide text-muted-foreground uppercase">
-          {label}
-        </p>
+        <p className="text-xs text-muted-foreground">{label}</p>
         <Button
           type="button"
           variant="ghost"

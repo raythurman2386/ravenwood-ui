@@ -39,7 +39,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "fixed inset-0 isolate z-50 bg-[hsl(110_14%_3%/0.72)] duration-scrim ease-enter supports-backdrop-filter:backdrop-blur-[2px] data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-closed:duration-overlay-exit data-closed:ease-exit motion-reduce:animate-none",
+        "duration-scrim data-closed:duration-overlay-exit fixed inset-0 isolate z-50 bg-[hsl(110_14%_3%/0.72)] ease-enter supports-backdrop-filter:backdrop-blur-[2px] motion-reduce:animate-none data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:ease-exit data-closed:fade-out-0",
         className
       )}
       {...props}
@@ -61,7 +61,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] max-h-[min(90dvh,calc(100%-2rem))] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-xl border border-border bg-popover p-5 text-sm text-popover-foreground shadow-[0_24px_60px_-32px_hsl(110_20%_2%/0.85)] ring-1 ring-ring/25 duration-overlay ease-enter outline-none sm:max-w-md data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-bottom-[6px] data-closed:animate-out data-closed:fade-out-0 data-closed:slide-out-to-bottom-[4px] data-closed:duration-overlay-exit data-closed:ease-exit motion-reduce:animate-none motion-reduce:data-open:slide-in-from-bottom-0",
+          "duration-overlay data-closed:duration-overlay-exit fixed top-1/2 left-1/2 z-50 grid max-h-[min(90dvh,calc(100%-2rem))] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto rounded-xl border border-border bg-popover p-5 text-sm text-popover-foreground shadow-[0_24px_60px_-32px_hsl(110_20%_2%/0.85)] ease-enter outline-none motion-reduce:animate-none sm:max-w-md data-open:animate-in data-open:fade-in-0 data-open:slide-in-from-bottom-[6px] motion-reduce:data-open:slide-in-from-bottom-0 data-closed:animate-out data-closed:ease-exit data-closed:fade-out-0 data-closed:slide-out-to-bottom-[4px]",
           className
         )}
         {...props}
@@ -74,8 +74,7 @@ function DialogContent({
               className="absolute top-2 right-2 size-11 md:size-8"
               size="icon-sm"
             >
-              <XIcon
-              />
+              <XIcon />
               <span className="sr-only">Close</span>
             </Button>
           </DialogPrimitive.Close>

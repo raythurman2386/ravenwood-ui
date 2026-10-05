@@ -14,8 +14,8 @@ export default function DocsPage() {
       <div className="max-w-2xl">
         <h1 className="text-4xl sm:text-5xl">Components</h1>
         <p className="mt-3 text-muted-foreground">
-          Each page shows the live control, the variants that carry the forest
-          language, and the import you paste into the next project.
+          Each page shows the component, the install command, and a usage
+          snippet.
         </p>
       </div>
       {catalogGroups.map((group) => (
@@ -28,7 +28,7 @@ export default function DocsPage() {
                 <li key={item.slug}>
                   <Link
                     href={`/docs/${item.slug}`}
-                    className="block h-full min-h-16 rounded-xl border border-border bg-card px-4 py-3 transition-colors duration-fade ease-enter hover:border-ring/50"
+                    className="duration-fade block h-full min-h-16 rounded-xl border border-border bg-card px-4 py-3 transition-colors ease-enter hover:border-ring/50"
                   >
                     <p className="font-serif text-lg">{item.title}</p>
                     <p className="mt-1 text-sm text-muted-foreground">

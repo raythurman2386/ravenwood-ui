@@ -27,9 +27,7 @@ npx shadcn@latest add @ravenwood/button
 
 ## Philosophy
 
-Fork shadcn. Keep Radix, Tailwind, and the file layout every shadcn project already expects. Own the tokens and the defaults, and add a small set of pieces that are specifically this library.
-
-Dark is the primary theme. Light is the paper reading mode. Motion uses named intents in `lib/motion.ts` (`snap`, `ui`, `overlay`, `layout`, `gentle`): short travel, enter ease, faster exit. Grain sits on the page background. Components stay flat, crisp, and keyboard accessible. Focus rings use the lantern brass `--ring`. Preview the language at `/motion`.
+Fork shadcn and keep Radix, Tailwind, and the usual file layout. Dark is the default. Light is the paper theme. Tokens live in `app/globals.css`. Motion uses short named intents in `lib/motion.ts`: snap, ui, overlay, layout, and gentle. Grain sits on the page background. Controls are flat. Focus rings use `--ring`. Preview the motion at `/motion`.
 
 ## Tokens
 
@@ -70,7 +68,7 @@ pnpm dev
 | `/` | The system: mood, palette, type, install |
 | `/docs` | Every component |
 | `/docs/button` | Live example, install command, usage |
-| `/kitchen` | Lodge desk. A product screen, not a specimen grid |
+| `/kitchen` | Runs desk. A product screen, not a specimen grid |
 
 `d` toggles dark and light, including while a field is focused only when the event target is not a typing control.
 
@@ -92,7 +90,7 @@ The preview imports signatures from `@/registry/ravenwood/*`. Usage snippets and
 
 ## Registry
 
-42 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in), and six signature components.
+61 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in), and twenty-five signature components.
 
 Same-repository dependencies use the GitHub item address (`raythurman2386/ravenwood-ui/button`). A bare name such as `button` is the official shadcn button. After `index` is installed, `@ravenwood/button` resolves through the namespace written into `components.json`.
 

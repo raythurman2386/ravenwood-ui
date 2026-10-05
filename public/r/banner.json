@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "banner",
+  "title": "Banner",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Full-width dismissible note.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn",
+    "lucide-react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/banner.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\nimport { XIcon } from \"lucide-react\"\n\nconst bannerVariants = cva(\"flex w-full items-center gap-3 px-4 py-2 text-sm\", {\n  variants: {\n    tone: {\n      moss: \"bg-moss text-moss-foreground\",\n      lantern: \"bg-lantern text-lantern-foreground\",\n      rust: \"bg-rust text-rust-foreground\",\n    },\n  },\n  defaultVariants: {\n    tone: \"moss\",\n  },\n})\n\nfunction Banner({\n  className,\n  tone = \"moss\",\n  children,\n  onDismiss,\n  ...props\n}: React.ComponentProps<\"div\"> &\n  VariantProps<typeof bannerVariants> & {\n    onDismiss?: () => void\n  }) {\n  const [open, setOpen] = React.useState(true)\n  if (!open) return null\n\n  return (\n    <div\n      data-slot=\"banner\"\n      data-tone={tone}\n      className={cn(bannerVariants({ tone }), className)}\n      {...props}\n    >\n      <p className=\"min-w-0 flex-1 truncate\">{children}</p>\n      <button\n        type=\"button\"\n        aria-label=\"Dismiss\"\n        className=\"inline-flex size-8 shrink-0 items-center justify-center rounded-md hover:bg-foreground/10 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none\"\n        onClick={() => {\n          setOpen(false)\n          onDismiss?.()\n        }}\n      >\n        <XIcon className=\"size-4\" />\n      </button>\n    </div>\n  )\n}\n\nexport { Banner, bannerVariants }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/banner.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

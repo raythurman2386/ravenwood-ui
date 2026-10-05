@@ -3,7 +3,7 @@
   "name": "drawer",
   "title": "Drawer",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Vaul drawer with the cabin scrim and a serif title.",
+  "description": "Drawer with a serif title.",
   "dependencies": [
     "cn",
     "vaul"

@@ -12,14 +12,14 @@ import { ForestCard } from "@/registry/ravenwood/forest-card"
 import { githubRepo, githubUser, registryNamespace } from "@/lib/registry"
 
 const swatches = [
-  ["Background", "bg-background", "Bark"],
-  ["Card", "bg-card", "Wood panel"],
-  ["Primary", "bg-primary", "Canopy"],
-  ["Accent", "bg-accent", "Lantern wash"],
-  ["Ring", "bg-ring", "Brass"],
-  ["Moss", "bg-moss", "Trail"],
-  ["Rust", "bg-rust", "Dried blood"],
-  ["Muted", "bg-muted", "Shade"],
+  ["Background", "bg-background", "Page background"],
+  ["Card", "bg-card", "Raised surface"],
+  ["Primary", "bg-primary", "Primary action"],
+  ["Accent", "bg-accent", "Hover and pressed"],
+  ["Ring", "bg-ring", "Focus ring"],
+  ["Moss", "bg-moss", "Success"],
+  ["Rust", "bg-rust", "Danger"],
+  ["Muted", "bg-muted", "Muted surface"],
 ] as const
 
 export default function HomePage() {
@@ -27,23 +27,20 @@ export default function HomePage() {
     <main className="mx-auto flex max-w-6xl flex-col gap-12 px-4 py-10 sm:gap-16 sm:py-16">
       <section className="grid items-end gap-8 md:grid-cols-[1.4fr_0.8fr]">
         <div className="flex flex-col gap-5">
-          <p className="text-sm tracking-[0.18em] text-muted-foreground uppercase">
-            Personal component source
-          </p>
+          <p className="text-sm text-muted-foreground">Personal registry</p>
           <h1 className="max-w-xl text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-            Quiet timber, moss, and lantern light.
+            A shadcn registry.
           </h1>
           <p className="max-w-xl text-lg text-muted-foreground">
-            Ravenwood UI is shadcn/ui on Radix, restyled. The primitives stay
-            familiar. The tokens, the type, and a few signature pieces are mine,
-            and they install into the next project with the shadcn CLI.
+            Radix primitives, this palette, and a few extra components. Dark is
+            the default. Light is the paper theme. Install them with the CLI.
           </p>
           <div className="flex flex-wrap gap-2">
             <Button asChild>
-              <Link href="/docs">Read the components</Link>
+              <Link href="/docs">Docs</Link>
             </Button>
             <Button asChild variant="lantern">
-              <Link href="/kitchen">Sit the lodge desk</Link>
+              <Link href="/kitchen">Runs</Link>
             </Button>
             <Button asChild variant="outline">
               <Link href="/motion">Motion</Link>
@@ -53,12 +50,14 @@ export default function HomePage() {
         <ForestCard>
           <CardHeader>
             <CardTitle>North Cabin</CardTitle>
-            <CardDescription>Dark first. Light is the paper mode.</CardDescription>
+            <CardDescription>
+              Dark is the default. Light is the paper theme.
+            </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-2 text-sm text-muted-foreground">
-            <p>Display is Fraunces. Interface is Figtree.</p>
-            <p>Focus rings are lantern brass, not a blue halo.</p>
-            <p>Motion is a lantern catching: snap, then rest.</p>
+            <p>Fraunces on headings. Figtree on UI text.</p>
+            <p>The focus ring uses the ring token.</p>
+            <p>Motion stays under 220ms.</p>
           </CardContent>
         </ForestCard>
       </section>
@@ -67,7 +66,10 @@ export default function HomePage() {
         <h2 className="text-3xl">Palette</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {swatches.map(([name, tone, note]) => (
-            <div key={name} className="overflow-hidden rounded-xl border border-border">
+            <div
+              key={name}
+              className="overflow-hidden rounded-xl border border-border"
+            >
               <div className={`h-16 ${tone}`} />
               <div className="px-3 py-2">
                 <p className="text-sm">{name}</p>
@@ -81,16 +83,16 @@ export default function HomePage() {
       <section className="grid gap-6 md:grid-cols-2">
         <div>
           <p className="text-sm text-muted-foreground">Display</p>
-          <p className="font-serif text-4xl leading-none sm:text-5xl">Fraunces</p>
-          <p className="mt-3 max-w-sm text-muted-foreground">
-            Optical size and a soft terminal. Headings, card titles, empty states.
+          <p className="font-serif text-4xl leading-none sm:text-5xl">
+            Fraunces
           </p>
+          <p className="mt-3 max-w-sm text-muted-foreground">Used for h1–h3.</p>
         </div>
         <div>
           <p className="text-sm text-muted-foreground">Interface</p>
           <p className="font-sans text-4xl leading-none sm:text-5xl">Figtree</p>
           <p className="mt-3 max-w-sm text-muted-foreground">
-            Geometric, quiet, and readable at 14px in a sidebar.
+            Used for labels, buttons, and body text.
           </p>
         </div>
       </section>

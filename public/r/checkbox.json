@@ -3,7 +3,7 @@
   "name": "checkbox",
   "title": "Checkbox",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Primary-checked box with a brass focus ring.",
+  "description": "Checked state uses primary. Focus ring uses --ring.",
   "dependencies": [
     "cn",
     "radix-ui",

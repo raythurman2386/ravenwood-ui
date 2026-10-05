@@ -1,6 +1,6 @@
 # Ravenwood UI
 
-Personal shadcn/ui registry and preview. Radix primitives, style name radix-nova. Dark forest cabin: bark, moss, canopy emerald, lantern brass. Not a new primitive set.
+Personal shadcn/ui registry and preview. Radix primitives, style name radix-nova. Dark default, light paper theme. Not a second primitive set.
 
 Repo: https://github.com/raythurman2386/ravenwood-ui
 Registry catalog: registry.json at the repo root.
@@ -36,11 +36,11 @@ Dark is default (html.dark, next-themes defaultTheme dark, enableSystem false). 
 --ease-snap cubic-bezier(0.2, 0.8, 0.2, 1)
 --ease-ground aliases enter
 Named intents (lib/motion.ts): snap 110ms, ui 180ms, overlay 200ms (exit 160ms), layout 220ms, gentle 220ms (rare). Cap 220ms.
-Press squash scale(0.98). Hover is color/border/shadow.
+Press squash scale(0.98). Hover is color and border. Press scale is 0.98.
 Ask: what does this motion communicate? If not press, origin, hierarchy, or continuity, delete it.
 Ban: transition-all; linear UI easing; ease-in-out default; hover scale > 1.02; bounce/wiggle/ping/pulse chrome; idle loops; staggered first-paint paragraphs; 400ms+ functional; Lottie/Rive chrome loops; drifting glow orbs; layout reflow while reading.
 prefers-reduced-motion and .motion-reduce zero travel (translate/scale/rotate), not only duration.
-Grain on body only. .lucide stroke-width 1.75.
+Grain on body only, feColorMatrix alpha 0.06. .lucide stroke-width 1.75. Controls are flat. ForestCard keeps one focus-ring hairline. Do not repeat that rail on alerts, inputs, dialogs, or empty states.
 
 ## Files
 
@@ -52,10 +52,10 @@ lib/catalog.ts docs index and consumer usage snippets
 components/docs/showcase.tsx live examples
 lib/motion.ts named intents (snap, ui, overlay, layout, gentle)
 app/(site) home, docs, /motion
-app/kitchen lodge desk
+app/kitchen runs desk
 app/r/[name] serves public/r JSON
 
-Signature pieces: raven-mark, forest-card, grove-alert (moss|lantern|rust), hollow-input, raven-empty-state, page-shell (Next.js, uses sidebar).
+Signature pieces: raven-mark, forest-card, grove-alert (moss|lantern|rust), hollow-input, raven-empty-state, page-shell (Next.js, uses sidebar), kbd, status-dot, metric, data-list, section-header, callout, copy-button, spinner, progress, slider, toggle, toggle-group, timeline, log-line, item, banner, empty-panel, field, shortcut-hint.
 
 Imports in registry files: cn from "cn", primitives from "radix-ui". Preview may import @/registry/ravenwood. Consumer snippets import @/components/ravenwood.
 

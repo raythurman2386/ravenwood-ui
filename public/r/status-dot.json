@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-dot",
+  "title": "Status dot",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "Status dot for idle, running, ok, warn, and error.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/ravenwood/status-dot.tsx",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nconst statusDotVariants = cva(\"size-2 shrink-0 rounded-full\", {\n  variants: {\n    status: {\n      idle: \"bg-muted-foreground\",\n      running: \"bg-primary\",\n      ok: \"bg-moss-foreground\",\n      warn: \"bg-lantern-foreground\",\n      error: \"bg-rust-foreground\",\n    },\n  },\n  defaultVariants: {\n    status: \"idle\",\n  },\n})\n\ntype StatusDotStatus = NonNullable<\n  VariantProps<typeof statusDotVariants>[\"status\"]\n>\n\nfunction StatusDot({\n  className,\n  status = \"idle\",\n  label,\n}: {\n  className?: string\n  status?: StatusDotStatus\n  label?: string\n}) {\n  return (\n    <span\n      data-slot=\"status-dot\"\n      data-status={status}\n      className={cn(\"inline-flex items-center gap-2 text-sm\", className)}\n    >\n      <span aria-hidden=\"true\" className={statusDotVariants({ status })} />\n      {label ? <span>{label}</span> : <span className=\"sr-only\">{status}</span>}\n    </span>\n  )\n}\n\nexport { StatusDot, statusDotVariants, type StatusDotStatus }\n",
+      "type": "registry:file",
+      "target": "components/ravenwood/status-dot.tsx"
+    }
+  ],
+  "categories": [
+    "signature"
+  ],
+  "type": "registry:component"
+}

@@ -3,7 +3,7 @@
   "name": "raven-empty-state",
   "title": "Raven Empty State",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "Empty state locked up with the raven mark.",
+  "description": "Empty state with the raven mark, a title, and one action.",
   "dependencies": [
     "cn"
   ],

@@ -3,7 +3,7 @@
   "name": "page-shell",
   "title": "Page Shell",
   "author": "raythurman2386 <https://github.com/raythurman2386>",
-  "description": "App frame: collapsible sidebar, raven mark, and an inset header. Next.js App Router.",
+  "description": "App frame with a collapsible sidebar and the raven mark. Next.js App Router.",
   "dependencies": [
     "next",
     "lucide-react"
