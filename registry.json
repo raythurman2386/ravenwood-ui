@@ -1479,6 +1479,9 @@
           ".maplibregl-ctrl-attrib-button": {
             "@apply bg-transparent! dark:invert": {}
           },
+          ".maplibregl-ctrl-attrib.maplibregl-compact-show": {
+            "max-width": "min(18rem, calc(100% - 5.5rem))"
+          },
           ".maplibregl-ctrl-scale": {
             "@apply rounded-b-sm! border-muted-foreground! bg-background/80! text-[10px]! text-muted-foreground!": {}
           },

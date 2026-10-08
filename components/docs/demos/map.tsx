@@ -55,13 +55,19 @@ function VisibleStores({ onChange }: { onChange: (ids: Store[]) => void }) {
     const update = () => {
       const bounds = map.getBounds()
       const center = map.getCenter()
+      // Prefer city variety over pure distance: store ids cycle metros, so
+      // sorting by id keeps Chicago/Milwaukee/… interleaved in the sidebar.
       const inView = stores
         .filter((store) => bounds.contains([store.longitude, store.latitude]))
-        .sort(
-          (a, b) =>
+        .sort((a, b) => {
+          const ai = Number(a.id.replace("store-", ""))
+          const bi = Number(b.id.replace("store-", ""))
+          if (ai !== bi) return ai - bi
+          return (
             Math.hypot(a.longitude - center.lng, a.latitude - center.lat) -
             Math.hypot(b.longitude - center.lng, b.latitude - center.lat)
-        )
+          )
+        })
       onChange(inView)
     }
     update()

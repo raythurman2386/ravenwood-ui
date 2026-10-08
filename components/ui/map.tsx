@@ -418,6 +418,8 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       container: containerRef.current,
       style: initialStyle,
       renderWorldCopies: false,
+      // Force compact chrome; MapLibre still opens it on first paint for OSM
+      // credit, which covers the scale bar and overlaps controls at ~390px.
       attributionControl: {
         compact: true,
       },
@@ -429,11 +431,26 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
       ...viewport,
     })
 
+    const collapseAttribution = () => {
+      const attrib = map
+        .getContainer()
+        .querySelector(".maplibregl-ctrl-attrib")
+      if (!attrib) return
+      // MapLibre's _updateCompact adds maplibregl-compact-show on init; drop it
+      // so narrow maps start on the 'i' toggle. Credit stays one click away.
+      attrib.classList.remove("maplibregl-compact-show")
+    }
+
     const styleLoadHandler = () => {
       styleSwapInFlightRef.current = false
       setIsStyleLoaded(true)
+      collapseAttribution()
     }
-    const loadHandler = () => setIsLoaded(true)
+    const loadHandler = () => {
+      setIsLoaded(true)
+      collapseAttribution()
+    }
+    const idleCollapseHandler = () => collapseAttribution()
 
     // Viewport change handler - skip if triggered by internal update
     const handleMove = () => {
@@ -443,12 +460,14 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
 
     map.on("load", loadHandler)
     map.on("style.load", styleLoadHandler)
+    map.once("idle", idleCollapseHandler)
     map.on("move", handleMove)
     setMapInstance(map)
 
     return () => {
       map.off("load", loadHandler)
       map.off("style.load", styleLoadHandler)
+      map.off("idle", idleCollapseHandler)
       map.off("move", handleMove)
       map.remove()
       setIsLoaded(false)
@@ -1231,7 +1250,8 @@ const positionClasses = {
   "top-left": "top-2 left-2",
   "top-right": "top-2 right-2",
   "bottom-left": "bottom-2 left-2",
-  "bottom-right": "bottom-10 right-2",
+  // bottom-12 clears MapLibre's compact attribution button (~24px + 10px margin)
+  "bottom-right": "bottom-12 right-2",
 }
 
 function ControlGroup({ children }: { children: ReactNode }) {

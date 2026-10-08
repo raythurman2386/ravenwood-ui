@@ -27,22 +27,24 @@ function mulberry32(seed: number) {
   }
 }
 
-const metros: Array<[city: string, longitude: number, latitude: number]> = [
-  ["Chicago", -87.6298, 41.8781],
-  ["Milwaukee", -87.9065, 43.0389],
-  ["Minneapolis", -93.265, 44.9778],
-  ["St. Louis", -90.1994, 38.627],
-  ["Kansas City", -94.5786, 39.0997],
-  ["Indianapolis", -86.1581, 39.7684],
-  ["Detroit", -83.0458, 42.3314],
-  ["Columbus", -82.9988, 39.9612],
-  ["Nashville", -86.7816, 36.1627],
-  ["Dallas", -96.797, 32.7767],
-  ["Austin", -97.7431, 30.2672],
-  ["Denver", -104.9903, 39.7392],
-  ["Atlanta", -84.388, 33.749],
-  ["Pittsburgh", -79.9959, 40.4406],
-  ["Omaha", -95.9345, 41.2565],
+const metros: Array<
+  [city: string, state: string, longitude: number, latitude: number]
+> = [
+  ["Chicago", "IL", -87.6298, 41.8781],
+  ["Milwaukee", "WI", -87.9065, 43.0389],
+  ["Minneapolis", "MN", -93.265, 44.9778],
+  ["St. Louis", "MO", -90.1994, 38.627],
+  ["Kansas City", "MO", -94.5786, 39.0997],
+  ["Indianapolis", "IN", -86.1581, 39.7684],
+  ["Detroit", "MI", -83.0458, 42.3314],
+  ["Columbus", "OH", -82.9988, 39.9612],
+  ["Nashville", "TN", -86.7816, 36.1627],
+  ["Dallas", "TX", -96.797, 32.7767],
+  ["Austin", "TX", -97.7431, 30.2672],
+  ["Denver", "CO", -104.9903, 39.7392],
+  ["Atlanta", "GA", -84.388, 33.749],
+  ["Pittsburgh", "PA", -79.9959, 40.4406],
+  ["Omaha", "NE", -95.9345, 41.2565],
 ]
 
 const streets = [
@@ -64,7 +66,7 @@ function buildStores(): Store[] {
   const random = mulberry32(2386)
   const stores: Store[] = []
   for (let i = 0; i < 300; i++) {
-    const [city, longitude, latitude] = metros[i % metros.length]
+    const [city, state, longitude, latitude] = metros[i % metros.length]
     // Spread stores out to about 25km from the metro center.
     const angle = random() * Math.PI * 2
     const distance = Math.sqrt(random()) * 0.22
@@ -75,7 +77,7 @@ function buildStores(): Store[] {
       id: `store-${i + 1}`,
       name: `Hearth & Field #${i + 1}`,
       city,
-      address: `${number} ${street} ${kind}, ${city}`,
+      address: `${number} ${street} ${kind}, ${city}, ${state}`,
       hours: hours[i % hours.length],
       longitude: longitude + (Math.cos(angle) * distance) / 0.75,
       latitude: latitude + Math.sin(angle) * distance,
@@ -113,6 +115,7 @@ export type Listing = {
   latitude: number
 }
 
+// Chicago neighborhoods with pins in those areas (not a national set).
 export const listings: Listing[] = [
   {
     id: "l1",
@@ -191,6 +194,7 @@ export type Venue = {
   latitude: number
 }
 
+// Downtown Chicago pins — names are fictional, coords stay in-city.
 export const venues: Venue[] = [
   {
     id: "v1",
