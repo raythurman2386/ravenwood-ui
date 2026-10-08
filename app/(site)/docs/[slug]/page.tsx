@@ -52,6 +52,7 @@ export default async function ComponentPage({ params }: PageProps) {
         label="Install"
         code={`${namespaceInstall(item.slug)}\n${githubInstall(item.slug)}`}
       />
+      {item.setup ? <CodeBlock label="Setup" code={item.setup} /> : null}
       <CodeBlock code={item.usage} />
       {item.examples?.length ? (
         <section className="flex flex-col gap-10">

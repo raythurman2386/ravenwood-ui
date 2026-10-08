@@ -324,6 +324,55 @@
   transition: opacity var(--duration-fade) var(--ease-enter) !important;
 }
 
+/*
+  MapLibre chrome (components/ui/map.tsx). maplibre-gl.css is unlayered,
+  so these overrides need !important to win from @layer base. Mirrored in
+  the css block of the map item in registry.json.
+*/
+@layer base {
+  .maplibregl-map {
+    @apply font-sans!;
+  }
+
+  .maplibregl-popup-content {
+    @apply rounded-none! bg-transparent! p-0! shadow-none!;
+  }
+
+  .maplibregl-popup-tip {
+    @apply hidden!;
+  }
+
+  .maplibregl-ctrl-attrib {
+    @apply rounded-md! border! border-border! bg-background/90! text-muted-foreground! shadow-sm!;
+  }
+
+  .maplibregl-ctrl-attrib a {
+    @apply text-muted-foreground!;
+  }
+
+  .maplibregl-ctrl-attrib a:hover {
+    @apply text-foreground!;
+  }
+
+  .maplibregl-ctrl-attrib-button {
+    @apply bg-transparent! dark:invert;
+  }
+
+  .maplibregl-ctrl-scale {
+    @apply rounded-b-sm! border-muted-foreground! bg-background/80! text-[10px]! text-muted-foreground!;
+  }
+
+  .maplibregl-canvas:focus-visible,
+  .maplibregl-ctrl-attrib-button:focus-visible,
+  .maplibregl-ctrl-attrib a:focus-visible {
+    @apply outline-2! outline-offset-2! outline-ring!;
+  }
+
+  .maplibregl-canvas:focus-visible {
+    @apply -outline-offset-2!;
+  }
+}
+
 .motion-reduce {
   --duration-snap: 1ms;
   --duration-ui: 80ms;

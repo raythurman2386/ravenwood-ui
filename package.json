@@ -4,15 +4,16 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "shadcn build && next build",
+    "dev": "node scripts/copy-maplibre-worker.mjs && next dev",
+    "build": "node scripts/copy-maplibre-worker.mjs && shadcn build && next build",
     "registry:build": "shadcn build",
     "registry:validate": "shadcn registry validate",
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
-    "contrast": "node scripts/analyze-contrast.mjs"
+    "contrast": "node scripts/analyze-contrast.mjs",
+    "maplibre:worker": "node scripts/copy-maplibre-worker.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
