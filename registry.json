@@ -678,6 +678,22 @@
       ]
     },
     {
+      "name": "use-reduced-motion",
+      "type": "registry:hook",
+      "title": "useReducedMotion",
+      "description": "True when the OS asks for reduced motion or a .motion-reduce ancestor is set.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "files": [
+        {
+          "path": "hooks/use-reduced-motion.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "categories": [
+        "hook"
+      ]
+    },
+    {
       "name": "motion",
       "type": "registry:lib",
       "title": "Motion",
@@ -1377,6 +1393,33 @@
       "files": [
         {
           "path": "components/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "categories": [
+        "ui"
+      ]
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Embla carousel with slide or fade, items per view by breakpoint, and opt-in autoplay with a pause control.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn",
+        "embla-carousel-react@^8.6.0",
+        "embla-carousel-autoplay@^8.6.0",
+        "embla-carousel-fade@^8.6.0",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/button",
+        "raythurman2386/ravenwood-ui/use-reduced-motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/carousel.tsx",
           "type": "registry:ui"
         }
       ],

@@ -1,11 +1,20 @@
 import { githubInstallCommand, installCommand } from "@/lib/registry"
 
+export type CatalogExample = {
+  id: string
+  title: string
+  description: string
+  usage: string
+}
+
 export type CatalogItem = {
   slug: string
   title: string
   group: string
   description: string
   usage: string
+  /** Scenario demos shown after the plain demo on the docs page. */
+  examples?: CatalogExample[]
 }
 
 const usage = {
@@ -737,6 +746,38 @@ export function Example() {
 export function Example() {
   return <ShortcutHint label="Filter logs" keys={["⌘", "K"]} />
 }`,
+  carousel: `import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
+export function Example() {
+  return (
+    <Carousel aria-label="Run notes" className="mx-12 max-w-xs">
+      <CarouselContent>
+        <CarouselItem>Sync</CarouselItem>
+        <CarouselItem>Backup</CarouselItem>
+        <CarouselItem>Deploy</CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  )
+}`,
+  "use-reduced-motion": `"use client"
+
+import * as React from "react"
+
+import { useReducedMotion } from "@/hooks/use-reduced-motion"
+
+export function Example() {
+  const ref = React.useRef<HTMLDivElement>(null)
+  const reduce = useReducedMotion(ref)
+  return <div ref={ref}>{reduce ? "Jump" : "Animate"}</div>
+}`,
 } as const
 
 type UsageKey = keyof typeof usage
@@ -746,6 +787,7 @@ const entries: Array<{
   title: string
   group: string
   description: string
+  examples?: CatalogExample[]
 }> = [
   {
     slug: "raven-mark",
@@ -974,6 +1016,13 @@ const entries: Array<{
     description: "Named durations: snap, ui, overlay, layout, gentle.",
   },
   {
+    slug: "use-reduced-motion",
+    title: "useReducedMotion",
+    group: "Utilities",
+    description:
+      "True when the OS asks for reduced motion or a .motion-reduce ancestor is set.",
+  },
+  {
     slug: "input-group",
     title: "Input group",
     group: "Forms",
@@ -984,6 +1033,54 @@ const entries: Array<{
     title: "Scroll area",
     group: "Display",
     description: "Scrollable region with a styled scrollbar.",
+  },
+  {
+    slug: "carousel",
+    title: "Carousel",
+    group: "Media",
+    description:
+      "Embla carousel. Slide or fade, items per view by breakpoint, and opt-in autoplay with a pause control.",
+    examples: [
+      {
+        id: "responsive",
+        title: "Responsive feature showcase",
+        description:
+          "One item per view on small screens, two at md, three at lg. Prev and Next move one view.",
+        usage: `<Carousel aria-label="Features" itemsPerView={{ base: 1, md: 2, lg: 3 }}>
+  <CarouselContent>
+    {features.map((feature) => (
+      <CarouselItem key={feature.title}>
+        <Card className="h-full">...</Card>
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>`,
+      },
+      {
+        id: "testimonials",
+        title: "Testimonial fade",
+        description:
+          "Cross-fade with autoplay off until Play is pressed. Hover or focus pauses it. Reduced motion hides the control and never rotates.",
+        usage: `<Carousel
+  aria-label="Testimonials"
+  transition="fade"
+  autoplay={{ delay: 6000, playOnInit: false }}
+  opts={{ loop: true }}
+>
+  <CarouselContent>
+    {testimonials.map((item) => (
+      <CarouselItem key={item.name}>
+        <Card>...</Card>
+      </CarouselItem>
+    ))}
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>`,
+      },
+    ],
   },
   {
     slug: "kbd",

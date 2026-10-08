@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Leaf, PlayIcon, TriangleAlertIcon } from "lucide-react"
@@ -153,11 +154,41 @@ import {
 } from "@/components/ui/table"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
+import { useReducedMotion } from "@/hooks/use-reduced-motion"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+
+const CarouselDemo = dynamic(
+  () => import("@/components/docs/demos/carousel").then((m) => m.CarouselDemo),
+  { loading: () => <Skeleton className="mx-auto h-48 w-full max-w-sm" /> }
+)
+
+function ReducedMotionPreview() {
+  const ref = React.useRef<HTMLDivElement>(null)
+  const [scoped, setScoped] = React.useState(false)
+  const reduce = useReducedMotion(ref)
+
+  return (
+    <div className={scoped ? "motion-reduce" : undefined}>
+      <div ref={ref} className="flex flex-wrap items-center gap-3 text-sm">
+        <Badge variant={reduce ? "secondary" : "outline"}>
+          {reduce ? "Reduced motion" : "Full motion"}
+        </Badge>
+        <Button
+          variant="outline"
+          size="sm"
+          aria-pressed={scoped}
+          onClick={() => setScoped((value) => !value)}
+        >
+          {scoped ? "Remove .motion-reduce" : "Add .motion-reduce"}
+        </Button>
+      </div>
+    </div>
+  )
+}
 
 const noteSchema = z.object({
   name: z.string().min(2, "Enter at least 2 characters."),
@@ -199,8 +230,12 @@ function FormPreview() {
   )
 }
 
-function Showcase({ slug }: { slug: string }) {
+function Showcase({ slug, example }: { slug: string; example?: string }) {
   switch (slug) {
+    case "carousel":
+      return <CarouselDemo example={example} />
+    case "use-reduced-motion":
+      return <ReducedMotionPreview />
     case "button":
       return (
         <div className="flex flex-wrap items-center gap-2">

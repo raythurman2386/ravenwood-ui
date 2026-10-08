@@ -47,6 +47,8 @@ Grain on body only, feColorMatrix alpha 0.06. .lucide stroke-width 1.75. Control
 components/ui/* primitives, one copy, registry paths point here
 registry/ravenwood/* signature sources; install target components/ravenwood/<name>.tsx
 hooks/use-mobile.ts
+hooks/use-reduced-motion.ts true for prefers-reduced-motion or a .motion-reduce ancestor
+components/docs/demos/* lazy-loaded docs demos
 lib/utils.ts re-exports cn
 lib/catalog.ts docs index and consumer usage snippets
 components/docs/showcase.tsx live examples
@@ -56,6 +58,8 @@ app/kitchen runs desk
 app/r/[name] serves public/r JSON
 
 Signature pieces: raven-mark, forest-card, grove-alert (moss|lantern|rust), hollow-input, raven-empty-state, page-shell (Next.js, uses sidebar), kbd, status-dot, metric, data-list, section-header, callout, copy-button, spinner, progress, slider, toggle, toggle-group, timeline, log-line, item, banner, empty-panel, field, shortcut-hint.
+
+Carousel (components/ui/carousel.tsx, group Media): Embla 8.6 plus autoplay and fade plugins. Parts Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext. Props transition (slide|fade), itemsPerView (number or {base,sm,md,lg,xl}), autoplay (boolean or {delay, playOnInit}); opts, plugins, orientation, setApi as upstream. Requires aria-label or aria-labelledby. Slides are labelled "n of m", offscreen slides are inert, live region is polite unless rotating. Reduced motion jumps instead of scrolling and hides autoplay.
 
 Imports in registry files: cn from "cn", primitives from "radix-ui". Preview may import @/registry/ravenwood. Consumer snippets import @/components/ravenwood.
 

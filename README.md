@@ -80,6 +80,8 @@ components/ui/*              primitives the registry installs
 registry/ravenwood/*         signature sources
 components/ravenwood/*       where signatures land in a consumer app
 hooks/use-mobile.ts
+hooks/use-reduced-motion.ts  OS setting or a .motion-reduce ancestor
+components/docs/demos/*      lazy-loaded docs demos (carousel)
 lib/utils.ts                 re-exports cn
 registry.json                catalog
 public/r/*.json              built items for the @ravenwood namespace
@@ -90,7 +92,9 @@ The preview imports signatures from `@/registry/ravenwood/*`. Usage snippets and
 
 ## Registry
 
-61 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in), and twenty-five signature components.
+63 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, `use-reduced-motion`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in, and `carousel`), and twenty-five signature components.
+
+`carousel` is shadcn's Embla carousel with three additions: `transition="slide" | "fade"`, `itemsPerView` (a number or `{ base, sm, md, lg, xl }`), and `autoplay` (`true` or `{ delay, playOnInit }`). Autoplay renders a pause and play control first in tab order, pauses on hover and focus, and never runs under reduced motion. `opts`, `plugins`, `orientation`, `setApi`, and `CarouselApi` match upstream.
 
 Same-repository dependencies use the GitHub item address (`raythurman2386/ravenwood-ui/button`). A bare name such as `button` is the official shadcn button. After `index` is installed, `@ravenwood/button` resolves through the namespace written into `components.json`.
 
