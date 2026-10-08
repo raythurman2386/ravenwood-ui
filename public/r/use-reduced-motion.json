@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-reduced-motion",
+  "title": "useReducedMotion",
+  "author": "raythurman2386 <https://github.com/raythurman2386>",
+  "description": "True when the OS asks for reduced motion or a .motion-reduce ancestor is set.",
+  "files": [
+    {
+      "path": "hooks/use-reduced-motion.ts",
+      "content": "import * as React from \"react\"\n\nconst QUERY = \"(prefers-reduced-motion: reduce)\"\n\nfunction subscribe(callback: () => void) {\n  const mql = window.matchMedia(QUERY)\n  mql.addEventListener(\"change\", callback)\n\n  // `.motion-reduce` can be toggled on any ancestor (the /motion playground\n  // does this), so watch class changes across the document.\n  const observer = new MutationObserver(callback)\n  observer.observe(document.documentElement, {\n    attributes: true,\n    attributeFilter: [\"class\"],\n    subtree: true,\n  })\n\n  return () => {\n    mql.removeEventListener(\"change\", callback)\n    observer.disconnect()\n  }\n}\n\nfunction getServerSnapshot() {\n  return false\n}\n\n/**\n * True when the user asks for reduced motion, either through the OS\n * (`prefers-reduced-motion: reduce`) or through a `.motion-reduce` class on\n * the element passed in `ref` or any of its ancestors. Without a ref, the\n * class is checked on `<html>`.\n */\nexport function useReducedMotion(ref?: React.RefObject<Element | null>) {\n  const getSnapshot = React.useCallback(() => {\n    if (window.matchMedia(QUERY).matches) {\n      return true\n    }\n    const element = ref?.current ?? document.documentElement\n    return element.closest(\".motion-reduce\") !== null\n  }, [ref])\n\n  return React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "categories": [
+    "hook"
+  ],
+  "type": "registry:hook"
+}
