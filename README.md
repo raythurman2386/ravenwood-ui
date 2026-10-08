@@ -81,7 +81,8 @@ registry/ravenwood/*         signature sources
 components/ravenwood/*       where signatures land in a consumer app
 hooks/use-mobile.ts
 hooks/use-reduced-motion.ts  OS setting or a .motion-reduce ancestor
-components/docs/demos/*      lazy-loaded docs demos (carousel)
+components/docs/demos/*      lazy-loaded docs demos (carousel, map) and site-only fixtures
+scripts/copy-maplibre-worker.mjs  copies the MapLibre worker into public/maplibre (gitignored)
 lib/utils.ts                 re-exports cn
 registry.json                catalog
 public/r/*.json              built items for the @ravenwood namespace
@@ -92,9 +93,11 @@ The preview imports signatures from `@/registry/ravenwood/*`. Usage snippets and
 
 ## Registry
 
-63 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, `use-reduced-motion`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in, and `carousel`), and twenty-five signature components.
+64 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, `use-reduced-motion`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in, `carousel`, and `map`), and twenty-five signature components.
 
 `carousel` is shadcn's Embla carousel with three additions: `transition="slide" | "fade"`, `itemsPerView` (a number or `{ base, sm, md, lg, xl }`), and `autoplay` (`true` or `{ delay, playOnInit }`). Autoplay renders a pause and play control first in tab order, pauses on hover and focus, and never runs under reduced motion. `opts`, `plugins`, `orientation`, `setApi`, and `CarouselApi` match upstream.
+
+`map` is mapcn's MapLibre 6 map (MIT, upstream commit `d160bd7`), vendored into `components/ui/map.tsx` with mapcn's names and props, so code ports by import path. Ravenwood changes: token colors (any color prop takes `var(--token)`), OpenFreeMap basemaps by default (CARTO is opt-in through `styles`), interactive markers render a `<button>` with a `label`, popups are labelled dialogs that take focus and close on Escape, camera moves jump under reduced motion, a static skeleton replaces the pulsing loader, and `MapControls` has `showScale`. The worker is never loaded from a CDN: `scripts/copy-maplibre-worker.mjs` (installed with the item) copies it into `public/maplibre/`, and `dev` and `build` run it first. Point `<Map workerUrl>` elsewhere if you serve it from another path.
 
 Same-repository dependencies use the GitHub item address (`raythurman2386/ravenwood-ui/button`). A bare name such as `button` is the official shadcn button. After `index` is installed, `@ravenwood/button` resolves through the namespace written into `components.json`.
 

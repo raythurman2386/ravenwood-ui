@@ -166,6 +166,13 @@ const CarouselDemo = dynamic(
   { loading: () => <Skeleton className="mx-auto h-48 w-full max-w-sm" /> }
 )
 
+// MapLibre touches window on import, so map demos are client-only and load
+// in their own chunk: MapLibre ships only on map pages.
+const MapDemo = dynamic(() => import("@/components/docs/demos/map"), {
+  ssr: false,
+  loading: () => <Skeleton className="h-[360px] w-full rounded-xl" />,
+})
+
 function ReducedMotionPreview() {
   const ref = React.useRef<HTMLDivElement>(null)
   const [scoped, setScoped] = React.useState(false)
@@ -234,6 +241,8 @@ function Showcase({ slug, example }: { slug: string; example?: string }) {
   switch (slug) {
     case "carousel":
       return <CarouselDemo example={example} />
+    case "map":
+      return <MapDemo example={example} />
     case "use-reduced-motion":
       return <ReducedMotionPreview />
     case "button":

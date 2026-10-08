@@ -1428,6 +1428,77 @@
       ]
     },
     {
+      "name": "map",
+      "type": "registry:ui",
+      "title": "Map",
+      "description": "MapLibre map vendored from mapcn (MIT, d160bd7): markers, popups, tooltips, routes, arcs, GeoJSON, clusters and controls, with Ravenwood tokens, keyboard markers, focus-managed popups, reduced motion, and a self-hosted worker.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn",
+        "maplibre-gl@^6",
+        "lucide-react"
+      ],
+      "devDependencies": [
+        "@types/geojson"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/skeleton",
+        "raythurman2386/ravenwood-ui/use-reduced-motion"
+      ],
+      "files": [
+        {
+          "path": "components/ui/map.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "scripts/copy-maplibre-worker.mjs",
+          "type": "registry:file",
+          "target": "~/scripts/copy-maplibre-worker.mjs"
+        }
+      ],
+      "css": {
+        "@layer base": {
+          ".maplibregl-map": {
+            "@apply font-sans!": {}
+          },
+          ".maplibregl-popup-content": {
+            "@apply rounded-none! bg-transparent! p-0! shadow-none!": {}
+          },
+          ".maplibregl-popup-tip": {
+            "@apply hidden!": {}
+          },
+          ".maplibregl-ctrl-attrib": {
+            "@apply rounded-md! border! border-border! bg-background/90! text-muted-foreground! shadow-sm!": {}
+          },
+          ".maplibregl-ctrl-attrib a": {
+            "@apply text-muted-foreground!": {}
+          },
+          ".maplibregl-ctrl-attrib a:hover": {
+            "@apply text-foreground!": {}
+          },
+          ".maplibregl-ctrl-attrib-button": {
+            "@apply bg-transparent! dark:invert": {}
+          },
+          ".maplibregl-ctrl-attrib.maplibregl-compact-show": {
+            "max-width": "min(18rem, calc(100% - 5.5rem))"
+          },
+          ".maplibregl-ctrl-scale": {
+            "@apply rounded-b-sm! border-muted-foreground! bg-background/80! text-[10px]! text-muted-foreground!": {}
+          },
+          ".maplibregl-canvas:focus-visible, .maplibregl-ctrl-attrib-button:focus-visible, .maplibregl-ctrl-attrib a:focus-visible": {
+            "@apply outline-2! outline-offset-2! outline-ring!": {}
+          },
+          ".maplibregl-canvas:focus-visible": {
+            "@apply -outline-offset-2!": {}
+          }
+        }
+      },
+      "categories": [
+        "ui",
+        "map"
+      ]
+    },
+    {
       "name": "raven-mark",
       "type": "registry:component",
       "title": "Raven Mark",

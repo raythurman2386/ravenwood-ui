@@ -13,6 +13,8 @@ export type CatalogItem = {
   group: string
   description: string
   usage: string
+  /** One-time project setup shown after the install command. */
+  setup?: string
   /** Scenario demos shown after the plain demo on the docs page. */
   examples?: CatalogExample[]
 }
@@ -778,6 +780,17 @@ export function Example() {
   const reduce = useReducedMotion(ref)
   return <div ref={ref}>{reduce ? "Jump" : "Animate"}</div>
 }`,
+  map: `import { Map, MapControls } from "@/components/ui/map"
+
+export function Example() {
+  return (
+    <div className="h-[360px] overflow-hidden rounded-xl border">
+      <Map aria-label="Map of Chicago" center={[-87.6298, 41.8781]} zoom={11}>
+        <MapControls showZoom showCompass showFullscreen showScale />
+      </Map>
+    </div>
+  )
+}`,
 } as const
 
 type UsageKey = keyof typeof usage
@@ -787,6 +800,7 @@ const entries: Array<{
   title: string
   group: string
   description: string
+  setup?: string
   examples?: CatalogExample[]
 }> = [
   {
@@ -1195,6 +1209,107 @@ const entries: Array<{
     title: "ShortcutHint",
     group: "Signature",
     description: "A label with a shortcut cluster.",
+  },
+  {
+    slug: "map",
+    title: "Map",
+    group: "Maps",
+    description:
+      "MapLibre map from mapcn, owned here. Markers are buttons, popups take focus, colors are tokens, and the basemap follows the theme.",
+    setup: `# MapLibre 6 needs its worker served from your app (no CDN).
+# The install adds scripts/copy-maplibre-worker.mjs. Run it before dev and build:
+#
+# package.json
+#   "dev": "node scripts/copy-maplibre-worker.mjs && next dev",
+#   "build": "node scripts/copy-maplibre-worker.mjs && next build",
+#
+# It copies node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs to
+# public/maplibre/. Add /public/maplibre/ to .gitignore.
+# Serving it somewhere else? <Map workerUrl="/assets/maplibre-gl-worker.mjs" />
+#
+# Basemaps: OpenFreeMap (no key). CARTO is opt-in, with a key and attribution:
+# <Map styles={{
+#   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+#   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
+# }} />`,
+    examples: [
+      {
+        id: "store-locator",
+        title: "Store locator",
+        description:
+          "300 stores in clusters. The list shows what is in view and is the keyboard path to each store. Picking one moves the map and opens a popup.",
+        usage: `<Map ref={mapRef} aria-label="Store locator" center={[-90.5, 38.8]} zoom={3.6}>
+  <MapClusterLayer
+    data={storesGeoJSON}
+    onPointClick={(feature) => setSelected(byId[feature.properties.id])}
+  />
+  <MapControls showZoom showScale={{ unit: "imperial" }} />
+  {selected && (
+    <MapPopup
+      longitude={selected.longitude}
+      latitude={selected.latitude}
+      aria-label={selected.name}
+      onClose={() => setSelected(null)}
+    >
+      ...
+    </MapPopup>
+  )}
+</Map>`,
+      },
+      {
+        id: "listings",
+        title: "Listings synced to the map",
+        description:
+          "Hovering a card highlights its price marker. Show on map opens that marker's popup through the controlled open prop.",
+        usage: `<MapMarker
+  longitude={listing.longitude}
+  latitude={listing.latitude}
+  label={\`\${listing.title}, \${price}\`}
+  open={openId === listing.id}
+  onOpenChange={(open) => setOpenId(open ? listing.id : null)}
+>
+  <MarkerContent>
+    <span className={active ? "bg-primary text-primary-foreground" : "bg-popover"}>
+      {shortPrice}
+    </span>
+  </MarkerContent>
+  <MarkerPopup>...</MarkerPopup>
+</MapMarker>`,
+      },
+      {
+        id: "venues",
+        title: "Venue picker",
+        description:
+          "Tab to a pin, press Enter to open it, choose the venue, Escape to close. Focus returns to the pin.",
+        usage: `<MapMarker
+  longitude={venue.longitude}
+  latitude={venue.latitude}
+  label={\`\${venue.name}, \${venue.kind}, \${venue.capacity} guests\`}
+>
+  <MarkerContent>
+    <PinIcon />
+    <MarkerLabel position="bottom">{venue.name}</MarkerLabel>
+  </MarkerContent>
+  <MarkerPopup>
+    <p>{venue.name}</p>
+    <Button size="sm" onClick={() => setChosen(venue.id)}>Choose venue</Button>
+  </MarkerPopup>
+</MapMarker>`,
+      },
+      {
+        id: "delivery",
+        title: "Delivery zone preview",
+        description:
+          "GeoJSON zones with a toggle group. Colors are tokens (var(--chart-1)) resolved for the current theme.",
+        usage: `<MapGeoJSON data={allZones} fillPaint={false}
+  linePaint={{ "line-color": "var(--muted-foreground)", "line-dasharray": [2, 2] }} />
+<MapGeoJSON
+  data={zoneFeature(zone)}
+  fillPaint={{ "fill-color": "var(--chart-1)", "fill-opacity": 0.22 }}
+  linePaint={{ "line-color": "var(--chart-1)", "line-width": 2 }}
+/>`,
+      },
+    ],
   },
 ]
 
