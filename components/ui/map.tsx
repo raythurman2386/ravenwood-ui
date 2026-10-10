@@ -1371,7 +1371,10 @@ function MapControls({
       position.endsWith("right") ? "bottom-left" : "bottom-right"
     )
     return () => {
-      map.removeControl(control)
+      // On unmount, <Map>'s cleanup (map.remove()) runs first and has
+      // already removed this control; removing it again throws inside
+      // ScaleControl.onRemove (this._map is undefined).
+      if (map.hasControl(control)) map.removeControl(control)
     }
   }, [map, showScale, scaleUnit, scaleMaxWidth, position])
 
