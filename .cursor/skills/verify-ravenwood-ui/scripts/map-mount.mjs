@@ -6,7 +6,7 @@
  */
 import fs from "node:fs";
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE ?? "playwright");
-const BASE = process.env.BASE_URL ?? "http://127.0.0.1:3403", OUT = process.env.OUT ?? "/tmp/verify-ravenwood-ui-artifacts/manual";
+const BASE = process.env.BASE_URL ?? "http://127.0.0.1:3403", OUT = process.env.OUT ?? `${process.env.TMPDIR || "/tmp"}/verify-ravenwood-ui-artifacts/manual`;
 fs.mkdirSync(OUT, { recursive: true });
 const b = await chromium.launch({ executablePath: process.env.PW_CHROMIUM || undefined, args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"] });
 const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } }); const page = await ctx.newPage();

@@ -6,7 +6,7 @@
 set -euo pipefail
 PORT="${1:-3403}"; REG="${2:-https://ui.ravenwoodsoftware.dev}"; ROOT="$PWD"; SH="$ROOT/node_modules/.bin/shadcn"
 pgrep -f 'pnpm( .*)? (i|install)( |$)' >/dev/null && { echo "another pnpm install is running; wait" >&2; exit 2; }
-D=$(mktemp -d /tmp/rui-scratch-XXXX); echo "$D" > .verify/scratch.dir; cd "$D"
+D=$(mktemp -d "${TMPDIR:-/tmp}/rui-scratch-XXXX"); echo "$D" > .verify/scratch.dir; cd "$D"
 npx -y create-next-app@16 app --ts --tailwind --app --no-eslint --no-src-dir --import-alias '@/*' --use-pnpm --yes --skip-install --disable-git --no-react-compiler > cna.log 2>&1
 cd app && pnpm install > install.log 2>&1
 "$SH" init -d -y > init.log 2>&1
