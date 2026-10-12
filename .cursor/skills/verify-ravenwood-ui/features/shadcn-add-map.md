@@ -23,7 +23,7 @@ Preconditions:
 - **Drive.** Run `BASE_URL=http://127.0.0.1:3403 OUT=<dir> node .cursor/skills/verify-ravenwood-ui/scripts/map-mount.mjs`. Expect 7 PASS lines and `map mount/unmount: PASS`.
 - **Deliberate failure.** Run `FAIL_INJECT=unmount-throw shadcn-scratch.sh 3403` and then `map-mount.mjs`. Expect `FAIL unmount/mount #1 ... verify: injected throw on unmount`.
 - **Proof.** `scratch-map-mounted.png` and `run.log`.
-- **Cleanup.** `teardown.sh` stops the scratch server and deletes `/tmp/rui-scratch-*`.
+- **Cleanup.** `teardown.sh` stops the scratch server and deletes the `${TMPDIR:-/tmp}/rui-scratch-*` dir it created.
 
 ## Gotchas
 
