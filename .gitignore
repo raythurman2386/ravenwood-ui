@@ -37,3 +37,6 @@ next-env.d.ts
 
 # maplibre worker, copied from node_modules by scripts/copy-maplibre-worker.mjs
 /public/maplibre/
+
+# verify-ravenwood-ui skill scratch
+.verify/
