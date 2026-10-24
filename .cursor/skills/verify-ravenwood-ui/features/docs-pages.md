@@ -5,7 +5,7 @@ Every docs-site page renders with no runtime errors, whether you land on it dire
 ## Sub-features
 
 - `home` (`/`) and `docs-index` (`/docs`, all catalog cards).
-- `docs-item` (`/docs/<slug>`, one page per catalog item, currently 61): showcase, usage, and install commands.
+- `docs-item` (`/docs/<slug>`, one page per catalog item, currently 62): showcase, usage, and install commands.
 - `motion` (`/motion` playground) and `kitchen` (`/kitchen`, "Runs" demo, no site header).
 - `not-found` (`/docs/<unknown>` returns 404 and shows not-found UI).
 
