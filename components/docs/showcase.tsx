@@ -11,6 +11,13 @@ import { z } from "zod"
 
 import { Banner } from "@/registry/ravenwood/banner"
 import { Callout } from "@/registry/ravenwood/callout"
+import {
+  CookieConsentBanner,
+  CookieConsentGate,
+  CookieConsentProvider,
+  CookieSettingsButton,
+  useCookieConsent,
+} from "@/registry/ravenwood/cookie-consent"
 import { CopyButton } from "@/registry/ravenwood/copy-button"
 import { DataList, DataListItem } from "@/registry/ravenwood/data-list"
 import { EmptyPanel } from "@/registry/ravenwood/empty-panel"
@@ -172,6 +179,72 @@ const MapDemo = dynamic(() => import("@/components/docs/demos/map"), {
   ssr: false,
   loading: () => <Skeleton className="h-[360px] w-full rounded-xl" />,
 })
+
+const cookieDemoKey = "ravenwood-docs-cookie-consent-demo"
+
+function CookieConsentStatus() {
+  const { consent, reset } = useCookieConsent()
+  const label =
+    consent === "granted"
+      ? "Accepted"
+      : consent === "denied"
+        ? "Rejected"
+        : consent === null
+          ? "Not chosen"
+          : "Reading..."
+
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-sm">
+      <p>
+        <span className="text-muted-foreground">Stored choice: </span>
+        <span data-testid="cookie-consent-status">{label}</span>
+      </p>
+      <div className="flex flex-wrap items-center gap-4">
+        <CookieSettingsButton />
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          disabled={!consent}
+          onClick={reset}
+        >
+          Clear stored choice
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+function CookieConsentDemo({ example }: { example?: string }) {
+  if (example === "gate") {
+    return (
+      <CookieConsentProvider storageKey={cookieDemoKey}>
+        <CookieConsentGate
+          fallback={
+            <p className="text-sm text-muted-foreground">
+              Ads and analytics are blocked until Accept.
+            </p>
+          }
+        >
+          <p className="text-sm">
+            Accepted: this is where your ad and analytics scripts would load.
+          </p>
+        </CookieConsentGate>
+      </CookieConsentProvider>
+    )
+  }
+
+  return (
+    <CookieConsentProvider storageKey={cookieDemoKey}>
+      <div className="grid gap-4">
+        <CookieConsentBanner position="inline">
+          <Link href="/docs">Privacy</Link>
+        </CookieConsentBanner>
+        <CookieConsentStatus />
+      </div>
+    </CookieConsentProvider>
+  )
+}
 
 function ReducedMotionPreview() {
   const ref = React.useRef<HTMLDivElement>(null)
@@ -799,6 +872,8 @@ function Showcase({ slug, example }: { slug: string; example?: string }) {
           <Banner tone="rust">Index failed.</Banner>
         </div>
       )
+    case "cookie-consent":
+      return <CookieConsentDemo example={example} />
     case "empty-panel":
       return (
         <div className="max-w-md rounded-lg border border-border">

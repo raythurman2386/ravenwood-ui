@@ -1991,6 +1991,29 @@
       ]
     },
     {
+      "name": "cookie-consent",
+      "type": "registry:component",
+      "title": "Cookie consent",
+      "description": "Cookie banner with equal Accept and Reject, a remembered choice, a footer settings control, and a gate for ad and analytics scripts.",
+      "author": "raythurman2386 <https://github.com/raythurman2386>",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "raythurman2386/ravenwood-ui/button"
+      ],
+      "files": [
+        {
+          "path": "registry/ravenwood/cookie-consent.tsx",
+          "type": "registry:file",
+          "target": "components/ravenwood/cookie-consent.tsx"
+        }
+      ],
+      "categories": [
+        "signature"
+      ]
+    },
+    {
       "name": "empty-panel",
       "type": "registry:component",
       "title": "Empty panel",

@@ -38,7 +38,7 @@ The server is ready when it prints `ready http://127.0.0.1:3402 pid <pid>`. The 
 ## Drive
 
 `.cursor/skills/verify-ravenwood-ui/scripts/run.sh [artifact-dir]` runs:
-1. `registry-check.sh <base>`: GETs `/r/registry.json` and all 65 registry entries (the `registry` index + 64 items) from **local and live** (`https://ui.ravenwoodsoftware.dev`), checks name, type and payload, and checks that an unknown item and a path traversal both return 404.
+1. `registry-check.sh <base>`: GETs `/r/registry.json` and all 66 registry entries (the `registry` index + 65 items) from **local and live** (`https://ui.ravenwoodsoftware.dev`), checks name, type and payload, and checks that an unknown item and a path traversal both return 404.
 2. `screens.mjs`: for every screen at 1440×900 and 390×844, it does a fresh load, a screenshot, then navigates in client-side (header link, mobile `Open menu` sheet, or a `/docs` card), away (`Ravenwood home` / Home), and back. It fails on any `pageerror` or `Application error`, and it records one navigation video. Use `ONLY=<regex>` to narrow.
 3. `shadcn-scratch.sh` + `map-mount.mjs`: create-next-app → `shadcn init -d` → `shadcn add https://ui.ravenwoodsoftware.dev/r/map.json` → a page with `Unmount map`/`Mount map` and `Other page`/`Back to map` → build and start on 3403. Then it runs 3 unmount/mount cycles and 3 away/back navigations, checking 0 pageerrors and that the maplibre canvas count is 0 after unmount and 1 after mount.
 

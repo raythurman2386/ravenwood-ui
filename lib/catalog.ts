@@ -728,6 +728,33 @@ export function Example() {
 export function Example() {
   return <Banner tone="lantern">Deploy is running. Last sync 2m ago.</Banner>
 }`,
+  "cookie-consent": `// app/layout.tsx
+import {
+  CookieConsentBanner,
+  CookieConsentProvider,
+  CookieConsentSkipLink,
+  CookieSettingsButton,
+} from "@/components/ravenwood/cookie-consent"
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className="dark">
+      <body>
+        <CookieConsentProvider reloadOnReject>
+          {/* Early in the DOM so keyboard users reach the choices first. */}
+          <CookieConsentSkipLink />
+          <CookieConsentBanner>
+            <a href="/privacy">Privacy</a>
+          </CookieConsentBanner>
+          {children}
+          <footer>
+            <CookieSettingsButton />
+          </footer>
+        </CookieConsentProvider>
+      </body>
+    </html>
+  )
+}`,
   "empty-panel": `import { EmptyPanel } from "@/components/ravenwood/empty-panel"
 
 export function Example() {
@@ -1191,6 +1218,50 @@ const entries: Array<{
     title: "Banner",
     group: "Signature",
     description: "Full-width dismissible note.",
+  },
+  {
+    slug: "cookie-consent",
+    title: "Cookie consent",
+    group: "Signature",
+    description:
+      "Cookie banner with Accept and Reject at equal weight. Remembers the choice, reopens from the footer, and gates ad and analytics scripts until Accept.",
+    examples: [
+      {
+        id: "gate",
+        title: "Load ads and analytics after Accept",
+        description:
+          "The item owns the banner, storage, and events. Your app decides what to load. CookieConsentGate renders its children only after Accept, so AdSense and GA never load before a choice. With reloadOnReject, switching to Reject reloads the page so scripts already loaded are gone.",
+        usage: `"use client"
+
+import Script from "next/script"
+import {
+  CookieConsentGate,
+  googleConsentMode,
+  useCookieConsent,
+} from "@/components/ravenwood/cookie-consent"
+
+export function ConsentedScripts() {
+  return (
+    <CookieConsentGate>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"
+        strategy="afterInteractive"
+      />
+      <Script
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX"
+        strategy="afterInteractive"
+        crossOrigin="anonymous"
+      />
+    </CookieConsentGate>
+  )
+}
+
+// Or read the choice yourself:
+// const { consent, granted } = useCookieConsent()
+// gtag("consent", "update", googleConsentMode(consent))
+// Outside React: window.addEventListener("ravenwood:cookie-consent", ...)`,
+      },
+    ],
   },
   {
     slug: "empty-panel",
