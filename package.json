@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm@10.28.2",
   "scripts": {
     "dev": "node scripts/copy-maplibre-worker.mjs && next dev",
     "build": "node scripts/copy-maplibre-worker.mjs && shadcn build && next build",

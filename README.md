@@ -72,6 +72,17 @@ pnpm dev
 
 `d` toggles dark and light, including while a field is focused only when the event target is not a typing control.
 
+## Self-host with Docker
+
+The `Dockerfile` builds the docs site and registry into one Next.js standalone image (Node 24, pnpm pinned by `packageManager`). It needs no env vars or secrets.
+
+```bash
+docker build -t ravenwood-ui .
+docker run --rm -p 3000:3000 ravenwood-ui
+```
+
+The container listens on port 3000 and runs as the non-root `node` user. Its healthcheck GETs `/r/registry.json`. The build runs `pnpm build` with `NEXT_OUTPUT=standalone`, so the MapLibre worker copy, `shadcn build`, and `next build` all happen inside the image. Without `NEXT_OUTPUT`, `next.config.ts` leaves the output mode alone, so Vercel and `next start` builds are unchanged. The public address stays `https://ui.ravenwoodsoftware.dev`.
+
 ## Layout
 
 ```
@@ -93,7 +104,7 @@ The preview imports signatures from `@/registry/ravenwood/*`. Usage snippets and
 
 ## Registry
 
-64 items: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, `use-reduced-motion`, the core UI set (including `input-group` and `scroll-area`, which Command and the CLI pull in, `carousel`, and `map`), and twenty-five signature components.
+65 items, 66 entries at `/r/` counting the `registry` index: `font-fraunces`, `theme` (`registry:style`), `index` (`registry:base`), `use-mobile`, `use-reduced-motion`, `motion` (`registry:lib`), the core UI set of thirty-three (including `input-group` and `scroll-area`, which Command and the CLI pull in, `carousel`, and `map`), and twenty-six signature components.
 
 `carousel` is shadcn's Embla carousel with three additions: `transition="slide" | "fade"`, `itemsPerView` (a number or `{ base, sm, md, lg, xl }`), and `autoplay` (`true` or `{ delay, playOnInit }`). Autoplay renders a pause and play control first in tab order, pauses on hover and focus, and never runs under reduced motion. `opts`, `plugins`, `orientation`, `setApi`, and `CarouselApi` match upstream.
 
